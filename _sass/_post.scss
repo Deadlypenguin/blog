@@ -1,0 +1,36 @@
+#post_navigation_pre {
+    /* stylelint-disable-next-line unit-whitelist */
+    margin-bottom: 20px;
+}
+
+#post_navigation_post {
+    /* stylelint-disable-next-line unit-whitelist */
+    margin-top: 20px;
+    
+    /* stylelint-disable-next-line unit-whitelist */
+    margin-bottom: 50px;
+}
+
+.post_nav {
+    color: #8a8a8a;
+    font-size: .9rem;
+
+    a {
+        color: #8a8a8a;
+    }
+}
+
+ol>li>img::before {
+    display: block;
+}
+
+.content {
+    h4 {
+        font-size: 1rem;
+        font-variant: small-caps;
+    }
+
+    img {
+        display: block;
+    }
+}

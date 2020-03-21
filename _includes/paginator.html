@@ -1,0 +1,33 @@
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    {% if paginator.next_page %}
+    <a class="pagination-previous" href="{{ paginator.next_page_path }}">Older Posts</a>
+    {% else %}
+    <a class="pagination-previous" title="This is the first page" disabled>Older Posts</a>
+    {% endif %}
+
+    {% if paginator.previous_page %}
+    <a class="pagination-next" href="{{ paginator.previous_page_path }}">Newer Posts</a>
+    {% else %}
+    <a class="pagination-next" title="This is the last page" disabled>Newer Posts</a>
+    {% endif %}
+
+    <ul class="pagination-list">
+        {% for page in (1..paginator.total_pages) reversed %}
+        {% if page == paginator.page %}
+        <li class="current">
+            <a class="pagination-link is-current" aria-label="Page {{ page }}" aria-current="page">{{ page }}</a>
+        </li>
+        {% elsif page == 1 %}
+        <li>
+            <a class="pagination-link" href="{{ site.url | relative_url }}"
+                aria-label="Goto page {{ page }}">{{ page }}</a>
+        </li>
+        {% else %}
+        <li>
+            <a class="pagination-link" href="{{ site.paginate_path | relative_url | replace: ':num', page }}"
+                aria-label="Page {{ page }}">{{ page }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</nav>

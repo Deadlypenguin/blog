@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<section class="section content">
+    <h1 class="title is-1">{{ page.name }}</h1>
+    <hr>
+
+    {{ content }}
+
+    <hr>
+    <h2 class="title">Posts</h2>
+    <ul>
+        {% assign filtered_posts = site.posts | where: 'author', page.short_name %}
+        {% for post in filtered_posts %}
+        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</section>

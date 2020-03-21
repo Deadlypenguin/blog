@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<section class="section">
+    <div id="content" class="container">
+        <div id="post_navigation_pre">
+            {% include post-nav.html %}
+            <hr>
+        </div>
+        <div id="post_content">
+            {% include post-header.html %}
+            {% include content.html %}
+            {% include post-footer.html %}
+        </div>
+        <div id="post_navigation_post">
+            <hr>
+            {% include post-nav.html %}
+        </div>
+        <div id="post_comments">
+            {% if page.comments %}
+            {% include disqus.html %}
+            {% endif %}
+        </div>
+    </div>
+</section>

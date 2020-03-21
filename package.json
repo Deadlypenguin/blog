@@ -1,0 +1,38 @@
+{
+  "name": "deadlypenguin-blog",
+  "version": "1.0.0",
+  "description": "The blog for Deadlypenguin",
+  "main": "index.js",
+  "scripts": {
+    "lint-md": "./node_modules/.bin/remark --no-stdout -f *.md _posts/**/*.md",
+    "lint-style": "./node_modules/.bin/stylelint _sass/*.scss",
+    "lint": "npm run lint-md && npm run lint-style",
+    "watch": "bundle exec jekyll serve --safe --strict_front_matter"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended",
+      [
+        "remark-lint-final-newline",
+        false
+      ],
+      [
+        "lint-list-item-indent",
+        "space"
+      ]
+    ]
+  },
+  "author": "Patrick Connelly",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "front-matter": "^3.1.0",
+    "lodash": "^4.17.15",
+    "q": "^1.5.1",
+    "remark": "^11.0.2",
+    "remark-cli": "^7.0.1",
+    "remark-lint": "^6.0.5",
+    "remark-preset-lint-recommended": "^3.0.3",
+    "stylelint": "^13.0.0"
+  }
+}

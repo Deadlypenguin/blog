@@ -1,0 +1,22 @@
+{% assign author = site.authors | where: 'short_name', page.author | first %}
+
+{% capture author_info %}
+{{ page.author }}
+{% endcapture %}
+
+{% if author %}
+{% capture author_info %}
+<a href="{{ author.url }}">{{ author.name }}</a>
+{% endcapture %}
+{% endif %}
+<header>
+    <h1 class="title"><a href="{{ page.url }}">{{ page.title }}</a></h1>
+    <h2 class="has-text-weight-light">by {{ author_info }} posted on {{ page.date | date: "%B %d, %Y" }}</h2>
+</header>
+{% if page.thumbnail and page.hide_thumbnail != true %}
+<div class="has-text-centered">
+    <a href="{{ page.url }}">
+        <img src="{{ page.thumbnail }}" alt="{{ page.title }}" />
+    </a>
+</div>
+{% endif %}

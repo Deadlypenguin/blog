@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<section class="section content">
+    <h1 class="title is-1">{{ page.name | capitalize }}</h1>
+    {% for post in site.tags[page.name] %}
+    {% include post-entry.html %}
+    {% if forloop.last == false %}
+    <hr>
+    {% endif %}
+    {% endfor %}
+</section>

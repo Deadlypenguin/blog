@@ -1,0 +1,24 @@
+{% capture hastags %}{{ page.tags | size | minus:1 }}{% endcapture %}
+{% capture hascats %}{{ page.categories | size | minus:1 }}{% endcapture %}
+<section class="has-text-weight-light is-uppercase">
+    <div class="container">
+        {% unless hascats contains '-' %}
+        <div class="tags">
+            {% for category in page.categories %}
+            <span class="tag is-primary is-light">
+                <a href="/category/{{ category }}">{{ category }}</a>
+            </span>
+            {% endfor %}
+        </div>
+        {% endunless %}
+        {% unless hastags contains '-' %}
+        <div class="tags">
+            {% for tag in page.tags %}
+            <span class="tag is-info is-light">
+                <a href="/tag/{{ tag }}">{{ tag }}</a>
+            </span>
+            {% endfor %}
+        </div>
+        {% endunless %}
+    </div>
+</section>

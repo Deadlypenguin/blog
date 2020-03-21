@@ -1,0 +1,13 @@
+<div class="level">
+    <div class="level-left post_nav">
+        {% if page.previous.url %}
+        ← <a href="{{ page.previous.url }}"
+            class="text-truncate uppercase">{{ page.previous.title }}</a>
+        {% endif %}
+    </div>
+    <div class="level-right post_nav">
+        {% if page.next.url %}
+        <a href="{{ page.next.url }}" class="text-truncate uppercase">{{ page.next.title }}</a> →
+        {% endif %}
+    </div>
+</div>

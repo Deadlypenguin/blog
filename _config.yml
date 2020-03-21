@@ -1,0 +1,42 @@
+url: http://blog.deadlypenguin.com/
+name: Deadlypenguin
+description: My notes and rants about tech things
+highliter: rouge
+author: Patrick Connelly
+twitter: aelst
+disqus_shortname: deadlypenguin
+paginate: 10
+excerpt_separator: <!--more-->
+collections:
+  authors:
+    output: true
+  category:
+    output: true
+  tag:
+    output: true
+defaults:
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
+  - scope:
+      path: ""
+      type: "category"
+    values:
+      layout: "category"
+  - scope:
+      path: ""
+      type: "tag"
+    values:
+      layout: "tag"
+exclude: ["node_modules", "scripts", "cspell.json", "Gemfile*", "package.json", "package-lock.json"]
+sass:
+  sass_dir: _sass
+  style: compact
+plugins:
+  - jekyll-redirect-from
+  - jekyll-paginate
+whitelist:
+  - jekyll-redirect-from
+  - jekyll-paginate

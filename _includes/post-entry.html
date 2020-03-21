@@ -1,0 +1,12 @@
+<div>
+    {% assign page = post %}
+    {% assign footer_hide_permalink = true %}
+    {% include post-header.html %}
+    <div id="content" class="content container">
+        {{ post.excerpt }}
+    </div>
+    <div class="continue-reading has-text-right">
+        <a class="button is-small is-info is-outlined" href="{{ post.url }}">Continue reading →</a>
+    </div>
+    {% include post-footer.html %}
+</div>

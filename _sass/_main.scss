@@ -1,0 +1,80 @@
+@import "colors";
+
+.content {
+    h1 {
+        /* stylelint-disable-next-line unit-whitelist */
+        margin: 20px 0 20px 0;
+        font-size: 1.4rem;
+    }
+
+    ol,
+    ul {
+        /* stylelint-disable-next-line unit-whitelist */
+        margin-left: 24px;
+        /* stylelint-disable-next-line unit-whitelist */
+        padding-left: 40px
+    }
+}
+
+header {
+    margin-bottom: 1.5em;
+}
+
+.grid-container {
+    .footer {
+        font-size: .9rem;
+
+        a {
+            color: #8a8a8a;
+            text-decoration: underline;
+        }
+    }
+}
+
+body {
+    background-color: $siteMain;
+}
+
+#site_wrapper {
+    background-color: #fff;
+}
+
+#about {
+    color: #8a8a8a;
+
+    p {
+        font-size: .8rem;
+    }
+}
+
+.entry_info {
+    padding: 1em;
+}
+
+.feather {
+    /* stylelint-disable-next-line unit-whitelist */
+    width: 24px;
+    /* stylelint-disable-next-line unit-whitelist */
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+footer.columns {
+    margin-right: 0;
+    margin-left: 0;
+    padding-bottom: 3rem;
+
+    a,
+    a:hover,
+    a:active {
+        color: $siteMain;
+    }
+}
+
+.continue-reading {
+    margin-top: 1em;
+}

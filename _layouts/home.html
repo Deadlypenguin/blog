@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<section class="section">
+    {% assign posts = paginator.posts %}
+
+    {% for post in posts %}
+    {% include post-entry.html %}
+    <hr>
+    {% endfor %}
+
+    {% include paginator.html %}
+</section>
