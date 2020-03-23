@@ -26,9 +26,9 @@ It was weird because it did not appear to be anywhere in the debug logs and it d
 
 # Using Schema RecordTypeInfo in the Controller
 
-The code she was writing dealt heavily on RecordType and was showing a button based on the record type and would have logic in it to change a RecordType on the button click.  So she started off with this in her controller
+The code she was writing dealt heavily on RecordType and was showing a button based on the record type and would have logic in it to change a RecordType on the button click.  So she started off with this in her controller
 
-```java
+```apex
 global with sharing class Account_ControllerExtension {
     private static String INACTIVE_RECORDTYPE = 'inactive';
 
@@ -68,11 +68,11 @@ global with sharing class Account_ControllerExtension {
 }
 ```
 
-This code is a little trimmed down from what she had, but it gets the point across.  Now we spent way more time than I like to admit trying to track down what was causing this.  What it turns out to be is that the [page view state](https://developer.salesforce.com/page/An_Introduction_to_Visualforce_View_State "Visualforce View State") doesn't like to serialize the Schema.RecordTypeInfo class.
+This code is a little trimmed down from what she had, but it gets the point across.  Now we spent way more time than I like to admit trying to track down what was causing this.  What it turns out to be is that the [page view state](https://developer.salesforce.com/page/An_Introduction_to_Visualforce_View_State "Visualforce View State") doesn't like to serialize the Schema.RecordTypeInfo class.
 
 To fix this we simply added the transient keyword to the map bits we were dealing with.
 
-```java
+```apex
 private transient Schema.DescribeSObjectResult describe;
 private transient Map<Id, Schema.RecordTypeInfo> rtMapById;
 private transient Map<String, Schema.RecordTypeInfo> rtMapByName;
@@ -82,15 +82,15 @@ This will remove the variables from the page view state and keep them from tryin
 
 # The Odd Bit
 
-The oddest thing to me is that we get this error at all.  While trying to debug this error I did the following
+The oddest thing to me is that we get this error at all.  While trying to debug this error I did the following
 
-```java
+```apex
 System.debug(
-    System.LoggingLevel.ERROR,
+    System.LoggingLevel.ERROR,
     JSON.serialize(this.rtMapById)
 )
 ```
 
-And this generated no errors.  So this begs the question, what is the page view state using to serialize the Schema.RecordTypeInfo, and why does it fail when the built in JSON serializer does not.
+And this generated no errors.  So this begs the question, what is the page view state using to serialize the Schema.RecordTypeInfo, and why does it fail when the built in JSON serializer does not.
 
 ![My angry face when figuring this out](/assets/img/2015/03/05/angryface.gif)

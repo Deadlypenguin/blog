@@ -17,9 +17,9 @@ tags:
 - apex
 - json
 ---
-One of the great things about Salesforce when dealing with external webservices is being able to easily parse JSON into Apex classes.  I've covered this in [several](/2015/11/30/json-deserialization-in-salesforce/) [previous](/2016/03/16/extending-objects-json-parsing/) [posts](/2016/03/01/runkeeper-data-in-salesforce/).   However a common problem is that the system you are integrating with is they may be using a variable name that is reserved.  With the following data, we can see that there is a variable named "case" if we ant to parse this data into a Apex class we won't be able to because case is a reserved name.
+One of the great things about Salesforce when dealing with external webservices is being able to easily parse JSON into Apex classes.  I've covered this in [several](/2015/11/30/json-deserialization-in-salesforce/) [previous](/2016/03/16/extending-objects-json-parsing/) [posts](/2016/03/01/runkeeper-data-in-salesforce/).   However a common problem is that the system you are integrating with is they may be using a variable name that is reserved.  With the following data, we can see that there is a variable named "case" if we ant to parse this data into a Apex class we won't be able to because case is a reserved name.
 
-```javascript
+```apexscript
 {
     "data": [
         {
@@ -37,16 +37,16 @@ One of the great things about Salesforce when dealing with external webservices 
 
 If we tried to make a wrapper class for this called CaseData with the format below, we'd get an error stating "Identifier name is reserved: case"
 
-```javascript
+```apexscript
 public class CaseData {
     public String case;
     public String subject;
 }
 ```
 
-So, one way to work around this is to not use the reserved name for the variable.  So if we make a new CaseData with following format we can save the class.
+So, one way to work around this is to not use the reserved name for the variable.  So if we make a new CaseData with following format we can save the class.
 
-```java
+```apex
 public class CaseData {
     public String case_x;
     public String subject;
@@ -55,7 +55,7 @@ public class CaseData {
 
 And now if we execute the following Apex, we can pull the data into an array of CaseData objects
 
-```java
+```apex
 public class GistParser {
     public class CaseData {
         public String case_x;
@@ -79,15 +79,15 @@ public class GistParser {
 }
 ```
 
-Now, while this will save it will not store our case number into the _case_x_ variable because that is not the name of the field in the JSON data.  To work around this, we can do a search and replace on our incoming body.  The simplest way is to call
+Now, while this will save it will not store our case number into the _case_x_ variable because that is not the name of the field in the JSON data.  To work around this, we can do a search and replace on our incoming body.  The simplest way is to call
 
-```java
+```apex
 System.debug(JSON.deserialize(res.getBody().replace('"case":', '"case_x":'), DataWrapper.class));
 ```
 
-This search and replace works but is dangerous and honestly doesn't scale too well.  So, let's take a look at a way to make it scale better
+This search and replace works but is dangerous and honestly doesn't scale too well.  So, let's take a look at a way to make it scale better
 
-```java
+```apex
 public static String mogrifyJSON(String data) {
     // Regex to match the start of the line and the key
     // surrounded by quotes and ending with a colon
@@ -129,8 +129,8 @@ public static String mogrifyJSON(String data) {
 }
 ```
 
-This code iterates over a map of old keys to new keys and does a find and replace on all of them.  This method is "safer" because we first reformat the JSON into a known good format so that we only replace the initial key.  This prevents us from accidentally replacing a match for the key in the middle of the data.  We can then call it by saying
+This code iterates over a map of old keys to new keys and does a find and replace on all of them.  This method is "safer" because we first reformat the JSON into a known good format so that we only replace the initial key.  This prevents us from accidentally replacing a match for the key in the middle of the data.  We can then call it by saying
 
-```java
+```apex
 System.debug(JSON.deserialize(mogrifyJSON(res.getBody()), DataWrapper.class));
 ```

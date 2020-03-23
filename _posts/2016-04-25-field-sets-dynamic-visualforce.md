@@ -18,19 +18,19 @@ tags:
 - pdf
 - trailhead
 ---
-One of the downsides of the code I posted a couple of weeks ago to generate PDFs is that if you want to add new fields to your invoices, you have to edit the Visualforce page.  By updating our Visualforce and using field sets, we can dynamically add fields to our invoices
+One of the downsides of the code I posted a couple of weeks ago to generate PDFs is that if you want to add new fields to your invoices, you have to edit the Visualforce page.  By updating our Visualforce and using field sets, we can dynamically add fields to our invoices
 
 <!--more-->
 
 # Field Sets
 
-Field sets allow for addition of fields to an ordered list that can be used dynamically inside of Visualforce.  They are most useful for managed packages since they can be deployed with them and then customized by the end user without having to have access to the Visualforce code in the package.
+Field sets allow for addition of fields to an ordered list that can be used dynamically inside of Visualforce.  They are most useful for managed packages since they can be deployed with them and then customized by the end user without having to have access to the Visualforce code in the package.
 
 ## Creating our field sets
 
-In order to create our PDF we will need three field sets. One for the Battle Station object, one for the Resource object and one for the Supply object.  To create the field set, navigate to the object definition page and click the New button under the field set section.
+In order to create our PDF we will need three field sets. One for the Battle Station object, one for the Resource object and one for the Supply object.  To create the field set, navigate to the object definition page and click the New button under the field set section.
 
-On the next page, you define the available fields as well as which ones are currently in the field set.  For a non-managed package scenario, like what we are dealing with, there may not be a need to have a field that is available but not in the set.  For ease of use, I've named all of the field sets "Battle Station Invoice" across all three objects.
+On the next page, you define the available fields as well as which ones are currently in the field set.  For a non-managed package scenario, like what we are dealing with, there may not be a need to have a field that is available but not in the set.  For ease of use, I've named all of the field sets "Battle Station Invoice" across all three objects.
 
 ![Battle station field set](/assets/img/2016/04/25/battle_station_fieldset.png)
 
@@ -40,7 +40,7 @@ On the next page, you define the available fields as well as which ones are curr
 
 # Updating Visualforce
 
-To now take use of these new field sets, we need to update the Visualforce.  Instead of having each row / column specifically defined in our Visualforce, we will need to [pull the field set data](https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_field_sets.htm) down and use that in our code.
+To now take use of these new field sets, we need to update the Visualforce.  Instead of having each row / column specifically defined in our Visualforce, we will need to [pull the field set data](https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_field_sets.htm) down and use that in our code.
 
 ```xml
 <apex:component layout="none" access="global">
@@ -112,13 +112,13 @@ To now take use of these new field sets, we need to update the Visualforce.  In
 </apex:component>
 ```
 
-_Above is a truncated version that does not have the CSS.  If you would like full code with the CSS you can find that [here](https://github.com/pcon/SalesforceApps/blob/master/battlestation/fieldsets/BattleStationPDF_unstyled.vfc)._
+_Above is a truncated version that does not have the CSS.  If you would like full code with the CSS you can find that [here](https://github.com/pcon/SalesforceApps/blob/master/battlestation/fieldsets/BattleStationPDF_unstyled.vfc)._
 
 ## Make it prettier
 
-Now, this PDF is great because we can dynamically add and rearrange fields to our heart's content without ever having to touch our Visualforce.  However by making this dynamic, we lose our ability to specifically stylize our fields.  For example, before our unit cost and total cost fields were right justified.  Now, everything is left justified.  With a little bit of additions to our visualforce and our CSS, we can bring it back to the way we had it before
+Now, this PDF is great because we can dynamically add and rearrange fields to our heart's content without ever having to touch our Visualforce.  However by making this dynamic, we lose our ability to specifically stylize our fields.  For example, before our unit cost and total cost fields were right justified.  Now, everything is left justified.  With a little bit of additions to our visualforce and our CSS, we can bring it back to the way we had it before
 
-Let's look at our supply table generation.  By defining a class on it based on the field name, we have a CSS selector we can use to target that field specifically.
+Let's look at our supply table generation.  By defining a class on it based on the field name, we have a CSS selector we can use to target that field specifically.
 
 ```html
 <table id="supplies">
@@ -149,6 +149,6 @@ Now we can add the following to our CSS and we can get the correct text justific
 }
 ```
 
-This can then be repeated for the resources table as well.  The only downside of this approach is that if you add new fields that need a different justification, then you will have to alter the Visualforce page to change them.  However editing a single line of CSS is way easier than adding new stuff to a repeat deep inside a Visualforce page.
+This can then be repeated for the resources table as well.  The only downside of this approach is that if you add new fields that need a different justification, then you will have to alter the Visualforce page to change them.  However editing a single line of CSS is way easier than adding new stuff to a repeat deep inside a Visualforce page.
 
 _The completed Visualforce page with all the updates can be seen [here](https://github.com/pcon/SalesforceApps/blob/master/battlestation/fieldsets/BattleStationPDF.vfc)._

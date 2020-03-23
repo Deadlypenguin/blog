@@ -17,11 +17,11 @@ tags:
 - amazon
 - apex
 ---
-Last week I covered how to send an attachment from [Salesforce to Jira](http://blog.deadlypenguin.com/blog/2016/02/09/jira-attaching-a-file-in-salesforce/).  This week we'll cover how to attach a file from Salesforce into the [Amazons S3](https://aws.amazon.com/s3/) cloud.  Unlike the Jira uploading, we will not be associating these files with a specific case, but instead will be uploading them to a generic bucket.  This can be modified by changing how the filename is generated on line 8 of the code.
+Last week I covered how to send an attachment from [Salesforce to Jira](http://blog.deadlypenguin.com/blog/2016/02/09/jira-attaching-a-file-in-salesforce/).  This week we'll cover how to attach a file from Salesforce into the [Amazons S3](https://aws.amazon.com/s3/) cloud.  Unlike the Jira uploading, we will not be associating these files with a specific case, but instead will be uploading them to a generic bucket.  This can be modified by changing how the filename is generated on line 8 of the code.
 
 <!--more-->
 
-```java
+```apex
 Attachment attach = [
     select Body,
         ContentType,
@@ -80,10 +80,10 @@ Most of this code is pretty standard web callouts but the key takeaways are:
 * Line 20-26: The required headers
 * Line 19-38: The signing of the request to send to Amazon
 
-The filename here is particularly important.  Amazon S3 is closer to a filesystem than how Salesforce records attachments.  If you POST the same filename to S3 multiple times, you will simply overwrite the file every time you POST.  This **may** be a desired result, but for the example above, we are creating a unique (and reproducible) attachment filename.  From this we could simply add a formula on the Attachment record that generate our Amazon S3 URL and then use that for display purposes.
+The filename here is particularly important.  Amazon S3 is closer to a filesystem than how Salesforce records attachments.  If you POST the same filename to S3 multiple times, you will simply overwrite the file every time you POST.  This **may** be a desired result, but for the example above, we are creating a unique (and reproducible) attachment filename.  From this we could simply add a formula on the Attachment record that generate our Amazon S3 URL and then use that for display purposes.
 
 # Amazon S3: Why use it?
 
-Being able to do this is all fine an dandy, but why use it over the standard Salesforce Attachments?  The biggest reason is that Amazon offers a better Content Delivery Network (CDN) for the Amazon S3 content than Salesforce does for it's attachments.  If you had a Salesforce Site that you wanted to share attachment records, this would make your attachments load much faster for users around the world.
+Being able to do this is all fine an dandy, but why use it over the standard Salesforce Attachments?  The biggest reason is that Amazon offers a better Content Delivery Network (CDN) for the Amazon S3 content than Salesforce does for it's attachments.  If you had a Salesforce Site that you wanted to share attachment records, this would make your attachments load much faster for users around the world.
 
 Additionally, you could re-use the code above and instead of storing the data in the Attachment object, simply upload directly from a Visualforce page to Amazon S3 and then store the URL somewhere for future use.

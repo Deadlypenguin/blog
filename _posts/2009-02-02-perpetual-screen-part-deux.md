@@ -14,13 +14,13 @@ categories:
 tags:
 - screen
 ---
-So, I've figured out how to add in a "fail-safe" to the perpetual screen, so that if you want to ssh without starting screen you can.  And it's pretty easy.  First add the following to your sshd_config and restart ssh
+So, I've figured out how to add in a "fail-safe" to the perpetual screen, so that if you want to ssh without starting screen you can.  And it's pretty easy.  First add the following to your sshd_config and restart ssh
 
 ```bash
 AcceptEnv NO_SCREEN
 ```
 
-Then add the following to the bottom of you .bashrc:   _(Note: I named my screen &#8216;main' you can name yours whatever you want)_
+Then add the following to the bottom of you .bashrc:   _(Note: I named my screen &#8216;main' you can name yours whatever you want)_
 
 ```bash
 NO_SCREEN=`echo "."$NO_SCREEN`

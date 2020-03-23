@@ -14,7 +14,7 @@ categories:
 tags:
 - pdf
 ---
-I've always found a need for this, and with some digging, I've found a couple of ways to do this.  The simplist is with ImageMagik, but I've found the default values leave the quality a little lacking.  However, I've found <a href="http://www.brighthub.com/computing/linux/articles/14795.aspx" target="_blank">an article</a> that uses GhostScript to do it, and it does a wonderful job.
+I've always found a need for this, and with some digging, I've found a couple of ways to do this.  The simplist is with ImageMagik, but I've found the default values leave the quality a little lacking.  However, I've found <a href="http://www.brighthub.com/computing/linux/articles/14795.aspx" target="_blank">an article</a> that uses GhostScript to do it, and it does a wonderful job.
 
 ```bash
 gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=output.pdf input1.pdf input2.pdf

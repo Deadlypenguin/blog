@@ -16,7 +16,7 @@ tags:
 - apex
 - snapshot
 ---
-A common issue that we have is a need to see information about Cases when it is created.  We do this to do some analysis about how a case changes (primarily to verify how good our automated tools are working).  To achieve this, we made a generic snapshot object that will store a JSON version of our data.  We chose JSON for it's portability and it's ability to dump into other systems.
+A common issue that we have is a need to see information about Cases when it is created.  We do this to do some analysis about how a case changes (primarily to verify how good our automated tools are working).  To achieve this, we made a generic snapshot object that will store a JSON version of our data.  We chose JSON for it's portability and it's ability to dump into other systems.
 
 ## The Object
 
@@ -25,13 +25,13 @@ To start out we'll need a place to put this data, so we created the object with 
 * **JSON\_Data\_{0-9}\_\_c** &#8211; _Required_ &#8211; These are several LongTextAreas that stores json data
 * **Object\_Name\_\_c** &#8211; _Required_ &#8211; This is the name of the object that was snapshotted
 * **Name** &#8211; _Required_ &#8211; An auto number, just used for identification
-* **Case__c** &#8211; _Optional_ &#8211; This is used for our case specific snapshot to link a snapshot back to a specific case
+* **Case__c** &#8211; _Optional_ &#8211; This is used for our case specific snapshot to link a snapshot back to a specific case
 
 <!--more-->
 
 ## Apex Class
 
-```java
+```apex
 /**
 * Utility methods for use with the Object Snapshot object
 *
@@ -236,28 +236,28 @@ Let's breakdown this class and explain what is happening.
   * **JSON\_FIELD\_COUNT** &#8211; This is the number of JSON\_Data\_\*\_\_c fields we have on our _ObjectSnapshot__c_ object
   * **JSON\_FIELD\_TEMPLATE** &#8211; This is a String.format template to convert to the JSON\_Data\_*__c field we are storing the data in
   * **SPARSE_JSON** &#8211; If the JSON data should be trimmed prior to insertion
-  * **SNAPSHOT_VERSION** &#8211; The "version" of the snapshot utils.  Used for auditing and stored with the snapshot
-  * **SNAPSHOT\_\*\_LABEL** &#8211; Text used to generate the map for the _SNAPSHOT\_\*\_INFO_
-  * **MSG\_JSON\_TO_LARGE** &#8211; The message used if the JSON data exceeds the _JSON\_FIELD\_COUNT_ multiplied by the _JSON\_FIELD\_SIZE_
-  * **SNAPSHOT_INFO** &#8211; A map of data used to identify a successful snapshot.  This data is added to the snapshot for identification
-  * **SNAPSHOT\_INFO\_JSON\_TO\_LARGE** &#8211; A map of data used to identify a unsuccessful snapshot due to the resultant data being to large to store in a single _ObjectSnapshot__c_ object.
-  * **FIELD\_BLACKLIST\_MAP** &#8211; This map of a set of strings is used to blacklist certain fields that should _NEVER_ be fetched or attempted to be snapshotted.  For example, _Case.lasevieweddate_ is a field that will throw a DML exception if the code attempts to do a _.get(&#8230;)_ on that field.  Because of this, any items in the _FIELD\_BLACKLIST\_MAP.get(objectName)_ will be removed from the objectDescription results.
+  * **SNAPSHOT_VERSION** &#8211; The "version" of the snapshot utils.  Used for auditing and stored with the snapshot
+  * **SNAPSHOT\_\*\_LABEL** &#8211; Text used to generate the map for the _SNAPSHOT\_\*\_INFO_
+  * **MSG\_JSON\_TO_LARGE** &#8211; The message used if the JSON data exceeds the _JSON\_FIELD\_COUNT_ multiplied by the _JSON\_FIELD\_SIZE_
+  * **SNAPSHOT_INFO** &#8211; A map of data used to identify a successful snapshot.  This data is added to the snapshot for identification
+  * **SNAPSHOT\_INFO\_JSON\_TO\_LARGE** &#8211; A map of data used to identify a unsuccessful snapshot due to the resultant data being to large to store in a single _ObjectSnapshot__c_ object.
+  * **FIELD\_BLACKLIST\_MAP** &#8211; This map of a set of strings is used to blacklist certain fields that should _NEVER_ be fetched or attempted to be snapshotted.  For example, _Case.lasevieweddate_ is a field that will throw a DML exception if the code attempts to do a _.get(&#8230;)_ on that field.  Because of this, any items in the _FIELD\_BLACKLIST\_MAP.get(objectName)_ will be removed from the objectDescription results.
 * **Methods**
-  * **getMapOfAllFields** &#8211; This gets a map of all of the fields (minus the blacklisted fields) for a given object.  _NOTE:_ This should not be called directly unless the _objectDescription_ variable is already populated.  The _getSnapshot_ method handles this request.
-  * **appendDelimiter** &#8211; This appends the _JSON_DELIMITER_ variable to the start and end of a string
-  * **jsonToSnapshot** &#8211; This converts a map of String to Objects to _ObjectSnapshot__c_ object
-  * **removeDelimiter** &#8211; This removes the _JSON_DELIMITER_ variable from the start and end of a string
-  * **snapshotToJSON** &#8211; This converts an _ObjectSnapshot__c_ object to JSON
-  * **getSnapshot** &#8211; This takes an _sObject_ and converts it to an _ObjectSnapshot__c_
-  * **createSnapshots** &#8211; This takes a list of cases and converts them to an _ObjectSnapshot__c_ and inserts them.
+  * **getMapOfAllFields** &#8211; This gets a map of all of the fields (minus the blacklisted fields) for a given object.  _NOTE:_ This should not be called directly unless the _objectDescription_ variable is already populated.  The _getSnapshot_ method handles this request.
+  * **appendDelimiter** &#8211; This appends the _JSON_DELIMITER_ variable to the start and end of a string
+  * **jsonToSnapshot** &#8211; This converts a map of String to Objects to _ObjectSnapshot__c_ object
+  * **removeDelimiter** &#8211; This removes the _JSON_DELIMITER_ variable from the start and end of a string
+  * **snapshotToJSON** &#8211; This converts an _ObjectSnapshot__c_ object to JSON
+  * **getSnapshot** &#8211; This takes an _sObject_ and converts it to an _ObjectSnapshot__c_
+  * **createSnapshots** &#8211; This takes a list of cases and converts them to an _ObjectSnapshot__c_ and inserts them.
 
-To create your own snapshots for a non _Case_ object, just look at the implementation of `createSnapshots(List<Case> cases)` and tailor it towards your object.  Since the `getSnapshot` method uses `Schema.DescribeSOjbectResult` methods, it should be a matter of converting and then enriching the `ObjectSnapshot__c` object with any additional information you desire.  For example, we added a `Case__c` field that the Case's Id is stored into, linking it back to the original object.
+To create your own snapshots for a non _Case_ object, just look at the implementation of `createSnapshots(List<Case> cases)` and tailor it towards your object.  Since the `getSnapshot` method uses `Schema.DescribeSOjbectResult` methods, it should be a matter of converting and then enriching the `ObjectSnapshot__c` object with any additional information you desire.  For example, we added a `Case__c` field that the Case's Id is stored into, linking it back to the original object.
 
 ## Usage
 
-Using this is very simple after creating the _createSnapshots_ method.  The following trigger calls our _ObjectSnapshotUtils_ and tells it to create a snapshot for all of the new Cases.
+Using this is very simple after creating the _createSnapshots_ method.  The following trigger calls our _ObjectSnapshotUtils_ and tells it to create a snapshot for all of the new Cases.
 
-```java
+```apex
 trigger CaseTrigger on Case (after insert) {
 	ObjectSnapshotUtils.createSnapshots(Trigger.new);
 }
@@ -267,5 +267,5 @@ trigger CaseTrigger on Case (after insert) {
 
 There are a couple of features I'd like to add to this to make it easier for others to consume. (In no particular order)
 
-* Better OO methods for this class.  Making it so you can extend a snapshot method and then do your enrichment (or overload an enrichment method).  This would allow you to do something like _CaseSnapshotUtils implements ObjectSnapshotUtils_ and then call CaseSnapshotUtils instead
-* Better error handling JSON data being too long. Like putting more statistics in the _SNAPSHOT\_INFO\_JSON\_TO\_LARGE_ map that gets inserted with the snapshot
+* Better OO methods for this class.  Making it so you can extend a snapshot method and then do your enrichment (or overload an enrichment method).  This would allow you to do something like _CaseSnapshotUtils implements ObjectSnapshotUtils_ and then call CaseSnapshotUtils instead
+* Better error handling JSON data being too long. Like putting more statistics in the _SNAPSHOT\_INFO\_JSON\_TO\_LARGE_ map that gets inserted with the snapshot

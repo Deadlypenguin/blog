@@ -17,7 +17,7 @@ tags:
 - customsettings
 - Salesforce
 ---
-In a recent developer boards [post](https://developer.salesforce.com/forums/?id=906F0000000MGwiIAG), there was a person asking how to programmatically strip extensions from the end of company names.  This seems like an interesting problem that can be solved with regular expressions with the data stored in a custom setting
+In a recent developer boards [post](https://developer.salesforce.com/forums/?id=906F0000000MGwiIAG), there was a person asking how to programmatically strip extensions from the end of company names.  This seems like an interesting problem that can be solved with regular expressions with the data stored in a custom setting
 
 # Custom Setting
 
@@ -31,7 +31,7 @@ Using a simple List custom setting we can define all of our company extensions
 
 # Strip Extensions in Apex
 
-```java
+```apex
 List<String> companyNames = new List<String>{
     'Megacorp LLC',
     'Buy N Large LLP',
@@ -61,7 +61,7 @@ for (String companyName : companyNames) {
 }
 ```
 
-Here we get all of the extensions from the custom setting.  Then we make a map of extensions to a pre-compiled [Pattern](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_pattern_and_matcher_pattern_methods.htm) object.  The pattern we look for is extension at the end of the string.  Then we iterate over all of the company names looking for the each of the extensions.  If we find it we replace it and then break from the loop.
+Here we get all of the extensions from the custom setting.  Then we make a map of extensions to a pre-compiled [Pattern](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_pattern_and_matcher_pattern_methods.htm) object.  The pattern we look for is extension at the end of the string.  Then we iterate over all of the company names looking for the each of the extensions.  If we find it we replace it and then break from the loop.
 
 ```
 05:51:43.042 (42031892)|USER_DEBUG|[17]|DEBUG|Looking for: Megacorp LLC
@@ -74,4 +74,4 @@ Here we get all of the extensions from the custom setting.  Then we make a map 
 05:51:43.047 (47219982)|USER_DEBUG|[23]|DEBUG|Converted name: CHOAM
 ```
 
-This code probably isn't the most efficient when you have a bunch of extensions.  If I were to do this with a bunch of extensions I would probably look at combining this into a single regular expression to run against each name.
+This code probably isn't the most efficient when you have a bunch of extensions.  If I were to do this with a bunch of extensions I would probably look at combining this into a single regular expression to run against each name.

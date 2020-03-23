@@ -22,9 +22,9 @@ In the latest Salesforce release (Winter '16) there was an update that changes h
 
 # Old Email Reference Id
 
-The old email reference Id was in the format of `[ ref:orgId.caseId:ref ]` and was really easy to generate.  All you had to do was concatenate the currentUser's orgId and their caseId together
+The old email reference Id was in the format of `[ ref:orgId.caseId:ref ]` and was really easy to generate.  All you had to do was concatenate the currentUser's orgId and their caseId together
 
-```java
+```apex
 public static String refId (String orgId, String caseId) {
     return '[ ref:' + orgId + '.' + caseId + ':ref ]';
 }
@@ -34,13 +34,13 @@ Run this and you're done. Easy peasy.
 
 # New Email Reference Id
 
-This all changed with the release of Winter '16.  Once this hit the way the email reference Id changed so much that the Email to Case process wouldn't even parse the old thread ids.  So when a reply back to an email containing the old email reference id would come in, it would create a new case instead of pairing the EmailMessage with the Case Id in the thread_id.
+This all changed with the release of Winter '16.  Once this hit the way the email reference Id changed so much that the Email to Case process wouldn't even parse the old thread ids.  So when a reply back to an email containing the old email reference id would come in, it would create a new case instead of pairing the EmailMessage with the Case Id in the thread_id.
 
 <!--more-->
 
-So, how can we generate the new format?  It's pretty easy:
+So, how can we generate the new format?  It's pretty easy:
 
-```java
+```apex
 public static String CASE_REF_FORMAT = 'ref:{0}.{1}:ref';
 
 @testVisible
@@ -87,7 +87,7 @@ public static String caseRefId(String orgId, String caseId) {
 }
 ```
 
-_NOTE: This is not technically a "supported" way to generate this Id.  Salesforce may (and obviously has) changed this thread id without warning.  If you have to generate these in Apex just keep this in mind._
+_NOTE: This is not technically a "supported" way to generate this Id.  Salesforce may (and obviously has) changed this thread id without warning.  If you have to generate these in Apex just keep this in mind._
 
 # Alternatives
 

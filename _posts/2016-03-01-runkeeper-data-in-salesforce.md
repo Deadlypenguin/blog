@@ -21,7 +21,7 @@ tags:
 ---
 <img class="alignnone" src="" alt="Runkeeper and Salesforce" width="440" height="220" />
 
-For the past couple of years I've dabbled in running and getting data from [Runkeeper](http://runkeeper.com).  I decided that I'd give it a try to have the entire process inside of Salesforce.  This provided an interesting challenge for me, since it's the first time I've setup the oAuth flow from Salesforce back to Salesforce.  This post will likely be the first of a couple in this theme of pulling data from Runkeeper.  The code included here is just a base for what can be done.  I'll be maintaining an updated version of the RunkeeperUtils class on my [github](https://github.com/pcon/SalesforceApps/tree/master/runkeeper), so make sure you check there for the most recent version of everything.  So let's go over how we can do this
+For the past couple of years I've dabbled in running and getting data from [Runkeeper](http://runkeeper.com).  I decided that I'd give it a try to have the entire process inside of Salesforce.  This provided an interesting challenge for me, since it's the first time I've setup the oAuth flow from Salesforce back to Salesforce.  This post will likely be the first of a couple in this theme of pulling data from Runkeeper.  The code included here is just a base for what can be done.  I'll be maintaining an updated version of the RunkeeperUtils class on my [github](https://github.com/pcon/SalesforceApps/tree/master/runkeeper), so make sure you check there for the most recent version of everything.  So let's go over how we can do this
 
 <!--more-->
 
@@ -29,13 +29,13 @@ For the past couple of years I've dabbled in running and getting data from [Runk
 
 ## Create a domain
 
-While this step is not a hard requirement it is something that I highly recommend.  This gives you additional security since without it anyone on the same pod could hijack your oAuth credentials (sorta).  Additionally, this is a [requirement](https://developer.salesforce.com/blogs/developer-relations/2015/10/important-change-to-lightning-components-in-winter-16.html) for Lightning Component development anyway.
+While this step is not a hard requirement it is something that I highly recommend.  This gives you additional security since without it anyone on the same pod could hijack your oAuth credentials (sorta).  Additionally, this is a [requirement](https://developer.salesforce.com/blogs/developer-relations/2015/10/important-change-to-lightning-components-in-winter-16.html) for Lightning Component development anyway.
 
 1. Navigate to Setup -> Domain Management -> My Domain
-2. Choose your domain name _(NOTE: Once this has been set it is difficult / impossible to change.  So choose carefully)_
-3. Click _Check Availablity_
+2. Choose your domain name _(NOTE: Once this has been set it is difficult / impossible to change.  So choose carefully)_
+3. Click _Check Availablity_
 4. Check the agreement
-5. Click _Register Domain_
+5. Click _Register Domain_
 
 ## Add token fields
 
@@ -43,13 +43,13 @@ While this step is not a hard requirement it is something that I highly recommen
 	When this article was originally written <a href="https://help.salesforce.com/articleView?id=named_credentials_about.htm&type=5">Named Credentials</a> weren't really a thing (or at least not something I really knew about).  The preferred way of doing this would be to set up per-user authentication with oAuth and use the built in way to manage this.
 </div>
 
-In order to save the access token for later use (and for automated processing) we need to create a field on the User record to store this data.  We'll create an encrypted text field.  While the encryption is not entirely needed it will make it a little more difficult for the access token to fall into the wrong hands.  This field is not a requirement either.  You can feel free to pass the access token around and not store it anywhere.
+In order to save the access token for later use (and for automated processing) we need to create a field on the User record to store this data.  We'll create an encrypted text field.  While the encryption is not entirely needed it will make it a little more difficult for the access token to fall into the wrong hands.  This field is not a requirement either.  You can feel free to pass the access token around and not store it anywhere.
 
 ![Runkeeper Access Token Field](/assets/img/2016/03/01/access_token.png)
 
 ## Add remote site settings
 
-In order to do callouts to Runkeeper we need to add two remote sites.  This is because one is used for the oAuth flow and the other is used for all of our API calls.
+In order to do callouts to Runkeeper we need to add two remote sites.  This is because one is used for the oAuth flow and the other is used for all of our API calls.
 
 1. Navigate to Setup -> Security Controls -> Remote Site Settings
 2. Add an endpoint for `https://runkeeper.com`
@@ -57,26 +57,26 @@ In order to do callouts to Runkeeper we need to add two remote sites.  This is 
 
 ## Create a new app on Runkeeper
 
-Start by registering a [new app](https://runkeeper.com/partner/applications/register) on Runkeeper's site.  While setting up this you will need to fillout the following fields
+Start by registering a [new app](https://runkeeper.com/partner/applications/register) on Runkeeper's site.  While setting up this you will need to fillout the following fields
 
-* **Application Name:** This can be whatever you want to call it.  It will be displayed to your users as well as on their stream.  It should be recognizable as the correct app when authorizing it.
+* **Application Name:** This can be whatever you want to call it.  It will be displayed to your users as well as on their stream.  It should be recognizable as the correct app when authorizing it.
 * **Description:** This is the description of what your app does
 * **Organization:** The organization name for the application*
-* **Application Icon:** This is optional.  It will be displayed at the time of authentication, so it would be nice to have
+* **Application Icon:** This is optional.  It will be displayed at the time of authentication, so it would be nice to have
 * **Permission Requests:**
   * **Read Health Information:** This is the minimal permission needed for the code in this example
   * **Edit Health Information:** This is required if you plan on making changes to any of the data
   * **Retain Health Information:** This states that you are going to retain the information outside of the system and you will follow procedures for removal of any data if the user de-authorizes your application.
-* **Authorization Removal Callback URL:** This is the URL that will be called when the user de-authorizes your application.  I will try to cover this in a future post, but be aware that if you are going to retain health information you have to implement this so that you can remove the data.
+* **Authorization Removal Callback URL:** This is the URL that will be called when the user de-authorizes your application.  I will try to cover this in a future post, but be aware that if you are going to retain health information you have to implement this so that you can remove the data.
 * **Estimated Date of Publication:** This is only required if you plan on publishing your application on the Runkeeper apps page
 
 For this example we only need to set Application Name, Description and Read Health Information
 
 ## Create Runkeeper Utils
 
-The heart of our operation is the Runkeeper utility class.  This class is what makes all the calls to Runkeeper as well as creating the usable data structure to display the data later.
+The heart of our operation is the Runkeeper utility class.  This class is what makes all the calls to Runkeeper as well as creating the usable data structure to display the data later.
 
-```java
+```apex
 /**
 * A utility class for interacting with Runkeeper
 *
@@ -283,13 +283,13 @@ public class RunkeeperUtils {
 }
 ```
 
-The code here is pretty straightforward Apex.  To get it to work with your newly created Runkeeper app, you will need to update lines 93 and 96 with the Client Id and Client Secret from your Runkeeper apps page.  Hopefully in future posts I'll cover how to extend the Activity class for other Runkeeper calls.
+The code here is pretty straightforward Apex.  To get it to work with your newly created Runkeeper app, you will need to update lines 93 and 96 with the Client Id and Client Secret from your Runkeeper apps page.  Hopefully in future posts I'll cover how to extend the Activity class for other Runkeeper calls.
 
 ## Create Runkeeper Login Controller
 
-This Visualforce controller is the base for the other Runkeeper Visualforce pages we create.  It contains helper methods to check to see if the current user already has an access token as well as methods to redirect to our list page on successful login
+This Visualforce controller is the base for the other Runkeeper Visualforce pages we create.  It contains helper methods to check to see if the current user already has an access token as well as methods to redirect to our list page on successful login
 
-```java
+```apex
 /**
 * A Visualforce controller for logging into Runkeeper
 *
@@ -366,9 +366,9 @@ For customization you should update Line 65 to point to whatever page you want t
 
 ## Create Runkeeper List Controller
 
-This controller just show an example of how to extend the login controller, redirect if the users does not have an access token and then how to user the Runkeeper utility class.  This is where the bulk of your work would go for customization
+This controller just show an example of how to extend the login controller, redirect if the users does not have an access token and then how to user the Runkeeper utility class.  This is where the bulk of your work would go for customization
 
-```java
+```apex
 /**
 * A Visualforce controller displaying data from Runkeeper
 *
@@ -407,7 +407,7 @@ public class RKListController extends RKLoginController {
 
 ## Create Login Visualforce page
 
-This Visualforce page has a very simple Runkeeper button to login.  You can customize this by using the [generate button](https://runkeeper.com/developer/healthgraph/login-plugin) app from Runkeeper's site.  You'll want to just copy the image URL into the Visualforce page.
+This Visualforce page has a very simple Runkeeper button to login.  You can customize this by using the [generate button](https://runkeeper.com/developer/healthgraph/login-plugin) app from Runkeeper's site.  You'll want to just copy the image URL into the Visualforce page.
 
 ```xml
 <apex:page controller="RKLoginController" action="{!redirectOnCallback}">
@@ -415,11 +415,11 @@ This Visualforce page has a very simple Runkeeper button to login.  You can cus
 </apex:page>
 ```
 
-This page is super simple.  All of the heavy lifting lies in the redirectOnCallback method.  This checks to see if we're in a callback and if we are, store the access token on the User record and then redirect to the list page.  If you did not want to store the access token on the User record you would want to update the controller and pass it to the next page however you want.
+This page is super simple.  All of the heavy lifting lies in the redirectOnCallback method.  This checks to see if we're in a callback and if we are, store the access token on the User record and then redirect to the list page.  If you did not want to store the access token on the User record you would want to update the controller and pass it to the next page however you want.
 
 ## Create List Visualforce page
 
-Now we can get to the "fun part."  This page checks to see if the user has an access token stored.  If they do not then we bounce them to the login page.  If they do, then we display there recent activities.
+Now we can get to the "fun part."  This page checks to see if the user has an access token stored.  If they do not then we bounce them to the login page.  If they do, then we display there recent activities.
 
 ```xml
 <apex:page controller="RKListController" action="{!ensureHasToken}">
@@ -440,13 +440,13 @@ Now we can get to the "fun part."  This page checks to see if the user has an a
 
 ![Runkeeper activity list](/assets/img/2016/03/01/activity_list.png)
 
-Now you could easily modify this data however you want.  If you wanted you could add a checkbox in the Visualforce page next to each activity and allow the user to select activities they want to save.  Then you could store those into a custom object related to their user record.  The sky's the limit!
+Now you could easily modify this data however you want.  If you wanted you could add a checkbox in the Visualforce page next to each activity and allow the user to select activities they want to save.  Then you could store those into a custom object related to their user record.  The sky's the limit!
 
 # Next steps
 
 Now that the groundwork is laid for the interaction for Runkeeper here are some things that I plan on doing and hopefully writing about
 
 * Authorization Removal Callback URL: How to implement this so that when users deactivate the application you are notified and can remove their data
-* Extending Activities: The current Activity class only contains the summary data.  I'd like to cover how to extend that class to provide the fully Activity data and how to integrate that into saving the data to a custom object
+* Extending Activities: The current Activity class only contains the summary data.  I'd like to cover how to extend that class to provide the fully Activity data and how to integrate that into saving the data to a custom object
 * Automated Activity Tracking: Using scheduled Apex, run a job to fetch recent activities (such as for a [run streak](http://fitness.deadlypenguin.com/streak/)) and store that data.
 * Additional Activity Types: How to extend the RunkeeperUtils class to work with the other [supported activities](https://runkeeper.com/developer/healthgraph/overview#core-types) such as strength training, sleep, etc

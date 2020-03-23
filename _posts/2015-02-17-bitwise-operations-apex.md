@@ -14,13 +14,13 @@ tags:
 - apex
 - math
 ---
-A couple of days ago a friend of mine was asking about how to do bitwise math on Salesforce in Apex.  I didn't know how to do it on the platform so I decided to give it a shot.
+A couple of days ago a friend of mine was asking about how to do bitwise math on Salesforce in Apex.  I didn't know how to do it on the platform so I decided to give it a shot.
 
-_NOTE: None of the topics covered here are specific to Apex or the Salesforce platform.  These concepts extend to most languages.  However, the code examples below have been tested and verified on the Salesforce platform._
+_NOTE: None of the topics covered here are specific to Apex or the Salesforce platform.  These concepts extend to most languages.  However, the code examples below have been tested and verified on the Salesforce platform._
 
 # What are bitwise operations?
 
-[Bitwise operations](http://en.wikipedia.org/wiki/Bitwise_operation "Bitwise Operation") are operations that deal with numbers on a binary level.  You see this type of operation mainly in lower level programing languages where you have limited resources and need to store lots of information in a small amount of space.  For these examples we'll be using the [match details](https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails#Player_Slot "Match Details") from DOTA 2 output.  This allows for Valve to return a single number to represent lot of information.
+[Bitwise operations](http://en.wikipedia.org/wiki/Bitwise_operation "Bitwise Operation") are operations that deal with numbers on a binary level.  You see this type of operation mainly in lower level programing languages where you have limited resources and need to store lots of information in a small amount of space.  For these examples we'll be using the [match details](https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails#Player_Slot "Match Details") from DOTA 2 output.  This allows for Valve to return a single number to represent lot of information.
 <!--more-->
 
 # Bit masks (Player Slot)
@@ -35,9 +35,9 @@ Let's start out with the structure of the player slot information
    0 0 0 0 0 0 0 0
 ```
 
-The 3 right most bits of the number denotes the position the player was on their team.  Since we are limited (in this game) to five players per team can store this without an issue in the 3 right most bits (maximum number that can be stored in this space is 7 binary of 111)
+The 3 right most bits of the number denotes the position the player was on their team.  Since we are limited (in this game) to five players per team can store this without an issue in the 3 right most bits (maximum number that can be stored in this space is 7 binary of 111)
 
-```java
+```apex
 Integer value = 132;
 // Binary 10000100
 
@@ -49,13 +49,13 @@ Integer result = value & PLAYER_MASK;
 // Integer 4
 ```
 
-To get the right most digits we'll apply a bit mask of 00000111 (integer of 7) and then apply this as a bitwise AND operator.  This will zero out the 5 left most bits leaving the right 3 bits.  After apply the mask with the & operator we're left with a value of 4.
+To get the right most digits we'll apply a bit mask of 00000111 (integer of 7) and then apply this as a bitwise AND operator.  This will zero out the 5 left most bits leaving the right 3 bits.  After apply the mask with the & operator we're left with a value of 4.
 
 # Bit shifting (Player Slot)
 
-The left most bit of the number denotes which team the player was on.  Here we want to shift all of the bits to the right leaving just the left most bit.  We do this with the right shift >> operator
+The left most bit of the number denotes which team the player was on.  Here we want to shift all of the bits to the right leaving just the left most bit.  We do this with the right shift >> operator
 
-```java
+```apex
 Integer value = 132;
 // Binary 10000100
 
@@ -80,9 +80,9 @@ Integer result = value >> shift;
    0 0 0 0 0 0 0 0
 ```
 
-If we take a look at the barracks status information we can see that all the information about the 8 towers are stored (1 if they exist, 0 if they were destroyed).  To get to this information we'll need to mask and shift our barracks values.
+If we take a look at the barracks status information we can see that all the information about the 8 towers are stored (1 if they exist, 0 if they were destroyed).  To get to this information we'll need to mask and shift our barracks values.
 
-```java
+```apex
 Integer value = 53;
 // Binary 00110101
 
@@ -116,7 +116,7 @@ Integer topMelee = (value & TOP_MASK_MELEE) >> TOP_OFFSET_MELEE; // 1
 
 Now if we want to take the data about the barracks and get back the value we add the parts and shift the bits to the left.
 
-```java
+```apex
 Integer bottomRanged = 1;
 Integer bottomMelee = 1;
 Integer middleRanged = 0;
@@ -142,4 +142,4 @@ value += topMelee; // Binary 00110101
 
 # More information
 
-If you'd like to learn more about bitmath in general, I really recommend the [arduino playground](http://playground.arduino.cc/Code/BitMath "Arduino Playground") bitmath page.  It's a great way to learn and play.  Additionally, you can [see all of the operators available in apex](https://www.salesforce.com/us/developer/docs/apexcode/Content/langCon_apex_expressions_operators_understanding.htm "Apex Operators").
+If you'd like to learn more about bitmath in general, I really recommend the [arduino playground](http://playground.arduino.cc/Code/BitMath "Arduino Playground") bitmath page.  It's a great way to learn and play.  Additionally, you can [see all of the operators available in apex](https://www.salesforce.com/us/developer/docs/apexcode/Content/langCon_apex_expressions_operators_understanding.htm "Apex Operators").

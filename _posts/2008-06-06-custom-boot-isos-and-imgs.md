@@ -15,9 +15,9 @@ tags:
 - kickstart
 - satellite
 ---
-I've spent the past couple of days banging my head against the desk trying to get this to work out correctly.  And now it finally does.  Just as a note, I've tested that the general steps work.  I have not verified that I haven't skipped a step.  So if anything's missing let me know.
+I've spent the past couple of days banging my head against the desk trying to get this to work out correctly.  And now it finally does.  Just as a note, I've tested that the general steps work.  I have not verified that I haven't skipped a step.  So if anything's missing let me know.
 
-<div class="notification is-info">This has only been tested with RHEL and nothing else, but there is no reason why it won't work.  And if you don't have a satellite you can use this with any old kickstart.  Assuming you have the tree setup correctly. Please test your kickstart tree first.</div>
+<div class="notification is-info">This has only been tested with RHEL and nothing else, but there is no reason why it won't work.  And if you don't have a satellite you can use this with any old kickstart.  Assuming you have the tree setup correctly. Please test your kickstart tree first.</div>
 
 # Satellite prep
 
@@ -27,15 +27,15 @@ Create your kickstart as you normally would. Then, make sure the kickstart is ac
 http://satellite.example.com/kickstart/ks/view_label/<kickstart_label>
 ```
 
-Replace `<kickstart_label>` with the name of label set on the satellite.  Remember this URL, you'll need it later
+Replace `<kickstart_label>` with the name of label set on the satellite.  Remember this URL, you'll need it later
 
 # view_label VS label
 
-In the kickstart URL, you can use either view\_label or label.  `view_label` will not register the box if there is not an activation key set inside the kickstart.  `label` generates a one time use activation key and registers the box to the satellite
+In the kickstart URL, you can use either view\_label or label.  `view_label` will not register the box if there is not an activation key set inside the kickstart.  `label` generates a one time use activation key and registers the box to the satellite
 
 ## Why use one over the other?
 
-view\_label is good if you are using an activation key, or if you have to install a box a bunch of times, and don't want to have a bunch of extra profiles lingering around.label is good if you don't want to have to set up an activation key, and a machine is only going to be kickstarted once.  If you are going to be using the disk image in a PXE like fashion, view\_label is your best option.
+view\_label is good if you are using an activation key, or if you have to install a box a bunch of times, and don't want to have a bunch of extra profiles lingering around.label is good if you don't want to have to set up an activation key, and a machine is only going to be kickstarted once.  If you are going to be using the disk image in a PXE like fashion, view\_label is your best option.
 
 # Rolling the disk image (For usb-key)
 

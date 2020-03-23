@@ -15,7 +15,7 @@ categories:
 tags:
 - apex
 ---
-Like most Object Oriented languages, Apex will allow you to make an order List of objects that you can then iterate over and manipulate.  However, Apex will not let you use the built in [_sort_ method](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_list.htm#apex_System_List_sort) for List to sort sObjects by a field inside.  To do this, we have to implement our own comparable class to do the sorting for us.
+Like most Object Oriented languages, Apex will allow you to make an order List of objects that you can then iterate over and manipulate.  However, Apex will not let you use the built in [_sort_ method](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_list.htm#apex_System_List_sort) for List to sort sObjects by a field inside.  To do this, we have to implement our own comparable class to do the sorting for us.
 
 # Basic sorting
 
@@ -24,7 +24,7 @@ Like most Object Oriented languages, Apex will allow you to make an order List o
 Let's take a look at a simple class that takes in an Employee object, stores the employee's data in it and allows us to sort a list of Employees by their salary.
 <!--more-->
 
-```java
+```apex
 /** A wrapper class to make employee sortable */
 public class EmployeeWrapper implements Comparable {
     /** The name */
@@ -75,7 +75,7 @@ public class EmployeeWrapper implements Comparable {
 }
 ```
 
-This class doesn't do a whole lot right now, we can see that the class `implements Comparable` and has a `compareTo` method.  These are the key points that allow us to be able to sort a list of our wrapper objects.  Right now the `compareTo` is returning `` which means that all of the items in the list are equal and the sort order would not change.
+This class doesn't do a whole lot right now, we can see that the class `implements Comparable` and has a `compareTo` method.  These are the key points that allow us to be able to sort a list of our wrapper objects.  Right now the `compareTo` is returning `` which means that all of the items in the list are equal and the sort order would not change.
 
 ## compareTo
 
@@ -85,11 +85,11 @@ The `compareTo` method is a special method that when the main class `implements 
 * `0` &#8211; The current value is equal to the compared value
 * `-1` &#8211; The current value is less than the compared value
 
-_Note: In all actuality it is looking for positive, zero and negative numbers. It's just easier to comprehend when using one, zero and negative one. But there are times where it's easier to return a positive, zero or negative number when doing a mathematical equation._
+_Note: In all actuality it is looking for positive, zero and negative numbers. It's just easier to comprehend when using one, zero and negative one. But there are times where it's easier to return a positive, zero or negative number when doing a mathematical equation._
 
 So, let's update the `compareTo` method to return the right values for comparing salary.
 
-```java
+```apex
 /**
 * The comparator method used in sorting
 *
@@ -111,7 +111,7 @@ public Integer compareTo(Object obj) {
 }
 ```
 
-In the method we are passed in a generic `Object` that we then have to do something with.  In order to access the underlying salary field, we need to typecast it to match our `EmployeeWrapper` class.  Once we typecast it, we can do our comparisons and return the expected value.
+In the method we are passed in a generic `Object` that we then have to do something with.  In order to access the underlying salary field, we need to typecast it to match our `EmployeeWrapper` class.  Once we typecast it, we can do our comparisons and return the expected value.
 
 _Note: The compareTo will always get the same type as the class the compareTo method belongs to._
 
@@ -119,7 +119,7 @@ _Note: The compareTo will always get the same type as the class the compareTo me
 
 Now that we have our EmployeeWrapper class all done, let's do something with it.
 
-```java
+```apex
 public class EmployeeUtils {
     /** A wrapper class to make employee sortable */
     public class EmployeeWrapper implements Comparable {
@@ -201,9 +201,9 @@ public class EmployeeUtils {
 }
 ```
 
-Here we have created an EmployeeUtils class that contains our wrapper.  It also includes a method call getEmployees that queries for all of the employees and then returns them as a list of EmployeeWrapper.
+Here we have created an EmployeeUtils class that contains our wrapper.  It also includes a method call getEmployees that queries for all of the employees and then returns them as a list of EmployeeWrapper.
 
-```java
+```apex
 public class EmployeeViewController {
     public List<EmployeeUtils.EmployeeWrapper> employees {
         get;
@@ -237,9 +237,9 @@ The Visualforce page then generates a table of employees sorted by salary.
 
 # Advanced Sorting
 
-Now the simple sorting by one field is all fine and dandy, but it's pretty boring.  Let's get a little crazy and make it so we can dynamically sort the Employee table based on name, phone number, salary and distance to Raleigh, NC.
+Now the simple sorting by one field is all fine and dandy, but it's pretty boring.  Let's get a little crazy and make it so we can dynamically sort the Employee table based on name, phone number, salary and distance to Raleigh, NC.
 
-```java
+```apex
 public class EmployeeUtils {
     /** The literal for sorting by phone */
     public static String PHONE_SORT = 'phone';
@@ -460,9 +460,9 @@ public class EmployeeUtils {
 }
 ```
 
-This class looks very similar to the previous class except for now we have separate sort methods for each field we're going to sort by.  We could probably have done this a little more dynamically by converting the object to JSON, pulling out the value and comparing that (or even using [apex-lodash](https://github.com/apex-lodash/lo)) but for the sake of understanding let's not.  Additionally we now have a SORT_BY variable that tells us what we are sorting our list by in the `compareTo`.  This is a static variable so that we can look at it every time the method is called and do the right thing.
+This class looks very similar to the previous class except for now we have separate sort methods for each field we're going to sort by.  We could probably have done this a little more dynamically by converting the object to JSON, pulling out the value and comparing that (or even using [apex-lodash](https://github.com/apex-lodash/lo)) but for the sake of understanding let's not.  Additionally we now have a SORT_BY variable that tells us what we are sorting our list by in the `compareTo`.  This is a static variable so that we can look at it every time the method is called and do the right thing.
 
-```java
+```apex
 public class EmployeeViewController {
     /** The list of employees */
     public List<EmployeeUtils.EmployeeWrapper> employees {
@@ -532,7 +532,7 @@ public class EmployeeViewController {
 }
 ```
 
-Our controller has gotten a little more complex.  It now has some methods that set the sort by and call the sort method.  Again, we could have probably made these more generic and passed in the sort by from the Visualforce but I think this helps to convey the message clearer. And then we have a method that reverses the list.
+Our controller has gotten a little more complex.  It now has some methods that set the sort by and call the sort method.  Again, we could have probably made these more generic and passed in the sort by from the Visualforce but I think this helps to convey the message clearer. And then we have a method that reverses the list.
 
 ```xml
 <apex:page controller="EmployeeViewController">

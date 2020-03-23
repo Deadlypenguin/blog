@@ -16,7 +16,7 @@ tags:
 - apex
 - xml
 ---
-Doing XML parsing in any language can be pretty tough.  I wanted to share a quick how to for doing XML parsing in Apex based on a previous [board post](https://developer.salesforce.com/forums/?id=906F0000000D9hsIAC).
+Doing XML parsing in any language can be pretty tough.  I wanted to share a quick how to for doing XML parsing in Apex based on a previous [board post](https://developer.salesforce.com/forums/?id=906F0000000D9hsIAC).
 
 Let's start with the data we're trying parse
 
@@ -37,9 +37,9 @@ For this data we want to pull out who the credit report is for and the credit da
 
 ## Data Structure
 
-Let's start by defining our data structure that we're going to store our data in.  Like the [JSON parsing](/2015/11/30/json-deserialization-in-salesforce/) example, by converting this into classes, we'll be able to pass and manipulate our data much easier.
+Let's start by defining our data structure that we're going to store our data in.  Like the [JSON parsing](/2015/11/30/json-deserialization-in-salesforce/) example, by converting this into classes, we'll be able to pass and manipulate our data much easier.
 
-```java
+```apex
 public class AgencyScore {
   public Integer score;
   public String agency;
@@ -66,7 +66,7 @@ Here we have some very simple classes to store our data and a empty constructor 
 
 Now, let's do the heavy lifting inside of our constructor
 
-```java
+```apex
 public CreditScore(String xml) {
   this.scores = new List<AgencyScore>();
 
@@ -82,15 +82,15 @@ public CreditScore(String xml) {
 }
 ```
 
-So let's take a look at the first part of parsing the XML and getting the for attribute from the root element.  This is the easiest to get since we just pull it from the root element.  Since the XML is not namespaced, we just pass in an blank string to our [getAttributeValue](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_xml_dom_xmlnode.htm).
+So let's take a look at the first part of parsing the XML and getting the for attribute from the root element.  This is the easiest to get since we just pull it from the root element.  Since the XML is not namespaced, we just pass in an blank string to our [getAttributeValue](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_xml_dom_xmlnode.htm).
 
-Now, to get each of our individual agency scores we need to iterate over each of the child elements.  Then the node is called to get the two attributes off of our child element.  This pattern would be repeated for each of our children as needed.
+Now, to get each of our individual agency scores we need to iterate over each of the child elements.  Then the node is called to get the two attributes off of our child element.  This pattern would be repeated for each of our children as needed.
 
 ## Calling the Code
 
 Now, let's call our class
 
-```java
+```apex
 String xmlData = '<?xml version="1.0"?>' +
   '<_CREDIT_SCORE for="Bob Dole">' +
   '  <_CREDIT_SCORE _CreditScore="668" _ReportingAgency="Experian"/>' +

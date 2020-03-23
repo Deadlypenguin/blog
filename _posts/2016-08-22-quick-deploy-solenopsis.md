@@ -17,17 +17,17 @@ tags:
 - deployment
 - solenopsis
 ---
-In Spring '15 Salesforce released a feature called "[Quick Deploy](http://releasenotes.docs.salesforce.com/en-us/spring15/release-notes/rn_quick_deployment_ga.htm)" that allows you to only run a small subset of tests when you do your deployment instead of running all the tests.  When you're in an org like ours that running all tests can take upwards of 5hrs (or longer if the moon is aligned incorrectly) this is wonderful.  Let's take a look at how quick deploy works and how you can use quick deploy with Solenopsis.
+In Spring '15 Salesforce released a feature called "[Quick Deploy](http://releasenotes.docs.salesforce.com/en-us/spring15/release-notes/rn_quick_deployment_ga.htm)" that allows you to only run a small subset of tests when you do your deployment instead of running all the tests.  When you're in an org like ours that running all tests can take upwards of 5hrs (or longer if the moon is aligned incorrectly) this is wonderful.  Let's take a look at how quick deploy works and how you can use quick deploy with Solenopsis.
 
 # How Quick Deploy Works
 
-Quick deploy simply runs a provided list of tests when you run your deployment.  This deployment is then staged under your Deployment Status in setup.  Once the all the tests have run you'll get a button that let's you quick deploy.
+Quick deploy simply runs a provided list of tests when you run your deployment.  This deployment is then staged under your Deployment Status in setup.  Once the all the tests have run you'll get a button that let's you quick deploy.
 
 <!--more-->
 
 ![quick deploy status](/assets/img/2016/08/22/quickDeployStatus.png)
 
-In order for the deployment to succeed, you have to meet the code coverage requirements for the classes you are deploying.  For example, if we are deploying BaseTrigger.cls we have to run enough tests to get at least 75% code coverage for that class.
+In order for the deployment to succeed, you have to meet the code coverage requirements for the classes you are deploying.  For example, if we are deploying BaseTrigger.cls we have to run enough tests to get at least 75% code coverage for that class.
 
 Caveats
 
@@ -39,15 +39,15 @@ Caveats
 
 # Quick Deploy with Solenopsis
 
-Shortly after this feature came out of pilot, we added it to [Solenopsis](http://solenopsis.org/Solenopsis/).  We have been using this as our primary way of deploying code to production and it's great.  We went from having a deployment window on the day of from 5hrs to less than 30min.  The amount of time the job runs to do the deployment varies from deployment to deployment but that time doesn't require any real downtime or notification for our users.
+Shortly after this feature came out of pilot, we added it to [Solenopsis](http://solenopsis.org/Solenopsis/).  We have been using this as our primary way of deploying code to production and it's great.  We went from having a deployment window on the day of from 5hrs to less than 30min.  The amount of time the job runs to do the deployment varies from deployment to deployment but that time doesn't require any real downtime or notification for our users.
 
 ## Prep Work
 
-To get your code ready to use the quick deployment feature you'll need to add a javadoc annotation to denote what test classes need to be run.  For this example, we'll be taking a look at the code our [Escalations](https://github.com/RedHatSalesforce/escalations) application.
+To get your code ready to use the quick deployment feature you'll need to add a javadoc annotation to denote what test classes need to be run.  For this example, we'll be taking a look at the code our [Escalations](https://github.com/RedHatSalesforce/escalations) application.
 
 ### Trigger
 
-```java
+```apex
 /**
 * Trigger for escalation cases
 *
@@ -61,7 +61,7 @@ trigger EscalationCase on EscalationCase__c (before insert, before update, befor
 
 ### Class
 
-```java
+```apex
 /**
 * Trigger work for escalation cases
 *
@@ -75,11 +75,11 @@ public with sharing class EscalationCaseTrigger extends BaseTrigger {
 
 ### Explanation
 
-In the code above, you can see that we've added the `@testClasses` annotation.  This is a comma separated list of class names to run.
+In the code above, you can see that we've added the `@testClasses` annotation.  This is a comma separated list of class names to run.
 
 ## Usage
 
-Any of the standard Solenopsis commands can be run with the `--fast` parameter.  The most useful of the commands is the `delta-push` as it will determine what is different on disk from what is in the target org and then only add the tests needed to cover those classes.
+Any of the standard Solenopsis commands can be run with the `--fast` parameter.  The most useful of the commands is the `delta-push` as it will determine what is different on disk from what is in the target org and then only add the tests needed to cover those classes.
 
 Doing the deployment is as simple as
 

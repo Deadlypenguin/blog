@@ -20,7 +20,7 @@ tags:
 - pdf
 - trailhead
 ---
-Over the past couple of months, I've seen several posts on the Developer forums asking how to set PDF headers and footers with Visualforce.  I decided to sit down and try my hand at it.  If you have done the [Battle Station app](https://developer.salesforce.com/trailhead/project/workshop-battle-station) on [Trailhead](https://developer.salesforce.com/trailhead/), you can try this out on your own sandbox!  We will be generating a PDF invoice for the Battle Station app that includes a first page header image and a dynamically generated footer.
+Over the past couple of months, I've seen several posts on the Developer forums asking how to set PDF headers and footers with Visualforce.  I decided to sit down and try my hand at it.  If you have done the [Battle Station app](https://developer.salesforce.com/trailhead/project/workshop-battle-station) on [Trailhead](https://developer.salesforce.com/trailhead/), you can try this out on your own sandbox!  We will be generating a PDF invoice for the Battle Station app that includes a first page header image and a dynamically generated footer.
 
 <!--more-->
 
@@ -34,7 +34,7 @@ Over the past couple of months, I've seen several posts on the Developer forums 
 
 ## Basic PDF Rendering
 
-Let's start off with the most basic of PDFs we can generate, just to show that we can display all the data we want to show on our invoice.  The Visualforce below simply renders out the Battle Station information as well as it's Resources and Supplies.
+Let's start off with the most basic of PDFs we can generate, just to show that we can display all the data we want to show on our invoice.  The Visualforce below simply renders out the Battle Station information as well as it's Resources and Supplies.
 
 ```xml
 <apex:page standardController="Battle_Station__c" renderAs="pdf">
@@ -67,7 +67,7 @@ Let's start off with the most basic of PDFs we can generate, just to show that w
 
 ![Unstyled PDF](/assets/img/2016/04/04/unstyled_pdf.png)
 
-The [resulting PDF](/assets/img/2016/04/04/unstyled_pdf.pdf) is surely functional.  We can see all of the data.  However it's not much to look at.  And if I was a customer of this company, I would think that they do not know what they are doing if they were to hand me an invoice like this.
+The [resulting PDF](/assets/img/2016/04/04/unstyled_pdf.pdf) is surely functional.  We can see all of the data.  However it's not much to look at.  And if I was a customer of this company, I would think that they do not know what they are doing if they were to hand me an invoice like this.
 
 ## Stylize the basic PDF
 
@@ -141,11 +141,11 @@ By adding some basic CSS and updating some of the classes on the Visualforce ele
 
 ![Slightly Styled PDF](/assets/img/2016/04/04/slightly_styled.png)
 
-This [rendered PDF](/assets/img/2016/04/04/slightly_styled.pdf) is presentable.  It doesn't have a tons of personality, but it gets the point across and shows all the data in a clearly formatted way.  But we can do better.
+This [rendered PDF](/assets/img/2016/04/04/slightly_styled.pdf) is presentable.  It doesn't have a tons of personality, but it gets the point across and shows all the data in a clearly formatted way.  But we can do better.
 
 ## Adding PDF Headers and Footers
 
-By using CSS selectors, we can add a print header and footer that will show up in their respective parts of the PDF.  The key parts of this are the header div (empty here because we're using a Static Resource as our background image), and the footer div.  The content div and the other CSS is just to improve some spacing.
+By using CSS selectors, we can add a print header and footer that will show up in their respective parts of the PDF.  The key parts of this are the header div (empty here because we're using a Static Resource as our background image), and the footer div.  The content div and the other CSS is just to improve some spacing.
 
 ```xml
 <apex:page standardController="Battle_Station__c" renderAs="pdf" applyBodyTag="false">
@@ -286,11 +286,11 @@ By using CSS selectors, we can add a print header and footer that will show up i
 <img class="alignnone" src="" alt="Version 3 - PDF Headers and Footers" width="402" height="520" />
 ![PDF with header](/assets/img/2016/04/04/headered_pdf.png)
 
-Now, this [PDF](/assets/img/2016/04/04/headered_pdf.pdf) looks great.  Just adding the header makes this pop so much.  The footer also gives us room to put additional information such as when it was generated and how many pages there are.
+Now, this [PDF](/assets/img/2016/04/04/headered_pdf.pdf) looks great.  Just adding the header makes this pop so much.  The footer also gives us room to put additional information such as when it was generated and how many pages there are.
 
 ## Whoops! Multiple pages
 
-Our PDF above looks great, let's call it done.  Well, before we ship it off, we better try adding enough data to see what happens when it spans multiple pages.
+Our PDF above looks great, let's call it done.  Well, before we ship it off, we better try adding enough data to see what happens when it spans multiple pages.
 
 ![Multiple pages, page 1](/assets/img/2016/04/04/multipage_1.png)
 
@@ -298,11 +298,11 @@ so far so good
 
 ![Multiple pages, page 2](/assets/img/2016/04/04/multipage_2.png)
 
-Oh man, our beautiful [PDF](/assets/img/2016/04/04/multipage.pdf) looks terrible now.
+Oh man, our beautiful [PDF](/assets/img/2016/04/04/multipage.pdf) looks terrible now.
 
 ## Fixing the Multiple Page Issue
 
-Fortunately, this fix is purely a CSS fix and it's pretty straight-forward.  The current CSS tells the PDF renderer to put the header on all pages.  We want this to only be on the first page.  So we need to update our CSS only apply the header on the first page, but still put the footer on all pages
+Fortunately, this fix is purely a CSS fix and it's pretty straight-forward.  The current CSS tells the PDF renderer to put the header on all pages.  We want this to only be on the first page.  So we need to update our CSS only apply the header on the first page, but still put the footer on all pages
 
 ```css
 @page :first {
@@ -326,7 +326,7 @@ now, the first page still looks the same
 <img class="alignnone" src="" alt="Version 5 Page 2" width="402" height="520" />
 ![Multiple pages fixed, page 2](/assets/img/2016/04/04/multipage_fixed_2.png)
 
-and now our [final PDF](/assets/img/2016/04/04/multipage_fixed.pdf) looks great!
+and now our [final PDF](/assets/img/2016/04/04/multipage_fixed.pdf) looks great!
 
 ## Final Code
 
@@ -472,8 +472,8 @@ Now if we put it all together, our Visualforce page contains the following
 
 # Take Aways
 
-Generating PDFs in Salesforce with Visualforce isn't that difficult.  With a little bit of CSS and some patience, you can do it.  Just remember:
+Generating PDFs in Salesforce with Visualforce isn't that difficult.  With a little bit of CSS and some patience, you can do it.  Just remember:
 
-* Build your PDF in stages.  Don't try to get it all right the first shot, it's much easier to gradually build it then try to troubleshoot all the CSS at once.
+* Build your PDF in stages.  Don't try to get it all right the first shot, it's much easier to gradually build it then try to troubleshoot all the CSS at once.
 * Test it with large data sets. Take the time to add more data than you normally would to make sure that things don't break terribly.
-* Test with multiple browsers and view settings.  The PDF renderer is very susceptible to making your painstakingly design PDF look off when the user's browser preference are off.  Test it out using multiple browsers with different settings.  Zoom in on the page before generating the PDF and check the font size.  You can combat this by specifying all of your fonts and font sizes in your CSS.  It'll take more time, but you'll end up with a better product.
+* Test with multiple browsers and view settings.  The PDF renderer is very susceptible to making your painstakingly design PDF look off when the user's browser preference are off.  Test it out using multiple browsers with different settings.  Zoom in on the page before generating the PDF and check the font size.  You can combat this by specifying all of your fonts and font sizes in your CSS.  It'll take more time, but you'll end up with a better product.

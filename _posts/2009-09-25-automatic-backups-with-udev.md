@@ -18,13 +18,13 @@ I recently challenged myself to come up with a way to make udev automatically ba
 
 # UDEV Rules
 
-To start with, we need to set up static naming for the storage device that you want to make into backup disk.  Start by plugging in the disk.  (Now I'm not using Gnome or KDE so I'm not sure what their automounter will do.  So, you might have to find a way to exclude it from the automounter.  We need to find out the "model" of the drive.  My udev rules are pretty basic, and will work since most people don't have more than one the same model of USB drive laying around that they would use.  You can always modify the udev rules to work for you.
+To start with, we need to set up static naming for the storage device that you want to make into backup disk.  Start by plugging in the disk.  (Now I'm not using Gnome or KDE so I'm not sure what their automounter will do.  So, you might have to find a way to exclude it from the automounter.  We need to find out the "model" of the drive.  My udev rules are pretty basic, and will work since most people don't have more than one the same model of USB drive laying around that they would use.  You can always modify the udev rules to work for you.
 
 ```bash
 udevadm info -a -p /sys/block/sdc | grep model
 ```
 
-Here we are looking at the block device sdc (which is what the kernel named it since we don't have any udev rules yet).  This could change depending on how many block devices you currently have.  Now we take this information, and feed it into a udev rule.  I created a file `/etc/udev/rules.d/50-backup.rules` The name isn't really important, however, the number 50- is.  That is the order in which it runs.  We want that number to be less than 90 so that hal doesn't run first.  Inside that file, we have the following:
+Here we are looking at the block device sdc (which is what the kernel named it since we don't have any udev rules yet).  This could change depending on how many block devices you currently have.  Now we take this information, and feed it into a udev rule.  I created a file `/etc/udev/rules.d/50-backup.rules` The name isn't really important, however, the number 50- is.  That is the order in which it runs.  We want that number to be less than 90 so that hal doesn't run first.  Inside that file, we have the following:
 
 ```
 KERNEL=="sd?1&#8243;, SUBSYSTEM=="block", ATTRS{model}=="MODEL GOES HERE", SYMLINK+="backup", RUN+="/usr/local/bin/backup.sh"
@@ -56,7 +56,7 @@ umount $BACKUPDIR >> /tmp/backup.log 2>&1
 su $NOTIFYUSER alt-notify-send backup "Backup completed" 0
 ```
 
-We have a couple of things to setup here.  First we need to create /mnt/backup as root, and fill out the other variables in the top of the script.  Also, if we want notification in gnome, we need to make a notify-send work around.  Put the following in `/usr/local/bin/alt-notify-send`
+We have a couple of things to setup here.  First we need to create /mnt/backup as root, and fill out the other variables in the top of the script.  Also, if we want notification in gnome, we need to make a notify-send work around.  Put the following in `/usr/local/bin/alt-notify-send`
 
 ```bash
 #!/bin/sh

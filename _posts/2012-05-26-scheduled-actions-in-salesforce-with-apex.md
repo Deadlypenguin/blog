@@ -16,13 +16,13 @@ tags:
 - apex
 - cron
 ---
-Scheduled actions in Apex are great to use when you need to have a section of code run at a particular time in the future and Time-Based workflows will not work.  In the example below I'll talk about how to schedule code to run at the first of every month, in addition talk about some constructs you can use to make your life easier when you have to redeploy/change this code
+Scheduled actions in Apex are great to use when you need to have a section of code run at a particular time in the future and Time-Based workflows will not work.  In the example below I'll talk about how to schedule code to run at the first of every month, in addition talk about some constructs you can use to make your life easier when you have to redeploy/change this code
 
 # Schedulable
 
 The key part of the apex class is that it must implement **Schedulable** and it must have an **excecute** method.
 
-```java
+```apex
 global class scheduledMonthly implements Schedulable {
     /**
     * Builds up all of the new Objects
@@ -35,9 +35,9 @@ global class scheduledMonthly implements Schedulable {
 }
 ```
 
-Now, we can fill out the class.  Below is an example where we iterate through all of the accounts of a specific record type and insert a new list of _MyObject_ based on that account.  This could be as complex as you want.
+Now, we can fill out the class.  Below is an example where we iterate through all of the accounts of a specific record type and insert a new list of _MyObject_ based on that account.  This could be as complex as you want.
 
-```java
+```apex
 global class scheduledMonthly implements Schedulable {
     /**
     * Builds up all of the new Objects
@@ -71,9 +71,9 @@ global class scheduledMonthly implements Schedulable {
 }
 ```
 
-To schedule this class we could call it from any number of places, such as a VisualForce page, a Trigger or the Developer Console.  Since scheduled classes cannot be pushed out or changed when there are jobs in the queue we want to add a helper method to schedule this job.  In our instance it will only be ran once a month, so we include our _CRON_EXP_ as a static variable (for easy use) and to reduce the change of mis-scheduling.
+To schedule this class we could call it from any number of places, such as a VisualForce page, a Trigger or the Developer Console.  Since scheduled classes cannot be pushed out or changed when there are jobs in the queue we want to add a helper method to schedule this job.  In our instance it will only be ran once a month, so we include our _CRON_EXP_ as a static variable (for easy use) and to reduce the change of mis-scheduling.
 
-```java
+```apex
 /**
 * To schedule the monthly reconciliation:
 *    NOTE: It should run at midnight on the first of every month on it's own, but if you make
@@ -129,11 +129,11 @@ global class scheduledMonthly implements Schedulable {
 
 To reset our schedule all we have to do is use type the following into the Developer console.
 
-```java
+```apex
 scheduledMonthly.scheduleIt();
 ```
 
-And by looking in _Setup &rarr; Monitoring &rarr; Scheduled Jobs_ we can see that our scheduledMonthly class is there.
+And by looking in _Setup &rarr; Monitoring &rarr; Scheduled Jobs_ we can see that our scheduledMonthly class is there.
 
 # Cron Syntax
 
@@ -156,11 +156,11 @@ There are also some special characters you can use:
 * `/` used to specify increments \[hours, day of month, month, day of week, year\]
 * `L` used to specify the end of a range \[day of month, day of week\]
 * `W` used to specify the nearest weekday \[day of month\]
-* `#` used to specify the _nth_ day of the month \[day of week\]
+* `#` used to specify the _nth_ day of the month \[day of week\]
 
 # Testing
 
-Testing for scheduled apex may seem confusing but it's very straight forward.  Like @future calls, scheduled apex will not fire until after the _Test.stopTest()_has been run.  In the test below we test the following:
+Testing for scheduled apex may seem confusing but it's very straight forward.  Like @future calls, scheduled apex will not fire until after the _Test.stopTest()_has been run.  In the test below we test the following:
 
 * The Cron Expression is the same
 * The job has not been triggered yet
@@ -168,7 +168,7 @@ Testing for scheduled apex may seem confusing but it's very straight forward.  
 * No MyObjects were created
 * One object was created after the scheduled job was ran
 
-```java
+```apex
 @isTest
 class scheduledMonthlyTest {
     public static RecordType fetchRecordType(String name) {
@@ -275,6 +275,6 @@ class scheduledMonthlyTest {
 
 There are three big limitations / notes about scheduled Apex
 
-* It will be put on the queue at the given time, it is **not** guaranteed to run at that time.
+* It will be put on the queue at the given time, it is **not** guaranteed to run at that time.
 * You can only have 25 classes scheduled at a time
-* You cannot use _getContent_ or _getContentAsPDFPageReference_
+* You cannot use _getContent_ or _getContentAsPDFPageReference_

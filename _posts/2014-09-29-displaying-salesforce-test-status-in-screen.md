@@ -20,7 +20,7 @@ tags:
 ---
 This post will probably only be useful to one other person out there, but it was a fun exercise and thought I'd at least share my output.
 
-One of the biggest challenges I have when running tests is that I will often forget they are running and leave them completed for a while before I go back and remember I ran them.  This mainly happens when I'm running an entire class worth of tests and have 5-10 minutes to kill.  When first learned about [JSforce](https://jsforce.github.io/ "JSforce") and it's cli capability I was in love! So I set out to make it so that the current testing status is displayed inside of my screen session.  At the end of it all this is what I came up with:
+One of the biggest challenges I have when running tests is that I will often forget they are running and leave them completed for a while before I go back and remember I ran them.  This mainly happens when I'm running an entire class worth of tests and have 5-10 minutes to kill.  When first learned about [JSforce](https://jsforce.github.io/ "JSforce") and it's cli capability I was in love! So I set out to make it so that the current testing status is displayed inside of my screen session.  At the end of it all this is what I came up with:
 
 ![Screen status](/assets/img/2014/09/29/screen_status.png)
 
@@ -28,7 +28,7 @@ One of the biggest challenges I have when running tests is that I will often for
 
 # Getting started
 
-To do this, I'm making a couple of assumptions.  This should work on other systems, but this is what I have:
+To do this, I'm making a couple of assumptions.  This should work on other systems, but this is what I have:
 
 * Linux based system
 * gnuscreen
@@ -50,7 +50,7 @@ npm install jsforce
 
 Download and configure the `bin/test_status.js` file filling in the username and password for your sandbox/org
 
-```javascript
+```apexscript
 /*jslint browser: true, regexp: true */
 /*global require, console */
 
@@ -111,7 +111,7 @@ Download the _backtick\_test\_status.sh_ to your _bin_ directory
 /usr/bin/node /home/$USER/bin/test_status.js
 ```
 
-And the last part is to add the backtick command to your .screenrc this backtick command will run the script every 60 seconds.  You can adjust that as you see fit by changing '60 60' to '120 120' for two minutes.
+And the last part is to add the backtick command to your .screenrc this backtick command will run the script every 60 seconds.  You can adjust that as you see fit by changing '60 60' to '120 120' for two minutes.
 
 ```
 backtick 1 60 60 /home/$USER/bin/backtick_test_status.sh

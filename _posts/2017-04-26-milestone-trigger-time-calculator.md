@@ -20,7 +20,7 @@ tags:
 - entitlements
 - salesforce
 ---
-I recently stumbled upon a "new" feature in Salesforce that allows you to use an Apex class to calculate your milestone trigger time for entitlement processes.  Given a new feature that I'm working on for our entitlement process, I thought to myself that this could be a good chance to play with it and see what I could do.  If you're not familiar with the entitlement process in Salesforce, take a chance to look over (or run through) my [hands-on training](http://pcon.github.io/handsontraining/entitlements/) for entitlements so that you're familiar with the terminology and the concepts since I'll be jumping right in.
+I recently stumbled upon a "new" feature in Salesforce that allows you to use an Apex class to calculate your milestone trigger time for entitlement processes.  Given a new feature that I'm working on for our entitlement process, I thought to myself that this could be a good chance to play with it and see what I could do.  If you're not familiar with the entitlement process in Salesforce, take a chance to look over (or run through) my [hands-on training](http://pcon.github.io/handsontraining/entitlements/) for entitlements so that you're familiar with the terminology and the concepts since I'll be jumping right in.
 
 <!--more-->
 
@@ -34,7 +34,7 @@ Let's take a look at the business requirements we're trying to fulfill here with
 |Ongoing Response|60 min|20 min|120 min|
 |Resolution (Real Days)|7 days|Release Date|Release Date|
 
-The first response and ongoing response are pretty straight forward, as is the resolution milestone for high priority cases.  Where this gets tricky is basing it on a date field on the case.  The standard milestone only takes in minutes.  However, we can use the new milestone trigger time calculator to use Apex to programatically determine the number of minutes for the milestone.
+The first response and ongoing response are pretty straight forward, as is the resolution milestone for high priority cases.  Where this gets tricky is basing it on a date field on the case.  The standard milestone only takes in minutes.  However, we can use the new milestone trigger time calculator to use Apex to programatically determine the number of minutes for the milestone.
 
 # Utility Classes
 
@@ -44,7 +44,7 @@ This set up requires a couple of utility classes to make the code cleaner and ea
 
 This class just holds our text for our priorities.
 
-```java
+```apex
 public class GenericUtils {
     public static String PRIO_HIGH = 'HIGH';
     public static String PRIO_MEDIUM = 'MEDIUM';
@@ -54,9 +54,9 @@ public class GenericUtils {
 
 ## Case Utils
 
-This class gets our case as well as what business hours the milestone is using.  This is pulled from [How Business Hours Work in Entitlement Management](https://help.salesforce.com/articleView?id=entitlements_business_hours.htm&type=0) document.
+This class gets our case as well as what business hours the milestone is using.  This is pulled from [How Business Hours Work in Entitlement Management](https://help.salesforce.com/articleView?id=entitlements_business_hours.htm&type=0) document.
 
-```java
+```apex
 public class CaseUtils {
     /**
      * Fetches a case for a given case id
@@ -123,9 +123,9 @@ public class CaseUtils {
 
 # Entitlement Utils
 
-This class stores our mapping for hours, some static methods for milestone types / business hours and most importantly a method that gets the number of business minutes between the SLA start date and a given date.  This will be used to calculate the number of minutes that we'll have for our resolution milestone
+This class stores our mapping for hours, some static methods for milestone types / business hours and most importantly a method that gets the number of business minutes between the SLA start date and a given date.  This will be used to calculate the number of minutes that we'll have for our resolution milestone
 
-```java
+```apex
 public class EntitlementUtils {
     public static String TYPE_FIRSTRESPONSE = 'FIRST RESPONSE';
     public static String TYPE_ONGOINGRESPONSE = 'ONGOING RESPONSE';
@@ -203,9 +203,9 @@ public class EntitlementUtils {
 
 # Milestone Trigger
 
-Now we get into the meat of the problem.  We have the milestone trigger class.  This class has to implement the `Support.MilestoneTriggerTimeCalculator` to return the number of business minutes required.  I'll be the first to admit that for a proof of concept, the design is a little bit overboard, but it also shows how you can use inheritance in apex to simplify some handlers like this.  Because of this inheritance, our actual acting method `calculateMilestoneTriggerTime` doesn't care what kind of underlying handler there is, it just makes the same calls regardless.
+Now we get into the meat of the problem.  We have the milestone trigger class.  This class has to implement the `Support.MilestoneTriggerTimeCalculator` to return the number of business minutes required.  I'll be the first to admit that for a proof of concept, the design is a little bit overboard, but it also shows how you can use inheritance in apex to simplify some handlers like this.  Because of this inheritance, our actual acting method `calculateMilestoneTriggerTime` doesn't care what kind of underlying handler there is, it just makes the same calls regardless.
 
-```java
+```apex
 global class EntitlementMilestoneCalc implements Support.MilestoneTriggerTimeCalculator {
     private static Integer DEFAULT_TIME = 60;
 
@@ -340,24 +340,24 @@ global class EntitlementMilestoneCalc implements Support.MilestoneTriggerTimeCal
 
 # Entitlement Process
 
-Now that we've gotten the tricky part of the Apex done, let's move on to the tedious part of creating the entitlement process.  However, because of the Apex, we now only have three milestone processes instead of nine. And we can update these without having to make a new version of the entitlement process and update all of the entitlements and cases.
+Now that we've gotten the tricky part of the Apex done, let's move on to the tedious part of creating the entitlement process.  However, because of the Apex, we now only have three milestone processes instead of nine. And we can update these without having to make a new version of the entitlement process and update all of the entitlements and cases.
 
 ![Entitlement Process](/assets/img/2017/04/26/entitlementProcess.png)
 
-The entitlement process is pretty bland.  We just want it to be on the case if it is not closed
+The entitlement process is pretty bland.  We just want it to be on the case if it is not closed
 
 ![First response milestone with milestone trigger class](/assets/img/2017/04/26/firstResponseMilestoneWithMilestoneTriggerClass.png)
 
 ![Ongoing response milestone with milestone trigger class](/assets/img/2017/04/26/ongoingResponseMilestoneWithMilestonTrigger.png)
 
-With the First Response milestone, we can see that we have a criteria of no comments and we point it to our EntitlementMilestoneCalc class.  This is repeated for Ongoing Response as well
+With the First Response milestone, we can see that we have a criteria of no comments and we point it to our EntitlementMilestoneCalc class.  This is repeated for Ongoing Response as well
 
 ![Resolution milestone with milestone trigger class](/assets/img/2017/04/26/resolutionMilestoneWithMilestoneTriggerClass.png)
 
-Now our Resolution milestone has something interesting with it.  We add some additional logic that the priority is High or the Release Date is not null.  We do this to short circuit the process to not show up if a Release Date is not set.  This is because the milestone trigger _**must**_ return an non-zero positive integer.  So if we don't know our time or don't want it to show up, we have to keep the milestone from ever being created via the milestone criteria.  For this milestone we also have a business hour of 24/7 set so that when we use 10080 minutes in our return these are real-world minutes.  This simplifies our date math a bit, but I decided to stick with a more flexible logic in the Apex code to not assume that the business hours were 24/7.
+Now our Resolution milestone has something interesting with it.  We add some additional logic that the priority is High or the Release Date is not null.  We do this to short circuit the process to not show up if a Release Date is not set.  This is because the milestone trigger _**must**_ return an non-zero positive integer.  So if we don't know our time or don't want it to show up, we have to keep the milestone from ever being created via the milestone criteria.  For this milestone we also have a business hour of 24/7 set so that when we use 10080 minutes in our return these are real-world minutes.  This simplifies our date math a bit, but I decided to stick with a more flexible logic in the Apex code to not assume that the business hours were 24/7.
 
-_NOTE: The case status is not needed and was just an oversight on my behalf.  Since the entitlement milestone criteria ensures that the status is not closed, we don't need this._
+_NOTE: The case status is not needed and was just an oversight on my behalf.  Since the entitlement milestone criteria ensures that the status is not closed, we don't need this._
 
 # Conclusion
 
-The milestone trigger class is really neat and I can see how it can be really powerful.  I look forward to trying it out in our production org and seeing if there are any blindspots in this process that I have missed.  I'm interested to see how well it plays with deploying updates to the milestone trigger class when it is in use.  And just as an extra reminder, the milestone trigger method **_must_** return a non-zero positive integer or you will get save-time exceptions.  So make sure that you plan out your defaults correctly and that you try to keep milestones from being created (and therefore running your class) for instances where the milestone shouldn't exist.
+The milestone trigger class is really neat and I can see how it can be really powerful.  I look forward to trying it out in our production org and seeing if there are any blindspots in this process that I have missed.  I'm interested to see how well it plays with deploying updates to the milestone trigger class when it is in use.  And just as an extra reminder, the milestone trigger method **_must_** return a non-zero positive integer or you will get save-time exceptions.  So make sure that you plan out your defaults correctly and that you try to keep milestones from being created (and therefore running your class) for instances where the milestone shouldn't exist.

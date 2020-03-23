@@ -25,13 +25,13 @@ When we started working on the [Apex Lodash](https://github.com/apex-lodash/lo) 
 
 [![Travis CI logo](/assets/img/2015/08/23/travis.png)](/2015/04/22/travis-ci-salesforce/)
 
-In a [previous post](/2015/04/22/travis-ci-salesforce/ "Travis CI and Salesforce") I talked about how to setup [Travis CI](https://travis-ci.org/ "Travis Ci") to deploy your Salesforce code automatically.  We will be updating the Travis CI configuration to push the testing results to coveralls.
+In a [previous post](/2015/04/22/travis-ci-salesforce/ "Travis CI and Salesforce") I talked about how to setup [Travis CI](https://travis-ci.org/ "Travis Ci") to deploy your Salesforce code automatically.  We will be updating the Travis CI configuration to push the testing results to coveralls.
 
 # Coveralls
 
 [![Coveralls logo](/assets/img/2015/08/23/coveralls.png)](https://coveralls.io/)
 
-There don't seem to be too many options around for code coverage display on the Internet.  Coveralls has lots of options for [various coding languages](https://coveralls.zendesk.com/hc/en-us "Built in support") and a pretty nice interface. Like Travis CI, Coveralls is free for open source projects and they do have paid options that supports private repositories.  It does support several [other CI platforms](https://coveralls.io/supported-continuous-integration "Coveralls CI") if you're not using Travis CI.
+There don't seem to be too many options around for code coverage display on the Internet.  Coveralls has lots of options for [various coding languages](https://coveralls.zendesk.com/hc/en-us "Built in support") and a pretty nice interface. Like Travis CI, Coveralls is free for open source projects and they do have paid options that supports private repositories.  It does support several [other CI platforms](https://coveralls.io/supported-continuous-integration "Coveralls CI") if you're not using Travis CI.
 <!--more-->
 
 # Setting It Up
@@ -42,9 +42,9 @@ Connecting to Coveralls is as easy as logging in with your GitHub credentials an
 
 ## Adding the testing scripts
 
-Building on the repo structure from before we add a testing directory under the build / scripts directory.  Under here we'll add the _build/scripts/testing/package.json_ file that will include all of our NodeJS dependencies.
+Building on the repo structure from before we add a testing directory under the build / scripts directory.  Under here we'll add the _build/scripts/testing/package.json_ file that will include all of our NodeJS dependencies.
 
-```javascript
+```apexscript
 {
     "name": "apex-lodash-scripts",
     "version": "0.0.1",
@@ -65,7 +65,7 @@ Building on the repo structure from before we add a testing directory under the 
 
 And now the heavy lifting the _build/scripts/testing/getTestResults.js_ will run our tests, and get the aggregate code coverage and store it in coveralls.
 
-```javascript
+```apexscript
 /*jslint browser: true, regexp: true */
 /*global require, process, console */
 
@@ -320,9 +320,9 @@ Q.fcall(sfdcLogin)
 	});
 ```
 
-##  Adding the build script
+##  Adding the build script
 
-To run the tests we need add a script to have Travis run.  We'll add the _build/scripts/run_tests.sh_ script
+To run the tests we need add a script to have Travis run.  We'll add the _build/scripts/run_tests.sh_ script
 
 ```bash
 #!/bin/bash
@@ -342,9 +342,9 @@ _Don't forget to set the executable flag on the script._
 
 ## Setting up Travis CI
 
-Next we'll add the coveralls environment variable to the Travis CI build.  By clicking Settings ⇨ Settings ⇨ Environment Variables, we can add our variables in the web Travis CI UI.
+Next we'll add the coveralls environment variable to the Travis CI build.  By clicking Settings ⇨ Settings ⇨ Environment Variables, we can add our variables in the web Travis CI UI.
 
-On the right hand side of the Coveralls page there is "Repo Token."  You'll copy that and add it to the COVERALLS\_REPO\_TOKEN in Travis  So make sure that you set the “Display value in build logs” so that your token does show up in the logs.
+On the right hand side of the Coveralls page there is "Repo Token."  You'll copy that and add it to the COVERALLS\_REPO\_TOKEN in Travis  So make sure that you set the “Display value in build logs” so that your token does show up in the logs.
 
 And then we'll add an after\_success script to our _.travis.yml_
 

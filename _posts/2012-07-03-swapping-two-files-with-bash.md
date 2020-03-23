@@ -14,7 +14,7 @@ categories:
 tags:
 - bash
 ---
-One thing I find myself doing a lot is swapping two files in bash. I thought about making this into a bash script then I realized 1) that's over kill and 2) not as portable as I want. So, if you add this to your _.bashrc_ then re-source it, you'll be able to run the command _swap_ to switch two files
+One thing I find myself doing a lot is swapping two files in bash. I thought about making this into a bash script then I realized 1) that's over kill and 2) not as portable as I want. So, if you add this to your _.bashrc_ then re-source it, you'll be able to run the command _swap_ to switch two files
 
 ```bash
 function swap() {

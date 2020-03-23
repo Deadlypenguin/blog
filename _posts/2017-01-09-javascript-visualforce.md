@@ -46,7 +46,7 @@ The first method is great if your page only needs a single resource or you ok wi
 
 _This assumes that your static resource is named “MyAppResouces” and the jquery.min.js file is in a “js” folder._
 
-# Use Endswith Selector in jQuery
+# Use Endswith Selector in jQuery
 
 If you’ve ever looked at the source of a Visualforce page you’ll see lots of long complicated ids for fields. For example if I have the following Visualforce
 
@@ -62,7 +62,7 @@ I can get the following HTML generated
 
 This can lead to problems if you want to run any jQuery against that id. The best way to work around this is to use jQuery’s [ends with selector](https://api.jquery.com/attribute-ends-with-selector/).
 
-```javascript
+```apexscript
 var jq_resDesc = jQuery('textarea[id$="resolutionDescription"]');
 ```
 
@@ -76,10 +76,10 @@ While I typically use the jQuery trick above, sometimes you need to pass the id 
 <apex:outputPanel onclick="jsMethod('{!$Component.thePanel}')" id="thePanel">Text</apex:outputPanel>
 ```
 
-# Use Remote Actions
+# Use Remote Actions
 
 There are lots of way to push and pull data to Salesforce with Javascript. But I would recommend using [Remote Actions](https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_js_remoting_example.htm) whenever possible. The reasoning behind this is that you have the tight binding to the data model that Apex provides as well as the extra assurance provided by Apex testing. By moving most of your logic back into Apex, you don’t have to worry as much about setting up new processes for testing your Javascript.
 
-# Stand on the Shoulders of Giants
+# Stand on the Shoulders of Giants
 
 There are lots of smart people out there and many of them way smarter than me. Whenever possible, try to see if someone has made your life easier. For example, check to see if anyone has made something to make your Javascript life easier. If you’re developing an application in Angular look at [ngForce](https://github.com/noeticpenguin/ngForce). One of my favorites is [jsforce](https://jsforce.github.io/) which provides many easy ways to interact with Salesforce data.

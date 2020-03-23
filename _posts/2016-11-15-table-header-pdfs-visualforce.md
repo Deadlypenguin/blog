@@ -17,7 +17,7 @@ tags:
 - pdf
 - trailhead
 ---
-One of the problems I had with the way that we generated the PDFs in previous Battle Station Invoice [posts](/2016/04/25/field-sets-dynamic-visualforce/) was that the table header wasn't repeated for long lists of supplies or resources that continued on the next page.  There's a simple way to add the table header for PDFs generated in Salesforce using the [flying saucer mark-up](http://salesforce.stackexchange.com/questions/83042/how-to-repeat-html-table-header-thead-for-each-page-rendersas-pdf) but that won't generate the table header correctly for us.  It seems that the `-fs-table-paginate` tag does not play well when combined with a Visualforce component so we'll need to take a bit more of a native CSS approach.
+One of the problems I had with the way that we generated the PDFs in previous Battle Station Invoice [posts](/2016/04/25/field-sets-dynamic-visualforce/) was that the table header wasn't repeated for long lists of supplies or resources that continued on the next page.  There's a simple way to add the table header for PDFs generated in Salesforce using the [flying saucer mark-up](http://salesforce.stackexchange.com/questions/83042/how-to-repeat-html-table-header-thead-for-each-page-rendersas-pdf) but that won't generate the table header correctly for us.  It seems that the `-fs-table-paginate` tag does not play well when combined with a Visualforce component so we'll need to take a bit more of a native CSS approach.
 
 <div class="callout warning">If you are doing this with plain Visualforce and apex:pageBlockTable, the -fs-table-paginate is the way to go.</div>
 
@@ -25,7 +25,7 @@ One of the problems I had with the way that we generated the PDFs in previous Ba
 
 # Updating Table Header in Visualforce
 
-The [current version](/2016/05/09/watermarking-pdfs-visualforce/) of the page does not have the table head separated from the table body.  So the first thing we'll need to do is to add that.
+The [current version](/2016/05/09/watermarking-pdfs-visualforce/) of the page does not have the table head separated from the table body.  So the first thing we'll need to do is to add that.
 
 ```xml
 <div class="sectionHeader">{!$ObjectType.Resource__c.labelPlural}</div>
@@ -71,7 +71,7 @@ The [current version](/2016/05/09/watermarking-pdfs-visualforce/) of the page do
 
 ## Make it prettier
 
-Now that we've got our thead and tbody delineation, we can now add our style.  To do this we'll simply modify the `@page` annotation in our CSS to tell it to repeat the header on every new page.
+Now that we've got our thead and tbody delineation, we can now add our style.  To do this we'll simply modify the `@page` annotation in our CSS to tell it to repeat the header on every new page.
 
 ```css
 @page {

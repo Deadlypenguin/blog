@@ -17,11 +17,11 @@ tags:
 - apex
 - jira
 ---
-I was recently challenged with the task of sending an attachment from Salesforce to [Jira](https://www.atlassian.com/software/jira).  Looking over [the documentation](https://confluence.atlassian.com/display/JIRAKB/How+to+attach+an+attachment+in+a+JIRA+issue+using+REST+API), this doesn't appear to be too hard.  The toughest part is that Jira wants a multi-part form upload for the attachments and this can be a bit of a headache to do in Apex.  Following [this post](http://blog.enree.co/2013/01/salesforce-apex-post-mutipartform-data.html) as a guide for multi-part form upload, we can adapt it to the format that Jira expects.
+I was recently challenged with the task of sending an attachment from Salesforce to [Jira](https://www.atlassian.com/software/jira).  Looking over [the documentation](https://confluence.atlassian.com/display/JIRAKB/How+to+attach+an+attachment+in+a+JIRA+issue+using+REST+API), this doesn't appear to be too hard.  The toughest part is that Jira wants a multi-part form upload for the attachments and this can be a bit of a headache to do in Apex.  Following [this post](http://blog.enree.co/2013/01/salesforce-apex-post-mutipartform-data.html) as a guide for multi-part form upload, we can adapt it to the format that Jira expects.
 
 <!--more-->
 
-```java
+```apex
 String username = 'admin';
 String password = 'password';
 String jira_host = 'https://host.atlassian.net';
@@ -82,11 +82,11 @@ Http h = new Http();
 HTTPResponse res = h.send(req);
 ```
 
-Most of the code above is pretty standard fair for multi-part upload.  The parts that we really care about for the Jira upload are as follows:
+Most of the code above is pretty standard fair for multi-part upload.  The parts that we really care about for the Jira upload are as follows:
 
 * Line 3: Our externally facing Jira hostname
 * Line 4: The issue we are adding the attachment to
-* Line 5: The attachment we are adding (in this example, I just selected a random attachment.  In real life, you'd want to make this a little more precise)
+* Line 5: The attachment we are adding (in this example, I just selected a random attachment.  In real life, you'd want to make this a little more precise)
 * Line 12: The url that we need to POST to
 * Line 50: Tell Jira that we do not need to check the Atlassian Token
 

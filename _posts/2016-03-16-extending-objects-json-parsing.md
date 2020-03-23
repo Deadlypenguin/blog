@@ -18,15 +18,15 @@ tags:
 - json
 ---
 
-In a previous post, I talked about how to pull [Runkeeper data into Salesforce](http://blog.deadlypenguin.com/blog/2016/03/01/runkeeper-data-in-salesforce/).  The key portion of this revolved around [JSON parsing](http://blog.deadlypenguin.com/blog/2015/11/30/json-deserialization-in-salesforce/) of the data into Apex classes.  In this post I'll talk about how to use Object Oriented structures to extend the classes previously written to support additional data.
+In a previous post, I talked about how to pull [Runkeeper data into Salesforce](http://blog.deadlypenguin.com/blog/2016/03/01/runkeeper-data-in-salesforce/).  The key portion of this revolved around [JSON parsing](http://blog.deadlypenguin.com/blog/2015/11/30/json-deserialization-in-salesforce/) of the data into Apex classes.  In this post I'll talk about how to use Object Oriented structures to extend the classes previously written to support additional data.
 
 <!--more-->
 
 # Recap
 
-In the previous post, we created the Activity class.  This class is an abbreviated version of the data that Runkeeper stores.  The abbreviated data is great for listing several activities at once where you do not need all of the data such as the path.
+In the previous post, we created the Activity class.  This class is an abbreviated version of the data that Runkeeper stores.  The abbreviated data is great for listing several activities at once where you do not need all of the data such as the path.
 
-```java
+```apex
 /** The information about an activity */
 public virtual class Activity {
 	/** The start time */
@@ -83,7 +83,7 @@ public virtual class Activity {
 
 To support a full activity, we need to include a new class that will contain our GPS data
 
-```java
+```apex
 /** A point along a path */
 public class PathPoint {
 	/** The unix timestamp for the point */
@@ -103,9 +103,9 @@ public class PathPoint {
 }
 ```
 
-Now once we pull in a single activity, there is additional information we'll want to handle and we don't want to have to have the same fields represented in our utility class twice.  If we were to define our FullActivity class with all the available fields in the resultant JSON data, we would have all of the fields in the Activity class.  Using the Object Oriented design that Apex (and most other languages) offer, we can reduce duplicate code.
+Now once we pull in a single activity, there is additional information we'll want to handle and we don't want to have to have the same fields represented in our utility class twice.  If we were to define our FullActivity class with all the available fields in the resultant JSON data, we would have all of the fields in the Activity class.  Using the Object Oriented design that Apex (and most other languages) offer, we can reduce duplicate code.
 
-```java
+```apex
 /** A full activity */
 public class FullActivity extends Activity {
 	/** The activity URL */
@@ -137,13 +137,13 @@ public class FullActivity extends Activity {
 }
 ```
 
-For those not familiar with this Object Oriented concept, we are defining our Activity class as virtual to allow it to be extended.  Then having our FullActivity class extend the Activity class.  This allows the FullActivity class to have access to all of the variables and methods of the Activity class, as well as add it's own variables and methods.
+For those not familiar with this Object Oriented concept, we are defining our Activity class as virtual to allow it to be extended.  Then having our FullActivity class extend the Activity class.  This allows the FullActivity class to have access to all of the variables and methods of the Activity class, as well as add it's own variables and methods.
 
 # Usage
 
 The usage for this class is the same as it was for the smaller activiy
 
-```java
+```apex
 /**
 * Gets a full activity for a given uri
 *
@@ -157,6 +157,6 @@ public static FullActivity getActivity(String access_token, String uri) {
 }
 ```
 
-Here we can see that we deserialize the resultant data into an instance of the FullActivity class.  Then we can use this just like we would any other class.  We also can refer to any Activity fields such as total\_distance or call the getStart\_time() method.
+Here we can see that we deserialize the resultant data into an instance of the FullActivity class.  Then we can use this just like we would any other class.  We also can refer to any Activity fields such as total\_distance or call the getStart\_time() method.
 
-To see the updated and most recent code, check it out on [GitHub](https://github.com/pcon/SalesforceApps/tree/master/runkeeper).  Also, if you want to see how the sausage is made, watch [this recorded stream](https://www.livecoding.tv/pcon/videos/QDXrj-runkeeper-integration-with-salesforce) to see me work through the content for this post live.
+To see the updated and most recent code, check it out on [GitHub](https://github.com/pcon/SalesforceApps/tree/master/runkeeper).  Also, if you want to see how the sausage is made, watch [this recorded stream](https://www.livecoding.tv/pcon/videos/QDXrj-runkeeper-integration-with-salesforce) to see me work through the content for this post live.

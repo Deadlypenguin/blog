@@ -14,7 +14,7 @@ categories:
 tags:
 - boxee
 ---
-First,  I know I'm going to hell for using Ubuntu.  But, I'm too lazy to compile xbmc and boxee on Fedora.  So, now that it's out of the way.  Here's the step-by-step:
+First,  I know I'm going to hell for using Ubuntu.  But, I'm too lazy to compile xbmc and boxee on Fedora.  So, now that it's out of the way.  Here's the step-by-step:
 
 1. Install Ubuntu 10.4
 2. Add the extra boxee repo based on the instructions on boxee.tv

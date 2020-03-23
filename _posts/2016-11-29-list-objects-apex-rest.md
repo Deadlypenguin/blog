@@ -16,11 +16,11 @@ tags:
 - apex
 - rest
 ---
-A while ago, someone posted on the developer boards a question about how to bulk create tasks for contacts via REST.  I thought it was an interesting enough problem to cover how to do it and how to format the data correctly to use it.
+A while ago, someone posted on the developer boards a question about how to bulk create tasks for contacts via REST.  I thought it was an interesting enough problem to cover how to do it and how to format the data correctly to use it.
 
 # Prerequisite
 
-Before we can bulk create tasks for a contact, we need to know how to identify those contacts.  To do this, I create an unique external Id field called _External\_Id\_\_c_.  As long as your contacts are uniquely identifiable then it doesn't matter what field you use.  For this example I have two contacts under different accounts "Andy Young" with an external Id of "ayoung" and "Edna Frank" with an external Id of "efrank"
+Before we can bulk create tasks for a contact, we need to know how to identify those contacts.  To do this, I create an unique external Id field called _External\_Id\_\_c_.  As long as your contacts are uniquely identifiable then it doesn't matter what field you use.  For this example I have two contacts under different accounts "Andy Young" with an external Id of "ayoung" and "Edna Frank" with an external Id of "efrank"
 
 <!--more-->
 
@@ -30,7 +30,7 @@ Now that our backing data has been updated let's look at our endpoint and break 
 
 ## Incoming Data Structure
 
-```java
+```apex
 global class TaskWrapper {
     public String subject;
     public String priority;
@@ -57,13 +57,13 @@ global class TaskWrapper {
 }
 ```
 
-This wrapper class contains all the data we need to create our task.  The helper method _getTask_ will generate a new task object that we can insert in our body.
+This wrapper class contains all the data we need to create our task.  The helper method _getTask_ will generate a new task object that we can insert in our body.
 
-<div class="callout warning">This is not the most optimal way to do this since you will be doing SOQL inside a loop.  This is just a quick example.  The optimal way would be to move the contact fetching outside the loop before task creation and use that to lookup the external Id to get the contact.</div>
+<div class="callout warning">This is not the most optimal way to do this since you will be doing SOQL inside a loop.  This is just a quick example.  The optimal way would be to move the contact fetching outside the loop before task creation and use that to lookup the external Id to get the contact.</div>
 
 ## The POST Method
 
-```java
+```apex
 @HttpPost
 global static List<Id> doPost(List<TaskWrapper> tasks) {
     List<Task> tasksToInsert = new List<Task>();
@@ -79,11 +79,11 @@ global static List<Id> doPost(List<TaskWrapper> tasks) {
 }
 ```
 
-This method iterates through all of our inbound tasks, adds them to the list and inserts them.  Again, this isn't the way I would release it to production but it show how it can be done.  The entire class be seen [here](https://github.com/pcon/SalesforceApps/blob/master/bulktask/TaskInsertWebServices.cls).
+This method iterates through all of our inbound tasks, adds them to the list and inserts them.  Again, this isn't the way I would release it to production but it show how it can be done.  The entire class be seen [here](https://github.com/pcon/SalesforceApps/blob/master/bulktask/TaskInsertWebServices.cls).
 
 # JSON Data
 
-Now that we have our endpoint, we need to throw some data at it.  The data structure will start with a base element of "tasks" since that's what the variable name is to our _doPost_ method.  Since it's a list, the "tasks" element will be an array.  Then each entry in that array is going to a TaskWrapper with all of it's elements
+Now that we have our endpoint, we need to throw some data at it.  The data structure will start with a base element of "tasks" since that's what the variable name is to our _doPost_ method.  Since it's a list, the "tasks" element will be an array.  Then each entry in that array is going to a TaskWrapper with all of it's elements
 
 ```json
 {

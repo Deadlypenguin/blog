@@ -18,11 +18,11 @@ tags:
 - soapui
 - webservice
 ---
-In a [previous post](/2012/02/03/salesforce-and-soapui/ "Salesforce and soapUI – Testing WebServices directly") I discussed how to test Salesforce webservices with [soapUI](http://www.soapui.org/).  In this post I will show how to use the "default" methods inside the enterprise WSDL.
+In a [previous post](/2012/02/03/salesforce-and-soapui/ "Salesforce and soapUI – Testing WebServices directly") I discussed how to test Salesforce webservices with [soapUI](http://www.soapui.org/).  In this post I will show how to use the "default" methods inside the enterprise WSDL.
 
 ## Logging In
 
-First we need to login to Salesforce and get our session Id.  Under the SoapBinding list, expand _login_ and choose _Show Request Editor_.  After opening the request editor we need to remove the extra headers we don’t need, and fill in our username and password.
+First we need to login to Salesforce and get our session Id.  Under the SoapBinding list, expand _login_ and choose _Show Request Editor_.  After opening the request editor we need to remove the extra headers we don’t need, and fill in our username and password.
 
 ![Logging In](/assets/img/2012/04/13/login_request.png)
 
@@ -44,7 +44,7 @@ If we create a new query request and remove the unneeded headers and insert our 
 
 > UNKNOWN_EXCEPTION: Destination URL not reset. The URL returned from login must be set in the SforceService
 
-To fix this issue we need to add a new end point to our SOAP request.  Using the server Url obtained during login we can add it to our request
+To fix this issue we need to add a new end point to our SOAP request.  Using the server Url obtained during login we can add it to our request
 
 ![New end point](/assets/img/2012/04/13/new_endpoint.png)
 
@@ -54,4 +54,4 @@ And now we can rerun our new request with the correct endpoint
 
 ## Conclusion
 
-Unlike custom webservices which include the Salesforce endpoint as part of the WSDL the standard Salesforce enterprise WSDL only has the test or login url included.  Because of this, we need to use the returned server url to set our end point.
+Unlike custom webservices which include the Salesforce endpoint as part of the WSDL the standard Salesforce enterprise WSDL only has the test or login url included.  Because of this, we need to use the returned server url to set our end point.

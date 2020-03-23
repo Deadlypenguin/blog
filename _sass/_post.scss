@@ -1,3 +1,5 @@
+@import "colors";
+
 #post_navigation_pre {
     /* stylelint-disable-next-line unit-whitelist */
     margin-bottom: 20px;
@@ -6,17 +8,17 @@
 #post_navigation_post {
     /* stylelint-disable-next-line unit-whitelist */
     margin-top: 20px;
-    
+
     /* stylelint-disable-next-line unit-whitelist */
     margin-bottom: 50px;
 }
 
 .post_nav {
-    color: #8a8a8a;
+    color: $postNavColor;
     font-size: .9rem;
 
     a {
-        color: #8a8a8a;
+        color: $postNavColor;
     }
 }
 

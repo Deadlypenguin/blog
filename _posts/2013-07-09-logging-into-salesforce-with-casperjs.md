@@ -21,13 +21,13 @@ tags:
 ---
 # Preface
 
-Anyone that has ever had to deal with editing multiple Entitlement Processes in Salesforce will know the pain of having to do this in multiple environments and making sure you don't fat finger this manual process. In the past when I've had to do this, I've either sucked it up and did it manually, or did it with [Selenium](http://docs.seleniumhq.org/). I wasn't a big fan of either of these solutions since I'm a command-line kinda guy.  That's when I was told about [CasperJs](http://casperjs.org/index.html) and I think I'm in love.
+Anyone that has ever had to deal with editing multiple Entitlement Processes in Salesforce will know the pain of having to do this in multiple environments and making sure you don't fat finger this manual process. In the past when I've had to do this, I've either sucked it up and did it manually, or did it with [Selenium](http://docs.seleniumhq.org/). I wasn't a big fan of either of these solutions since I'm a command-line kinda guy.  That's when I was told about [CasperJs](http://casperjs.org/index.html) and I think I'm in love.
 
 # CasperJs
 
-[CasperJs](http://casperjs.org/index.html) is a framework built on top of [PhantomJs](http://phantomjs.org/), and allows you to write JavaScript to web automation.  Like with all Salesforce tasks, logging in is the first thing you need to do.  Let's take a look at the _sfdclogin.casper.js_.
+[CasperJs](http://casperjs.org/index.html) is a framework built on top of [PhantomJs](http://phantomjs.org/), and allows you to write JavaScript to web automation.  Like with all Salesforce tasks, logging in is the first thing you need to do.  Let's take a look at the _sfdclogin.casper.js_.
 
-```javascript
+```apexscript
 /*jslint browser: true, regexp: true */
 /*global casper, require */
 
@@ -90,4 +90,4 @@ To run this class we simply do
 casperjs sfdclogin.casper.js --username=USERNAME --password=PASSWORD [--prod]
 ```
 
-This JavaScript is pretty simple, but it gives us a base to build on top of. We first setup our CasperJs instance with our screen size, the verbosity and the log level. Then we get our parameters from the command-line for username and password, this allows us to not store these inside the js file.  We then fill in the login form and submit it. Now we're ready to do some actual work.  In the above js file, all we are doing is taking a simple screenshot of the page, but we could do any number of things from the CaseperJs [documentation](http://casperjs.org/api.html#intro).
+This JavaScript is pretty simple, but it gives us a base to build on top of. We first setup our CasperJs instance with our screen size, the verbosity and the log level. Then we get our parameters from the command-line for username and password, this allows us to not store these inside the js file.  We then fill in the login form and submit it. Now we're ready to do some actual work.  In the above js file, all we are doing is taking a simple screenshot of the page, but we could do any number of things from the CaseperJs [documentation](http://casperjs.org/api.html#intro).

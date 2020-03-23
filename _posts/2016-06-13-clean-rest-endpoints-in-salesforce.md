@@ -16,11 +16,11 @@ tags:
 - rest
 - webservice
 ---
-One of the things I love working on are webservices.  However, one of the things I dislike about using SOAP is that using the endpoint isn't as nice as it could be.  This is something that has been addressed by how REST endpoints are interacted with.  By writing clean REST endpoints, your users can easily understand what is going on under the hood
+One of the things I love working on are webservices.  However, one of the things I dislike about using SOAP is that using the endpoint isn't as nice as it could be.  This is something that has been addressed by how REST endpoints are interacted with.  By writing clean REST endpoints, your users can easily understand what is going on under the hood
 
 # Clean REST Endpoints
 
-What do I mean by clean REST endpoints?  Let's take a look at two possible URIs and see which ones are cleaner and easier to understand.  For the examples below, we are going to have two URIs, one to get a case by case number, and one to get it's comments
+What do I mean by clean REST endpoints?  Let's take a look at two possible URIs and see which ones are cleaner and easier to understand.  For the examples below, we are going to have two URIs, one to get a case by case number, and one to get it's comments
 
 ```bash
 #Get case using url parameter
@@ -36,7 +36,7 @@ curl "$SFDC_URL/services/apexrest/v1/cases/012345"
 curl "$SFDC_URL/services/apexrest/v1/cases/012345/comments"
 ```
 
-While the parameters are perfectly acceptable, they are not pretty.  Also, it is difficult as a programmer to know if the param you have add to the URI is _number_, or _casenumber_ or what.  So instead if we have clean REST endpoints, we have the case number as part of the URI and it is just more logical as to knowing how to get a specific case.
+While the parameters are perfectly acceptable, they are not pretty.  Also, it is difficult as a programmer to know if the param you have add to the URI is _number_, or _casenumber_ or what.  So instead if we have clean REST endpoints, we have the case number as part of the URI and it is just more logical as to knowing how to get a specific case.
 
 <!--more-->
 
@@ -48,7 +48,7 @@ So, let's take a look at how to model this in our Apex code.
 
 To make this scale, we need to write some utility methods for parsing the data URI.
 
-```java
+```apex
 public class GenericUtils {
     public static final String MSG_GROUP_KEY_MISMATCH = 'The number of groups and the number of keys do not match';
 
@@ -90,15 +90,15 @@ public class GenericUtils {
 }
 ```
 
-What this method does is to fake named group matching inside of Apex.  This allows us to pass in our search string, our regex and a list of group names and get a map of group names to results.  Since I prefer to do samurai coding<sup>*</sup>, we'll thrown an exception instead of returning null.  This means that our other code just has to catch the exception, not do lots of if / else statements for null checks.
+What this method does is to fake named group matching inside of Apex.  This allows us to pass in our search string, our regex and a list of group names and get a map of group names to results.  Since I prefer to do samurai coding<sup>*</sup>, we'll thrown an exception instead of returning null.  This means that our other code just has to catch the exception, not do lots of if / else statements for null checks.
 
-<sup>*</sup>Samurai coding is to return successful or don't return at all.  So in other words, don't return null unless that's a successful state.
+<sup>*</sup>Samurai coding is to return successful or don't return at all.  So in other words, don't return null unless that's a successful state.
 
 ## RESTUtils
 
 Now, let's write some utility methods to help us with our REST endpoints.
 
-```java
+```apex
 public class RESTUtils {
     public static Integer STATUS_OK = 200;
     public static Integer STATUS_BAD = 400;
@@ -162,15 +162,15 @@ public class RESTUtils {
 }
 ```
 
-Two of these methods _getRestResponse_ and _getSuccessResponse_ help us by setting the appropriate status codes and adding message headers based on if our call was successful.  We are putting the message in the header here because it's the same way that failures are handled when you do a GET against an unknown endpoint in Salesforce.
+Two of these methods _getRestResponse_ and _getSuccessResponse_ help us by setting the appropriate status codes and adding message headers based on if our call was successful.  We are putting the message in the header here because it's the same way that failures are handled when you do a GET against an unknown endpoint in Salesforce.
 
-The last _getRestResponse_ handles our exceptions.  This makes our actual endpoint code much easier to navigate.
+The last _getRestResponse_ handles our exceptions.  This makes our actual endpoint code much easier to navigate.
 
 ## REST\_Case\_v1
 
 We'll start off with a pretty basic [REST endpoint](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_rest_code_sample_basic.htm).
 
-```java
+```apex
 @RestResource(urlMapping = '/v1/cases/\\d+/')
 global class REST_Case_v1 {
   /** The case number identifier */
@@ -219,11 +219,11 @@ global class REST_Case_v1 {
 }
 ```
 
-We can see here that the _urlMapping_ uses a regular expression to get the case number from the URL.  On line 7 we have a string that is our url format (again a regular expression) that we'll pass to our GenericUtils method to do our fake group matching.  From this we'll pull out the case number and query the case.  In the real world, we'd want to make this a utility method and pass in the value from the map.  If the case does not exist then we'll throw our _UnknownException_ that will cause our status code to be set to 404.
+We can see here that the _urlMapping_ uses a regular expression to get the case number from the URL.  On line 7 we have a string that is our url format (again a regular expression) that we'll pass to our GenericUtils method to do our fake group matching.  From this we'll pull out the case number and query the case.  In the real world, we'd want to make this a utility method and pass in the value from the map.  If the case does not exist then we'll throw our _UnknownException_ that will cause our status code to be set to 404.
 
 ## REST\_Case\_Comment_v1
 
-```java
+```apex
 @RestResource(urlMapping = '/v1/cases/\\d+/comments')
 global class REST_Case_Comment_v1 {
   /** The case number identifier */
@@ -279,13 +279,13 @@ global class REST_Case_Comment_v1 {
 }
 ```
 
-Same as our case API, we parse the case number in order to get the case Id for our comment query.  Again, in the real world we would have these calls in utility methods.
+Same as our case API, we parse the case number in order to get the case Id for our comment query.  Again, in the real world we would have these calls in utility methods.
 
 # Testing
 
-Now testing REST endpoints is a completely different topic.  But let's look at how we setup our REST contexts to do this type of clean REST endpoint.
+Now testing REST endpoints is a completely different topic.  But let's look at how we setup our REST contexts to do this type of clean REST endpoint.
 
-```java
+```apex
 RestRequest req = new RestRequest();
 req.requestURI = '/v1/cases/' + testCase.CaseNumber + '/comments';
 RestResponse res = new RestResponse();
@@ -294,4 +294,4 @@ RestContext.request = req;
 RestContext.response = res;
 ```
 
-so we'll simply set the _requestURI_ and then when we set the global _RestContext_ value we can read it from that variable.
+so we'll simply set the _requestURI_ and then when we set the global _RestContext_ value we can read it from that variable.

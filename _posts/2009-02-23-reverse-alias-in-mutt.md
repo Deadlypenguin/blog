@@ -14,13 +14,13 @@ categories:
 tags:
 - mutt
 ---
-A need has arisen here recently for me to need to "change" the headers on an email, so I can tell two people at work apart.  Both have their name in the email header the same.  Let's call them "John Doe."  So in order to tell them apart, I've added a reverse alias rule to mutt to handle this.  First enable the use of them by using
+A need has arisen here recently for me to need to "change" the headers on an email, so I can tell two people at work apart.  Both have their name in the email header the same.  Let's call them "John Doe."  So in order to tell them apart, I've added a reverse alias rule to mutt to handle this.  First enable the use of them by using
 
 ```
 set reverse_alias
 ```
 
-Then set up the alias.  This can be added to your alias file, or straight into your _.muttrc_
+Then set up the alias.  This can be added to your alias file, or straight into your _.muttrc_
 
 ```
 alias fake_john john_doe2@example.com (Fake John Doe)

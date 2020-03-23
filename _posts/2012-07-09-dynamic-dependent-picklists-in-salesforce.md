@@ -18,11 +18,11 @@ tags:
 - apex
 - visualforce
 ---
-One thing that comes up a lot in the in the #salesforce IRC channel is doing dynamic Visual Force driven off of picklists.  So, let's buckle up and get to it.
+One thing that comes up a lot in the in the #salesforce IRC channel is doing dynamic Visual Force driven off of picklists.  So, let's buckle up and get to it.
 
 ## Data Model
 
-In this simple example we are going to make an extension to the case page.  On this page we are going to us a custom Product/Version object to display on the page.  The product list well be determined on the start/end date of the product.  And the version will be driven by the currently selected product. **Product**
+In this simple example we are going to make an extension to the case page.  On this page we are going to us a custom Product/Version object to display on the page.  The product list well be determined on the start/end date of the product.  And the version will be driven by the currently selected product. **Product**
 
 * Name &#8211; The name of the product
 * Currently\_Supported\_\_c &#8211; Formula based on StartDate\_\_c and EndDate__c (Integer version of a boolean)
@@ -39,7 +39,7 @@ In this simple example we are going to make an extension to the case page.  On 
 
 ## Apex Controller
 
-```java
+```apex
 public with sharing class ProductUtils {
     static public List<Product__c> getAllProducts(Boolean includeEOL) {
         //This is done since the formula field cannot return a boolean
@@ -78,7 +78,7 @@ public with sharing class ProductUtils {
 
 These methods are simple util methods to get product information and version information
 
-```java
+```apex
 global with sharing class CaseEdit_ControllerExtension {
     private final Id recordId;
     private final Case record;
@@ -149,7 +149,7 @@ global with sharing class CaseEdit_ControllerExtension {
 }
 ```
 
-The controller has the getters and setters for the product and version.  But most importantly the getters for productList and versionList.  The versionList is triggered off the record's product.  The other part of this is that for whatever reason (I couldn't find a good one) is the getRecord does not include the changes made to the Product\_\_c and Version\_\_c field, so you'll need to set them by hand in the _doSave_ method.
+The controller has the getters and setters for the product and version.  But most importantly the getters for productList and versionList.  The versionList is triggered off the record's product.  The other part of this is that for whatever reason (I couldn't find a good one) is the getRecord does not include the changes made to the Product\_\_c and Version\_\_c field, so you'll need to set them by hand in the _doSave_ method.
 
 One thing to note is since this is all done in the controller extension and since get and set use the Id, the select list will have the correct thing set when editing an existing record.
 
@@ -188,7 +188,7 @@ One thing to note is since this is all done in the controller extension and sinc
 </apex:page>
 ```
 
-The key parts of this is that the _actionRegion_ surrounds both the item changing (product) and the dependent item (version).  If you had a third picklist you wanted to trigger on you could add another _actionSupport_ item and tell it to rerender that third list.
+The key parts of this is that the _actionRegion_ surrounds both the item changing (product) and the dependent item (version).  If you had a third picklist you wanted to trigger on you could add another _actionSupport_ item and tell it to rerender that third list.
 
 ## Conclusion
 

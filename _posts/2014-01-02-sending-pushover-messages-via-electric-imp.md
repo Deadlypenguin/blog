@@ -16,7 +16,7 @@ tags:
 - hardware
 - squirrel
 ---
-I recently got an Electric Imp [april board](https://www.sparkfun.com/products/11400) and [developer card](https://www.sparkfun.com/products/11395).  I'm really digging it and am planning on making a monitoring solution for my garage (including doors and freezer temps).  In addition to reporting the data back via the agent, I wanted to add the ability to send a [pushover](https://pushover.net/) notification to my phone on events.  I wrote a quick method to do this, and thought it might be useful to others.
+I recently got an Electric Imp [april board](https://www.sparkfun.com/products/11400) and [developer card](https://www.sparkfun.com/products/11395).  I'm really digging it and am planning on making a monitoring solution for my garage (including doors and freezer temps).  In addition to reporting the data back via the agent, I wanted to add the ability to send a [pushover](https://pushover.net/) notification to my phone on events.  I wrote a quick method to do this, and thought it might be useful to others.
 
 ```
 //Agent code

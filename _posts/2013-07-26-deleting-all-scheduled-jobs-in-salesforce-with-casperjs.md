@@ -17,18 +17,18 @@ tags:
 ---
 # PREFACE
 
-In a [previous post](/2013/07/09/logging-into-salesforce-with-casperjs/ "Logging into Salesforce with CasperJs"), I talked about how to log in to Salesforce with [CasperJs](http://casperjs.org/index.html).  At the time I did not have a good example of what to do next with it.  Well, this week I had a need that is something that other people can relate to.
+In a [previous post](/2013/07/09/logging-into-salesforce-with-casperjs/ "Logging into Salesforce with CasperJs"), I talked about how to log in to Salesforce with [CasperJs](http://casperjs.org/index.html).  At the time I did not have a good example of what to do next with it.  Well, this week I had a need that is something that other people can relate to.
 
 # Casper Script
 
-If you've ever done any [Scheduled Apex](/2012/05/26/scheduled-actions-in-salesforce-with-apex/ "Scheduled actions in Salesforce with Apex") work, then you know that if there are scheduled jobs for the class and you do a deployment, the deployment fails.  To help negate this with automated installs I wrote the following CasperJs script does the following:
+If you've ever done any [Scheduled Apex](/2012/05/26/scheduled-actions-in-salesforce-with-apex/ "Scheduled actions in Salesforce with Apex") work, then you know that if there are scheduled jobs for the class and you do a deployment, the deployment fails.  To help negate this with automated installs I wrote the following CasperJs script does the following:
 
 1. Logs into Salesforce
 2. Navigates to the scheduled jobs page
 3. Gathers all the delete links for the jobs
 4. Deletes them
 
-```javascript
+```apexscript
 /*jslint browser: true, regexp: true */
 /*global casper, require, jQuery*/
 

@@ -1,5 +1,15 @@
 @import "colors";
 
+.navbar-start {
+    flex-grow: 1;
+    justify-content: center;
+    text-align: center;
+}
+
+a {
+    color: $siteMainDark;
+}
+
 .content {
     h1 {
         /* stylelint-disable-next-line unit-whitelist */
@@ -20,31 +30,12 @@ header {
     margin-bottom: 1.5em;
 }
 
-.grid-container {
-    .footer {
-        font-size: .9rem;
-
-        a {
-            color: #8a8a8a;
-            text-decoration: underline;
-        }
-    }
-}
-
 body {
     background-color: $siteMain;
 }
 
 #site_wrapper {
-    background-color: #fff;
-}
-
-#about {
-    color: #8a8a8a;
-
-    p {
-        font-size: .8rem;
-    }
+    background-color: $siteBackground;
 }
 
 .entry_info {

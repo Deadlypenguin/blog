@@ -18,15 +18,15 @@ tags:
 - apex
 - salesforce
 ---
-I previously did [a post](/2016/02/09/jira-attaching-a-file-in-salesforce/) on writing Jira Attachments from Salesforce, and the question has come up of how to write Jira Attachments into Salesforce.  This is actually WAAAAY easier than it was to write attachments out.  The way that the data is structured from the Jira, we can get a list of all the attachments and the link to it's content directly from the Jira GET request.  This makes for way fewer calls to get the actual content of the attachment.
+I previously did [a post](/2016/02/09/jira-attaching-a-file-in-salesforce/) on writing Jira Attachments from Salesforce, and the question has come up of how to write Jira Attachments into Salesforce.  This is actually WAAAAY easier than it was to write attachments out.  The way that the data is structured from the Jira, we can get a list of all the attachments and the link to it's content directly from the Jira GET request.  This makes for way fewer calls to get the actual content of the attachment.
 
 <!--more-->
 
 # Writing Jira Attachments to an object
 
-In the code below, we'll hit a publicly available Jira, get a list of the Jira attachments and then download that data into a Salesforce Attachment.  With this code, we are only getting the first attachment, but this could easily be modified to iterate over each of the Jira attachments and write them out to the parent.  For the use of this example, we'll be hard-coding the parent Id and will not be using authentication.  If you have to use authentication, you can either use the same basic auth from the [previous post](/2016/02/09/jira-attaching-a-file-in-salesforce/), or you can look at [Named Credentials](https://help.salesforce.com/articleView?id=named_credentials_about.htm&type=0) to do this.  Also, I make use of [JSON deserialization](/2015/11/30/json-deserialization-in-salesforce/) here.  Because the Jira contains way more information than I care about, this is a non-strict deserialization and only has the bare minimum data required.
+In the code below, we'll hit a publicly available Jira, get a list of the Jira attachments and then download that data into a Salesforce Attachment.  With this code, we are only getting the first attachment, but this could easily be modified to iterate over each of the Jira attachments and write them out to the parent.  For the use of this example, we'll be hard-coding the parent Id and will not be using authentication.  If you have to use authentication, you can either use the same basic auth from the [previous post](/2016/02/09/jira-attaching-a-file-in-salesforce/), or you can look at [Named Credentials](https://help.salesforce.com/articleView?id=named_credentials_about.htm&type=0) to do this.  Also, I make use of [JSON deserialization](/2015/11/30/json-deserialization-in-salesforce/) here.  Because the Jira contains way more information than I care about, this is a non-strict deserialization and only has the bare minimum data required.
 
-```java
+```apex
 Id parentId = 'xxxxxxxx';
 String jira_host = 'https://jira.atlassian.com';
 String issue = 'JRASERVER-65408';

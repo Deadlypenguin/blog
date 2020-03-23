@@ -14,7 +14,7 @@ tags:
 ---
 <div class="notification is-warning is-light">This article has been <a href="/2009/02/02/perpetual-screen-part-deux/">updated</a></div>
 
-So, I've been tossing around the idea for the past while to make is so that screen starts up every time I ssh into my box at the house.  Well, I finally broke down and did it, and it wasn't that bad at all.  I've named my screen session _main_ you can call it whatever you want.  Just add the following to the **end** or your `.bashrc` If you don't put it at the end, you the rest of your `.bashrc` won't get evaluated.
+So, I've been tossing around the idea for the past while to make is so that screen starts up every time I ssh into my box at the house.  Well, I finally broke down and did it, and it wasn't that bad at all.  I've named my screen session _main_ you can call it whatever you want.  Just add the following to the **end** or your `.bashrc` If you don't put it at the end, you the rest of your `.bashrc` won't get evaluated.
 
 ```bash
 if [ $TERM == "screen" ]

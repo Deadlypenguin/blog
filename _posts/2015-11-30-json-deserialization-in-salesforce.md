@@ -19,13 +19,13 @@ tags:
 - apex
 - json
 ---
-I have been several posts recently on the [Developer Boards](https://developer.salesforce.com/forums/) around JSON deserialization and some weird and convoluted ways to convert it into something that is useful for Salesforce.  Let's talk about what I have found is the cleanest way to handle JSON deserialization.
+I have been several posts recently on the [Developer Boards](https://developer.salesforce.com/forums/) around JSON deserialization and some weird and convoluted ways to convert it into something that is useful for Salesforce.  Let's talk about what I have found is the cleanest way to handle JSON deserialization.
 
 # JSON Payload
 
-Let's take a look at our JSON payload.  I am taking the payload from the docsample Heroku app since it's an easy way to get consistent data from a webservice.
+Let's take a look at our JSON payload.  I am taking the payload from the docsample Heroku app since it's an easy way to get consistent data from a webservice.
 
-```javascript
+```apexscript
 {
   "invoiceList": [
     {
@@ -81,7 +81,7 @@ So we can see here that the data provided is an invoice list and each invoice co
 
 Now we need to create a data structure to hold our the JSON we deserialize
 
-```java
+```apex
 public class InvoiceWrapper {
     public class LineItem {
         public Double unitPrice {get; set;}
@@ -105,13 +105,13 @@ public class InvoiceWrapper {
 }
 ```
 
-This wrapper class now contains our two sub-classes (LineItem and Invoice) as well as our variable for our invoice list.  The nice thing about doing it as a class is we can add helper methods to also manipulate data.  There is a `getLineItemTotal` method that we can use in our display.
+This wrapper class now contains our two sub-classes (LineItem and Invoice) as well as our variable for our invoice list.  The nice thing about doing it as a class is we can add helper methods to also manipulate data.  There is a `getLineItemTotal` method that we can use in our display.
 
 ## Data Parsing
 
 Now we need to pull the data from the endpoint and using JSON deserialization push it into our data structure.
 
-```java
+```apex
 public class JSONDeserialize {
     public InvoiceWrapper wrapper {
         get;
@@ -132,7 +132,7 @@ public class JSONDeserialize {
 }
 ```
 
-If your JSON data is going to change (or could change) you can use `deserialize` instead of `deserializeStrict` to make it not explode when the JSON deserialization happens.
+If your JSON data is going to change (or could change) you can use `deserialize` instead of `deserializeStrict` to make it not explode when the JSON deserialization happens.
 
 ## Data Display
 
@@ -175,6 +175,6 @@ Now that we have a way to get the data in a meaningful structure, let's display 
 </apex:page>
 ```
 
-Now when we click the _submit_ button we can see the data coming in and when it's pressed we deserialize the data and reRender the section
+Now when we click the _submit_ button we can see the data coming in and when it's pressed we deserialize the data and reRender the section
 
 ![JSON Deserialization in action](/assets/img/2015/11/30/visualforce_output.png)

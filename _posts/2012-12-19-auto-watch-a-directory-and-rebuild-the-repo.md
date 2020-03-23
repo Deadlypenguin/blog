@@ -17,9 +17,9 @@ tags:
 - rpm
 - solenopsis
 ---
-Today I started setting up the [repository](http://rpm.solenopsis.org) for people to use to install the [Solenopsis](http://solenopsis.org/Solenopsis/) rpm.  The problem is I want to be able to build the rpm (via [Jenkins](http://jenkins-ci.org)) and push it to a remote server and automatically have the repo rebuild when it sees an rpm updated or added to the directory.
+Today I started setting up the [repository](http://rpm.solenopsis.org) for people to use to install the [Solenopsis](http://solenopsis.org/Solenopsis/) rpm.  The problem is I want to be able to build the rpm (via [Jenkins](http://jenkins-ci.org)) and push it to a remote server and automatically have the repo rebuild when it sees an rpm updated or added to the directory.
 
-To do this, I wrote a small python script that can be run and backgrounded.  It sends a [pushover](http://pushover.net) notification and runs createrepo against the target directory.
+To do this, I wrote a small python script that can be run and backgrounded.  It sends a [pushover](http://pushover.net) notification and runs createrepo against the target directory.
 
 ```python
 import re

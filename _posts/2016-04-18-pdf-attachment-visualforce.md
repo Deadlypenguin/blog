@@ -17,15 +17,15 @@ tags:
 - pdf
 - trailhead
 ---
-After [last weeks post](/2016/04/04/pdf-headers-footers-visualforce/), let's take a look at how we can send a PDF attachment via a Visualforce email template.  Our goal is to be able to automatically send an invoice to our customer whenever their Battle Station is fully operational.  We will be taking the Battle Station Invoice PDF and making it something we can attach to an email and then create a workflow to send that email when the status changes to complete.
+After [last weeks post](/2016/04/04/pdf-headers-footers-visualforce/), let's take a look at how we can send a PDF attachment via a Visualforce email template.  Our goal is to be able to automatically send an invoice to our customer whenever their Battle Station is fully operational.  We will be taking the Battle Station Invoice PDF and making it something we can attach to an email and then create a workflow to send that email when the status changes to complete.
 
 <!--more-->
 
 # Visualforce Updates
 
-Before we can do this, we need to make some changes to your PDF.  Currently we are using apex:pageBlock and apex:pageBlockTable.  Unfortunately these cannot be used in Visualforce to generate attachments, so we need to do some modifications to move these over to generic HTML entities.  Additionally, the Visualforce email handler doesn't know how to use the object name as we have provided to generate the attachment.
+Before we can do this, we need to make some changes to your PDF.  Currently we are using apex:pageBlock and apex:pageBlockTable.  Unfortunately these cannot be used in Visualforce to generate attachments, so we need to do some modifications to move these over to generic HTML entities.  Additionally, the Visualforce email handler doesn't know how to use the object name as we have provided to generate the attachment.
 
-To make it so we can send emails with the attachment as well as be able to generate the attachment via our Visualforce page directly we need to get creative.  You could always just copy the Visualforce page from the previous post and replace Battle\_Station\__c with relatedTo but then you're maintaining two copies of the same code.  That means double the places to update and double the places to make mistakes.  So, to do this we're going to look to components.  In this example, we're only going to use a single component.  If you think you might use the parts elsewhere, you could always split this into multiple components
+To make it so we can send emails with the attachment as well as be able to generate the attachment via our Visualforce page directly we need to get creative.  You could always just copy the Visualforce page from the previous post and replace Battle\_Station\__c with relatedTo but then you're maintaining two copies of the same code.  That means double the places to update and double the places to make mistakes.  So, to do this we're going to look to components.  In this example, we're only going to use a single component.  If you think you might use the parts elsewhere, you could always split this into multiple components
 
 ```xml
 <apex:component layout="none" access="global">
@@ -214,13 +214,13 @@ Now, this isn't a pixel for pixel version of the PDF, but it's close enough for 
 
 # Object Updates
 
-The current Battle Station implementation doesn't have a link from a Battle Station to a Contact.  So we don't know who to send this invoice to.  So we'll create a ew contact field on Battle\_Station\__c "Invoice Contact"
+The current Battle Station implementation doesn't have a link from a Battle Station to a Contact.  So we don't know who to send this invoice to.  So we'll create a ew contact field on Battle\_Station\__c "Invoice Contact"
 
 ![Invoice Contact Field](/assets/img/2016/04/18/invoice_contact_field.png)
 
 # Email Template
 
-Now we need to create our email that we are going to send out.  By going to Setup → Communication Templates → Email Templates → New Template we can generate a Visuaforce template.  We'll name it "Battle Station Payment Due" and will send it to a Contact and relate it to a Battle\_Station\__c object.
+Now we need to create our email that we are going to send out.  By going to Setup → Communication Templates → Email Templates → New Template we can generate a Visuaforce template.  We'll name it "Battle Station Payment Due" and will send it to a Contact and relate it to a Battle\_Station\__c object.
 
 ![Visualforce Email Template](/assets/img/2016/04/18/visualforce_email_template.png)
 
@@ -243,11 +243,11 @@ After saving this, you can test it by clicking the "Send Test and Verify Merge F
 
 ## Workflow
 
-Now that we have our Visualforce email done, let's set up the automation to send it when the status is changed.  First we'll create an Email Alert to send the email.  While this could be done as part of the workflow setup, I prefer to do this separately to make it easier to reuse.
+Now that we have our Visualforce email done, let's set up the automation to send it when the status is changed.  First we'll create an Email Alert to send the email.  While this could be done as part of the workflow setup, I prefer to do this separately to make it easier to reuse.
 
 ![Email alert](/assets/img/2016/04/18/email_alert.png)
 
-We'll create a new Workflow Rule for the Battle Station object called "Send Invoice" to fire when the project status is marked "complete."  We'll also add our email alert as an immediate action.  Once this is activated, it will send our PDF attachment.
+We'll create a new Workflow Rule for the Battle Station object called "Send Invoice" to fire when the project status is marked "complete."  We'll also add our email alert as an immediate action.  Once this is activated, it will send our PDF attachment.
 
 ![Email workflow](/assets/img/2016/04/18/email_workflow.png)
 

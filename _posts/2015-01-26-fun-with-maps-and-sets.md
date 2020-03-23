@@ -22,7 +22,7 @@ While working on Apex, I discovered an interesting behavior with Maps and the ke
 
 ## Problem
 
-```java
+```apex
 class TestData {
 	public String data;
 
@@ -47,14 +47,14 @@ System.debug(keySet.size()); // 1
 System.debug(dataMap.size()); // 1
 ```
 
-This code does not behave how you would think.  If you remove an item from the _keySet_ set it also removes it from the _dataMap._ What I believe to be happening here is that the _keySet_ method is returning a reference to the key set of the _dataMap_.
+This code does not behave how you would think.  If you remove an item from the _keySet_ set it also removes it from the _dataMap._ What I believe to be happening here is that the _keySet_ method is returning a reference to the key set of the _dataMap_.
 <!--more-->
 
 ## Solution
 
-To work around this, we simply clone the keySet.  This will give us a new instance of the set instead of the reference version.
+To work around this, we simply clone the keySet.  This will give us a new instance of the set instead of the reference version.
 
-```java
+```apex
 class TestData {
 	public String data;
 

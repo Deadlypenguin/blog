@@ -14,12 +14,12 @@ categories:
 tags:
 - dvd
 ---
-I've come across the need to simply the dvd playing process.  I'm having to set up a laptop to play a dvd and use a remote presenter control.  Now in the past I've just been in charge of this setup, and haven't had to worry about explaining how to start it up for others.  This time, I need to make it as user friendly as possible.  So, I've decided to do this with a couple of bash scripts and a couple of xsessions.
+I've come across the need to simply the dvd playing process.  I'm having to set up a laptop to play a dvd and use a remote presenter control.  Now in the past I've just been in charge of this setup, and haven't had to worry about explaining how to start it up for others.  This time, I need to make it as user friendly as possible.  So, I've decided to do this with a couple of bash scripts and a couple of xsessions.
 
 # Goals
 
 * Generic user with a generic password to hand to the person in charge
-* Ability to play dvd stored locally.  (Called presentation_dvd)
+* Ability to play dvd stored locally.  (Called presentation_dvd)
 * Ability to play any dvd inserted.
 * Require no user input except to choose _presentation_dvd_ or _dvd_
 
@@ -35,7 +35,7 @@ To get ready, we need to do a couple of things
 
 # Xesssions
 
-Xsessions are what defines your window manager.  It's what tells X11 what to run when you say Session->Gnome or Session->fluxbox.  These files are stored in _/usr/share/xsessions_.
+Xsessions are what defines your window manager.  It's what tells X11 what to run when you say Session->Gnome or Session->fluxbox.  These files are stored in _/usr/share/xsessions_.
 
 ```
 [Desktop Entry]
@@ -61,7 +61,7 @@ amixer set Master playback 100%
 xine -f -g --no-splash dvd:/home/presenter/presentation_dvd.iso
 ```
 
-This will turn the volume up to 100% and then start xine on the iso.  To exit, just right click and say exit.  This will take you back to the login screen.
+This will turn the volume up to 100% and then start xine on the iso.  To exit, just right click and say exit.  This will take you back to the login screen.
 
 Now to handle any dvd with the `/usr/local/bin/dvd`
 
@@ -79,7 +79,7 @@ chmod a+x /usr/local/bin/dvd /usr/local/bin/presentation_dvd
 
 # Usage
 
-From the login menu, choose your presenter user, and then choose the appropriate session at the bottom.  Then type in the password.  Like magic, everything should work.
+From the login menu, choose your presenter user, and then choose the appropriate session at the bottom.  Then type in the password.  Like magic, everything should work.
 
 # Potential problems
 

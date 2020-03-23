@@ -16,9 +16,9 @@ tags:
 - metadata
 - solenopsis
 ---
-I wrote a couple of weeks ago I wrote about the [GlobalPicklist changes in Winter '17](http://blog.deadlypenguin.com/blog/2016/11/11/globalpicklist-changes-in-winter-17/).  This past week I learned that there was another change in the [release notes](https://releasenotes.docs.salesforce.com/en-us/winter17/release-notes/rn_forcecom_picklists_new_api.htm) that I overlooked.
+I wrote a couple of weeks ago I wrote about the [GlobalPicklist changes in Winter '17](http://blog.deadlypenguin.com/blog/2016/11/11/globalpicklist-changes-in-winter-17/).  This past week I learned that there was another change in the [release notes](https://releasenotes.docs.salesforce.com/en-us/winter17/release-notes/rn_forcecom_picklists_new_api.htm) that I overlooked.
 
-After updating the Case object to API 38.0 I didn't notice that the Case.Type field had changed.  In API 37.0 this is what the Case Type field looks like
+After updating the Case object to API 38.0 I didn't notice that the Case.Type field had changed.  In API 37.0 this is what the Case Type field looks like
 
 ```xml
 <fields>
@@ -55,11 +55,11 @@ And this is what it looks like in API 38.0
 </fields>
 ```
 
-In the turmoil of all the other changes to the object file, I completely missed the change.  And when the deployment failed I was at a loss to figure out why.  The failure wasn't about the picklist in particular, it was about the picklist value in a record type.
+In the turmoil of all the other changes to the object file, I completely missed the change.  And when the deployment failed I was at a loss to figure out why.  The failure wasn't about the picklist in particular, it was about the picklist value in a record type.
 
 <!--more-->
 
-It turns out there is a new folder with metadata called [standardValueSets](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_standardvalueset.htm) the includes lots of metadata.  To add the frustration, this metadata type does not support wildcards, so you have to specify [each one of them](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/standardvalueset_names.htm) individually in the package.xml.
+It turns out there is a new folder with metadata called [standardValueSets](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_standardvalueset.htm) the includes lots of metadata.  To add the frustration, this metadata type does not support wildcards, so you have to specify [each one of them](https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/standardvalueset_names.htm) individually in the package.xml.
 
 So, by updating our package.xml to include
 
@@ -146,4 +146,4 @@ You'll be able to pull down the new standardValueSets/CaseType.standardValueSet
 </StandardValueSet>
 ```
 
-This file will allow you to deploy new case type values.  As usual, [Solenopsis](http://solenopsis.org/Solenopsis/) has been [updated](https://github.com/solenopsis/Solenopsis/commit/164eced65198fde95bd5f473a75c47164781a1a2) to include the ability to get this metadata.
+This file will allow you to deploy new case type values.  As usual, [Solenopsis](http://solenopsis.org/Solenopsis/) has been [updated](https://github.com/solenopsis/Solenopsis/commit/164eced65198fde95bd5f473a75c47164781a1a2) to include the ability to get this metadata.

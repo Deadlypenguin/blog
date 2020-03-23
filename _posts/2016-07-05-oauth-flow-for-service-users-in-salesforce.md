@@ -21,21 +21,21 @@ tags:
 When this article was originally written <a href="https://help.salesforce.com/articleView?id=named_credentials_about.htm&type=5">Named Credentials</a> weren't really a thing (or at least not something I really knew about).  Using that is going to be a better and more secure way to do this.
 </div>
 
-A very common use case for integrations with external systems is to have a service user that is authenticated and all subsequent interactions happen via that user.  This flow is super easy when you can do username / password auth, but it becomes much harder when you're only option is to use the oAuth flow.
+A very common use case for integrations with external systems is to have a service user that is authenticated and all subsequent interactions happen via that user.  This flow is super easy when you can do username / password auth, but it becomes much harder when you're only option is to use the oAuth flow.
 
 # Use Case
 
-In a recent developer board [post](https://developer.salesforce.com/forums/ForumsMain?id=906F0000000kEFbIAM), a community user asked for help storing their credentials from the oAuth flow to box.com and then create a new folder whenever an account was created.  The problem they were facing is that when you do the initial oAuth flow, you have to approve the use of the app and this requires human interaction.  This is not something you can do inside of a trigger, so we'll need to find another way to do it.
+In a recent developer board [post](https://developer.salesforce.com/forums/ForumsMain?id=906F0000000kEFbIAM), a community user asked for help storing their credentials from the oAuth flow to box.com and then create a new folder whenever an account was created.  The problem they were facing is that when you do the initial oAuth flow, you have to approve the use of the app and this requires human interaction.  This is not something you can do inside of a trigger, so we'll need to find another way to do it.
 
 <!--more-->
 
 ## Custom Setting
 
-To help aid in this, we're going to create a custom setting to store our connection information as well as our access and refresh tokens.  One very important thing to note is that these credentials to give someone the "keys to the kingdom" so be very careful with your permissions on these.  We'll start by creating the custom setting to contain all of our oAuth identifying information.  We'll do this as a List type so that we can reuse the code for multiple oAuth applications.
+To help aid in this, we're going to create a custom setting to store our connection information as well as our access and refresh tokens.  One very important thing to note is that these credentials to give someone the "keys to the kingdom" so be very careful with your permissions on these.  We'll start by creating the custom setting to contain all of our oAuth identifying information.  We'll do this as a List type so that we can reuse the code for multiple oAuth applications.
 
 ![Custom setting definition](/assets/img/2016/07/05/custom_setting.png)
 
-Now that we've defined our custom setting, we'll need to populate it with some data.  You'll have to create a [developer account](https://developer.box.com/) for Box.com and create your application.  From this page, you'll want to grab your client id and client secret.  As for the URLs, sometimes they are included on the credentials page, sometimes you'll need to pull them from the API documentation
+Now that we've defined our custom setting, we'll need to populate it with some data.  You'll have to create a [developer account](https://developer.box.com/) for Box.com and create your application.  From this page, you'll want to grab your client id and client secret.  As for the URLs, sometimes they are included on the credentials page, sometimes you'll need to pull them from the API documentation
 
 ![Custom setting implementation](/assets/img/2016/07/05/custom_setting_implementation.png)
 
@@ -43,19 +43,19 @@ _Object definition can be found [here](https://github.com/pcon/SalesforceApps/bl
 
 ## The oAuth Flow
 
-Once we have the information needed to start the oAuth flow, we'll need to authenticate using it.  The short version of this is that we'll send our application information to the oAuth endpoint, they will then return us a code that we can then authenticate with our secret key via an API call and get back an access token.  This access token allows the application to make requests on a user's behalf.
+Once we have the information needed to start the oAuth flow, we'll need to authenticate using it.  The short version of this is that we'll send our application information to the oAuth endpoint, they will then return us a code that we can then authenticate with our secret key via an API call and get back an access token.  This access token allows the application to make requests on a user's behalf.
 
 ![oAuth flow](/assets/img/2016/07/05/oauth_flow.png)
 
 _oAuth flow diagram from [Google's documentation](https://developers.google.com/identity/protocols/OAuth2) on oAuth_
 
-In our use case, we can't ask the user to login everytime because this is going to be used with a headless process.  Because of that we need to store our service user's access token on the custom setting to use it in the future.
+In our use case, we can't ask the user to login everytime because this is going to be used with a headless process.  Because of that we need to store our service user's access token on the custom setting to use it in the future.
 
 # The Code
 
-With re-usability in mind, let's take a look at an OAuthController we can use to do the oAuth flow.  We'll make a virtual class that we can then later extend for use in our specific instances.
+With re-usability in mind, let's take a look at an OAuthController we can use to do the oAuth flow.  We'll make a virtual class that we can then later extend for use in our specific instances.
 
-```java
+```apex
 public virtual class OAuthController {
     //Code will go here
 }
@@ -63,9 +63,9 @@ public virtual class OAuthController {
 
 ## Authorization URL
 
-The first step in our oAuth flow is to request authorization from the user.  To do this, we'll create a login link that the user will use to login and grant access to our application
+The first step in our oAuth flow is to request authorization from the user.  To do this, we'll create a login link that the user will use to login and grant access to our application
 
-```java
+```apex
 /**
 * Gets the page url
 *
@@ -103,9 +103,9 @@ This method will get the information from the custom setting and generate a url.
 
 ## Callback and Code Validation
 
-After the user grants access to the application, it will redirect back to our Visualforce page.  We'll then pull the code out of the URL, validate it and then store the access token.
+After the user grants access to the application, it will redirect back to our Visualforce page.  We'll then pull the code out of the URL, validate it and then store the access token.
 
-```java
+```apex
 /** The JSON result from a successful oAuth call */
 public class OAuthResult {
     /** The access token */
@@ -172,15 +172,15 @@ public PageReference redirectOnCallback(PageReference location) {
 }
 ```
 
-In our _redirectOnCallback_ method, we'll check to see if we're currently in a callback (this is set in the constructor) and if we are, we'll validate the code.  To validate the code, we'll make a callout to the token URL with our client information.  If we the code is valid and our request works, we'll get an access token and a refresh token back.  We'll then store that into our custom setting.
+In our _redirectOnCallback_ method, we'll check to see if we're currently in a callback (this is set in the constructor) and if we are, we'll validate the code.  To validate the code, we'll make a callout to the token URL with our client information.  If we the code is valid and our request works, we'll get an access token and a refresh token back.  We'll then store that into our custom setting.
 
 _Note: This code does not handle if the request is bad and will fail silently_
 
 ## Putting it all together
 
-Once we have the [full class](https://github.com/pcon/SalesforceApps/blob/master/oauth/classes/OAuthController.cls) (along with some helper methods that are not show above), we can start to use it.  To use it with our Box oAuth, we'll simply extend the OAuthController and define our new redirectOnCallback method that says where to go next
+Once we have the [full class](https://github.com/pcon/SalesforceApps/blob/master/oauth/classes/OAuthController.cls) (along with some helper methods that are not show above), we can start to use it.  To use it with our Box oAuth, we'll simply extend the OAuthController and define our new redirectOnCallback method that says where to go next
 
-```java
+```apex
 public class BoxController extends OAuthController {
     @TestVisible private static String APPLICATION_NAME = 'Box';
 
@@ -212,9 +212,9 @@ Now once we click on "Login" we'll navigate through the oAuth flow and store our
 
 # Using the access token
 
-This all may seem a long way to do this, but now we have our access token stored somewhere that we can consistently access it.  So let's add a method to our BoxController (this could be done in something like a BoxUtils, but just for simplicity we'll keep it in one location.
+This all may seem a long way to do this, but now we have our access token stored somewhere that we can consistently access it.  So let's add a method to our BoxController (this could be done in something like a BoxUtils, but just for simplicity we'll keep it in one location.
 
-```java
+```apex
 private class ParentFolder {
     public String id;
 
@@ -257,9 +257,9 @@ public static void createFolder(Id accountId) {
 
 _The full BoxController can be found [here](https://github.com/pcon/SalesforceApps/blob/master/oauth/classes/BoxController.cls)._
 
-This new method will create a folder based on the accountId we are passed in inside of our Box.com account.  But we need to call this from a trigger.  The trigger below will create a new folder anytime an account is created
+This new method will create a folder based on the accountId we are passed in inside of our Box.com account.  But we need to call this from a trigger.  The trigger below will create a new folder anytime an account is created
 
-```java
+```apex
 trigger BoxInsert on Account (after insert) {
     for (Account a : Trigger.new) {
         BoxController.createFolder(a.Id);
@@ -269,4 +269,4 @@ trigger BoxInsert on Account (after insert) {
 
 # Conclusions
 
-The first time you have to deal with the oAuth flow, it's pretty intimidating (and it stays pretty intimidating for the next two or three more times you deal with it).  However, using the code above should make it much easier to consistently add and connect to oAuth applications as a server level user.  This approach may seem like overkill if you are familiar with cURL and know the flow, since you could do this directly and just store the token, but I feel this can help those who aren't familiar with the oAuth flow and don't know cURL.
+The first time you have to deal with the oAuth flow, it's pretty intimidating (and it stays pretty intimidating for the next two or three more times you deal with it).  However, using the code above should make it much easier to consistently add and connect to oAuth applications as a server level user.  This approach may seem like overkill if you are familiar with cURL and know the flow, since you could do this directly and just store the token, but I feel this can help those who aren't familiar with the oAuth flow and don't know cURL.

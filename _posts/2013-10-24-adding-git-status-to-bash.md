@@ -15,7 +15,7 @@ tags:
 - bash
 - git
 ---
-After talking to a friend of mine [Jeff Larkin](http://about.me/jefflarkin) about bash prompts, I decided to modify what he did into a single line bash prompt.  By adding the following to your _.bashrc_ you'll get the branch your on in git (if current directory is tracked), a color denoting the status of the branch as well as the return code of the last command (if non-zero)
+After talking to a friend of mine [Jeff Larkin](http://about.me/jefflarkin) about bash prompts, I decided to modify what he did into a single line bash prompt.  By adding the following to your _.bashrc_ you'll get the branch your on in git (if current directory is tracked), a color denoting the status of the branch as well as the return code of the last command (if non-zero)
 
 ```bash
 #

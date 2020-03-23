@@ -17,7 +17,7 @@ tags:
 - apex
 - mapping
 ---
-One of the cool new features in [Summer '16](https://releasenotes.docs.salesforce.com/en-us/summer16/release-notes/rn_general_geocodes_aloha.htm) is the ability to take a built in (or custom) address and automatically get that addresses latitude and longitude with SOQL ([Read More](https://developer.salesforce.com/blogs/developer-relations/2016/07/making-salesforce-data-location-aware.html?language=en)).  So took this as an opportunity to learn some more about it as well as some other mapping technologies.  So for this my goal was to be able to create a heatmap of all the contact's location under an account and place this on the account page.
+One of the cool new features in [Summer '16](https://releasenotes.docs.salesforce.com/en-us/summer16/release-notes/rn_general_geocodes_aloha.htm) is the ability to take a built in (or custom) address and automatically get that addresses latitude and longitude with SOQL ([Read More](https://developer.salesforce.com/blogs/developer-relations/2016/07/making-salesforce-data-location-aware.html?language=en)).  So took this as an opportunity to learn some more about it as well as some other mapping technologies.  So for this my goal was to be able to create a heatmap of all the contact's location under an account and place this on the account page.
 
 <!--more-->
 
@@ -29,17 +29,17 @@ One of the cool new features in [Summer '16](https://releasenotes.docs.salesforc
 Since writing this article, Data.com prospector and Data.com Clean are being <a href="https://help.salesforce.com/articleView?id=000318293&type=1&mode=1">retired on July 31, 2020</a>.  You can still use the geocode fields but you'll have to get the data in some other way first.
 </div>
 
-Since Summer '16 is already available in all orgs there's nothing you need to do to make this work with default addresses.  However, to help you see that you have valid data let's turn on [clean rules](https://releasenotes.docs.salesforce.com/en-us/summer16/release-notes/data_dot_com_clean_add_geocode_information_to_all_records.htm) for Contact Mailing Address and then add the "Clean This Record with Data.com" related list
+Since Summer '16 is already available in all orgs there's nothing you need to do to make this work with default addresses.  However, to help you see that you have valid data let's turn on [clean rules](https://releasenotes.docs.salesforce.com/en-us/summer16/release-notes/data_dot_com_clean_add_geocode_information_to_all_records.htm) for Contact Mailing Address and then add the "Clean This Record with Data.com" related list
 
 ![clean record related list](/assets/img/2016/08/01/clean_record_related_list.png)
 
-Now this will show us if our contact's address is correct.  An important note is that if you have a Developer account, the address is not populated correctly.  For example, the entire address is in the Mailing Street field and does not show as valid.  Once you have populated your data correctly, you'll see that the clean status is marked as "In Sync."
+Now this will show us if our contact's address is correct.  An important note is that if you have a Developer account, the address is not populated correctly.  For example, the entire address is in the Mailing Street field and does not show as valid.  Once you have populated your data correctly, you'll see that the clean status is marked as "In Sync."
 
 ![Example record](/assets/img/2016/08/01/example_record.png)
 
 ## Static Resources
 
-To make our heatmap, we'll need to have access to some javascript files.  I've gone ahead and created a single zip that can be uploaded as a static resource (named heatmap) and it will contain all the javascript you need.  If you need more information on creating a static resource, checkout [the documentation](https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_resources_create.htm).
+To make our heatmap, we'll need to have access to some javascript files.  I've gone ahead and created a single zip that can be uploaded as a static resource (named heatmap) and it will contain all the javascript you need.  If you need more information on creating a static resource, checkout [the documentation](https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_resources_create.htm).
 
 [heatmap.resource](https://github.com/pcon/SalesforceApps/tree/master/heatmap/staticresources) on github
 
@@ -47,7 +47,7 @@ To make our heatmap, we'll need to have access to some javascript files.  I've 
 
 Let's take a look at our controller for our Visualforce page.
 
-```java
+```apex
 global class AccountHeatmap {
   /** How many miles away is considered "nearby" */
   public static Decimal MILEAGE_THRESHOLD = 20;
@@ -163,11 +163,11 @@ global class AccountHeatmap {
 }
 ```
 
-The first two methods just provide us with the ability to calculate the distance (in miles) between two points.
+The first two methods just provide us with the ability to calculate the distance (in miles) between two points.
 
-Then we have the _ContactGeo_ class.  This stores a point on the map for our contact location as well as the number of contacts that are nearby.  The class has a helper method to compare it to another contact to see if they are considered nearby.
+Then we have the _ContactGeo_ class.  This stores a point on the map for our contact location as well as the number of contacts that are nearby.  The class has a helper method to compare it to another contact to see if they are considered nearby.
 
-Then we have the meat of our logic.  From here we have a javascript remote action that we pass in our account id and get all of the contact's for that account.  These contacts are also not included if the have an empty geocode accuracy.  Then we iterate over every one of the points we already know about and if the contact is nearby to that point (based on the _MILEAGE_THRESHOLD_ variable) then we increment the count of contacts.  Otherwise we add a new point to the heatmap.
+Then we have the meat of our logic.  From here we have a javascript remote action that we pass in our account id and get all of the contact's for that account.  These contacts are also not included if the have an empty geocode accuracy.  Then we iterate over every one of the points we already know about and if the contact is nearby to that point (based on the _MILEAGE_THRESHOLD_ variable) then we increment the count of contacts.  Otherwise we add a new point to the heatmap.
 
 ## Heatmap Visualforce Page
 
@@ -254,16 +254,16 @@ Now that we have our backing controller, let's actually generate the heatmap.
 </apex:page>
 ```
 
-We'll start by loading in all of our javascript requirements and our CSS.  Then we'll make a remote callout to our static method _getContactGeos_ and pass in the account's Id.  This will return back an array of our ContactGeo objects.  Then we can iterate over all of them, and put them into our object called _testData_ that then gets loaded on the map.  For this example, we're going to center the map on the United States.  If you want to learn more about the heatmap options, take a look at the [documentation](https://www.patrick-wied.at/static/heatmapjs/plugin-leaflet-layer.html).
+We'll start by loading in all of our javascript requirements and our CSS.  Then we'll make a remote callout to our static method _getContactGeos_ and pass in the account's Id.  This will return back an array of our ContactGeo objects.  Then we can iterate over all of them, and put them into our object called _testData_ that then gets loaded on the map.  For this example, we're going to center the map on the United States.  If you want to learn more about the heatmap options, take a look at the [documentation](https://www.patrick-wied.at/static/heatmapjs/plugin-leaflet-layer.html).
 
 ## Using It
 
-Now that we have everything in place, let's use it.  Since this is an extension of the Account object, we should see it listed under Visualforce pages in the page layout editor.  Drag and drop it into your layout and save.  Then when you load the account's page, you should see something like this
+Now that we have everything in place, let's use it.  Since this is an extension of the Account object, we should see it listed under Visualforce pages in the page layout editor.  Drag and drop it into your layout and save.  Then when you load the account's page, you should see something like this
 
 ![Heatmap](/assets/img/2016/08/01/heatmap.png)
 
 The data that was used to generate this came from a little more than 50 contacts with randomized addresses provided by [randomlists](https://www.randomlists.com/random-addresses).
 
-The code runs pretty fast for this account (less than 5s from page load to completion).  I don't know how well this will scale.  I would suggest that you determine a better way to do the distance comparisons.  Some ideas that I had were to break them into zones (something akin to [MGRS](https://en.wikipedia.org/wiki/Military_grid_reference_system)) and pre-calculate the addresses zone and store it on the record at insert / update.  This would make loading this as fast as just reading all the records and transferring them back.
+The code runs pretty fast for this account (less than 5s from page load to completion).  I don't know how well this will scale.  I would suggest that you determine a better way to do the distance comparisons.  Some ideas that I had were to break them into zones (something akin to [MGRS](https://en.wikipedia.org/wiki/Military_grid_reference_system)) and pre-calculate the addresses zone and store it on the record at insert / update.  This would make loading this as fast as just reading all the records and transferring them back.
 
 See full project files on [github](https://github.com/pcon/SalesforceApps/tree/master/heatmap)

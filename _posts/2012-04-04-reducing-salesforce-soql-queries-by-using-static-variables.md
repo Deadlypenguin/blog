@@ -17,14 +17,14 @@ tags:
 - soql
 - trigger
 ---
-The more moving pieces you have with triggers and classes the more you want to reduce the number of SOQL queries. One way to do this is to have Utility classes that do a lot of the heavy lifting. The problem with this is that you don't want to call a utility method that does a query every time, because if you call it from different triggers you'll end up with multiple calls.  This is where overloading static variables can come in.
+The more moving pieces you have with triggers and classes the more you want to reduce the number of SOQL queries. One way to do this is to have Utility classes that do a lot of the heavy lifting. The problem with this is that you don't want to call a utility method that does a query every time, because if you call it from different triggers you'll end up with multiple calls.  This is where overloading static variables can come in.
 
 ## The Problem
 
-Lets say you have a trigger on a Contact that needs information from our mostly static MyObject\_\_c and then the Contact trigger then updates a Case.  The Case trigger also need information from the MyObject\_\_c.  Normally this would require two SOQL queries even if it was in a utility class.  We can use some of the built-in functionality in Apex to overload a static variable.
+Lets say you have a trigger on a Contact that needs information from our mostly static MyObject\_\_c and then the Contact trigger then updates a Case.  The Case trigger also need information from the MyObject\_\_c.  Normally this would require two SOQL queries even if it was in a utility class.  We can use some of the built-in functionality in Apex to overload a static variable.
 
 ## The Class
-```java
+```apex
 public with sharing class MyObjectUtils {
      public static List<MyObject__c> myObjectList {
           get {
@@ -60,7 +60,7 @@ public with sharing class MyObjectUtils {
 
 In the trigger where we want to use the MyObject instance we can do the following
 
-```java
+```apex
 MyObject__c obj = MyObjectUtils.myObjectMap.get('Foo');
 ```
 
