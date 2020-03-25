@@ -4,11 +4,18 @@
   "description": "The blog for Deadlypenguin",
   "main": "index.js",
   "scripts": {
+    "build": "npm run lint && npm run check && npm run generate",
+    "check-tags": "node scripts/check_tags.js",
+    "check-categories": "node scripts/check_categories.js",
+    "check": "npm run check-tags && npm run check-categories",
     "generate-tags": "node scripts/generate_tags.js",
     "generate-categories": "node scripts/generate_categories.js",
+    "generate": "npm run generate-tags && npm run generate-categories",
+    "lint-js": "./node_modules/.bin/eslint scripts/*",
     "lint-md": "./node_modules/.bin/remark --no-stdout -f *.md _posts/**/*.md",
     "lint-style": "./node_modules/.bin/stylelint _sass/*.scss",
-    "lint": "npm run lint-md && npm run lint-style",
+    "lint-yaml": "./node_modules/.bin/yamllint _config.yml",
+    "lint": "npm run lint-js && npm run lint-md && npm run lint-style && npm run lint-yaml",
     "watch": "bundle exec jekyll serve --safe --strict_front_matter"
   },
   "remarkConfig": {
@@ -35,6 +42,7 @@
     "remark-cli": "^7.0.1",
     "remark-lint": "^6.0.5",
     "remark-preset-lint-recommended": "^3.0.3",
-    "stylelint": "^13.0.0"
+    "stylelint": "^13.0.0",
+    "yaml-lint": "^1.2.4"
   }
 }
