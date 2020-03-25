@@ -4,6 +4,11 @@
     flex-grow: 1;
     justify-content: center;
     text-align: center;
+
+    a.navbar-item:hover {
+        color: $siteMainDark;
+        background-color: inherit;
+    }
 }
 
 a {
@@ -23,6 +28,12 @@ a {
         margin-left: 24px;
         /* stylelint-disable-next-line unit-whitelist */
         padding-left: 40px
+    }
+}
+
+.tag {
+    a {
+        color: $postNavColor;
     }
 }
 
