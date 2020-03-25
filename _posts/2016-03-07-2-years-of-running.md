@@ -10,7 +10,7 @@ redirect_from:
 dsq_thread_id:
 - "4641990461"
 categories:
-- OffTopic
+- offtopic
 tags:
 - running
 ---

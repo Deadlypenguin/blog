@@ -18,7 +18,6 @@ categories:
 tags:
 - apex
 - entitlements
-- salesforce
 ---
 I recently stumbled upon a "new" feature in Salesforce that allows you to use an Apex class to calculate your milestone trigger time for entitlement processes.  Given a new feature that I'm working on for our entitlement process, I thought to myself that this could be a good chance to play with it and see what I could do.  If you're not familiar with the entitlement process in Salesforce, take a chance to look over (or run through) my [hands-on training](http://pcon.github.io/handsontraining/entitlements/) for entitlements so that you're familiar with the terminology and the concepts since I'll be jumping right in.
 

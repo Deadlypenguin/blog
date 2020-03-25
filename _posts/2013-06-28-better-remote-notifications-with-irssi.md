@@ -34,7 +34,7 @@ You can find the full repo with updated documentation on [github](https://github
 
 # Setup
 
-* Install _beanstalkd_ on a system that both your irssi client _(producer) _and the system you want notifications on _(consumer)_
+* Install _beanstalkd_ on a system that both your irssi client _(producer)_ and the system you want notifications on _(consumer)_
 
 ### Producer
 

@@ -11,7 +11,7 @@ dsq_thread_id:
 - "4878152442"
 categories:
 - development
-- Ssalesforce
+- salesforce
 tags:
 - entitlements
 - handsontraining

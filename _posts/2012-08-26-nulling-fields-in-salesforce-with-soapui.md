@@ -10,8 +10,8 @@ redirect_from:
 dsq_thread_id:
 - "1803110279"
 categories:
-- Development
-- Salesforce
+- development
+- salesforce
 tags:
 - soap
 - soapui

@@ -16,7 +16,6 @@ categories:
 - salesforce
 tags:
 - apex
-- web-service
 - webservice
 ---
 Several years ago, I wrote a blog post on [developing web services on Salesforce](/2012/01/06/creating-web-services-in-salesforce/).  When helping someone in the IRC channel with web services, I realize that the article was outdated and does not follow some of the design patterns that I have learned after spending a lot of time with web services

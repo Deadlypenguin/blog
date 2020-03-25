@@ -14,7 +14,6 @@ categories:
 - nodejs
 - salesforce
 tags:
-- nodejs
 - outboundmessaging
 ---
 Recently I started setting up some Outbound Messaging to I needed to set up a blackhole (messaging sink) for messages to go to until we had stood up the real messaging endpoint.  To host this I setup a simple [nodejs service](https://github.com/pcon/salesforce-blackhole) on our company's externally available (but internally hosted) instance of [Openshift](http://openshift.redhat.com).  This service simply sends back the appropriate ACK for any XML that is POSTed to it.

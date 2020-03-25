@@ -16,7 +16,6 @@ categories:
 - salesforce
 tags:
 - google
-- salesforce
 - sso
 ---
 I started down this path to flesh out a proof of concept for a related task.  However, the Single Sign-On provider that we use is difficult to get access to and not worth the time to try to get permission to use it.  So instead, I thought I'd just use my personal Google domain as the identity provider so I can get it done faster.  So I've decided to document my journey and hopefully help someone else set this up.

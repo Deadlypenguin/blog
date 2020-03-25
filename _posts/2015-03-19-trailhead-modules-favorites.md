@@ -69,6 +69,6 @@ One of the best ways for small or new development teams to deploy to production 
 
 An often overlooked part of development strategies is governance.  [This module](https://developer.salesforce.com/trailhead/app_deployment/app_deployment_governance "Managing Change with a Governance Framework") covers why your team should have governance, how to create a strategy and how to extend that strategy to designing your code.  As with the other modules, this one wraps things up with a quiz.
 
-#  Summary
+# Summary
 
 While [Apex Testing](https://developer.salesforce.com/trailhead/module/apex_testing "Apex Testing") and [Change Management](https://developer.salesforce.com/trailhead/module/app_deployment "Change Management") may not be the most fun things to learn about, they are both very important topic.  I'm very happy that Salesforce has added [Trailhead](https://developer.salesforce.com/trailhead "Trailhead") modules for both of these topics.  To me it show that they also care about having information about all facets of their product, not just the new hotness.

@@ -15,7 +15,6 @@ categories:
 tags:
 - apex
 - customsettings
-- Salesforce
 ---
 In a recent developer boards [post](https://developer.salesforce.com/forums/?id=906F0000000MGwiIAG), there was a person asking how to programmatically strip extensions from the end of company names.  This seems like an interesting problem that can be solved with regular expressions with the data stored in a custom setting
 

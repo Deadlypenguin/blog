@@ -18,9 +18,7 @@ tags:
 - api
 - authentication
 - jwt
-- nodejs
 - oauth
-- salesforce
 ---
 If you've done much API generation then you'll that you don't want to have to make your users authenticate multiple times just because your API is going somewhere external.  For example, if you have an API that reaches into Salesforce but your app uses [Google SSO](http://blog.deadlypenguin.com/blog/2019/03/05/single-sign-on-salesforce-google/), you don't want to have to present an oauth screen to your user after they've already authenticated.  To work around this, you can use a [JWT Bearer flow](https://help.salesforce.com/articleView?id=remoteaccess_oauth_jwt_flow.htm&type=5) to login on behalf of a user and get a access token to work with.
 
@@ -46,7 +44,7 @@ To connect to our Salesforce instance, we'll need to create a connected app.  Ho
 
 1. Create the connected app
     * _Lightning:_ Navigate to Setup ⇨ Apps ⇨ App Manager and click **New Connected App**
-    * _Classic:** **_Navigate to Setup ⇨ Create ⇨ Apps and click **New** under the _Connected Apps_ section
+    * _Classic:_ Navigate to Setup ⇨ Create ⇨ Apps and click **New** under the _Connected Apps_ section
 2. Pick a _Name_ and fill in the _Contact Email_ field
 3. Check _Enable OAuth Settings_
 4. Check _Enable for Device Flow_

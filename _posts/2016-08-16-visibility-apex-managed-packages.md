@@ -25,7 +25,7 @@ Before we get started, let's review what options we have for defining [visibilit
 
 **private** &#8211; Methods, classes and variables marked as private are only visible inside the same class.  If you define something as private then it cannot be accessed from an external class
 
-**public **&#8211; Things that are marked as public are available for use by anything in the same namespace.
+**public** &#8211; Things that are marked as public are available for use by anything in the same namespace.
 
 **global** &#8211; Things marked as global are available for use by anything on the platform.
 

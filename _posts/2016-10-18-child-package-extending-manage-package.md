@@ -26,7 +26,7 @@ The first package the we are going to try this with is our [Escalations](https:/
 
 ## Objects
 
-* **Escalations **&#8211; This holds all the information about our escalation
+* **Escalations** &#8211; This holds all the information about our escalation
 * **Escalation Cases** &#8211; The pairing between an escalation an a case
 * **Escalation Team** &#8211; This is a pairing between an escalation and a contact/user/email
 * **Escalation Comment** &#8211; These are comments on an escalation

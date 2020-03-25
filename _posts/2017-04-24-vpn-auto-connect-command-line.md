@@ -12,7 +12,7 @@ dsq_thread_id:
 categories:
 - linux
 tags:
-- linux
+- vpn
 ---
 New servers mean new things to play with and new setups that have to be done.  I set up a new VM that I wanted to always be connected to a VPN and for that VPN to come up whenever the system is started.  The biggest "problem" here is that this VM is running in runlevel 3 so no GUI is available.  So let's jump into setting up an OpenVPN client using network manger's command line interface
 

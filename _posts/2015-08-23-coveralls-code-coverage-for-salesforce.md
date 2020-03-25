@@ -320,7 +320,7 @@ Q.fcall(sfdcLogin)
 	});
 ```
 
-##  Adding the build script
+## Adding the build script
 
 To run the tests we need add a script to have Travis run.  We'll add the _build/scripts/run_tests.sh_ script
 

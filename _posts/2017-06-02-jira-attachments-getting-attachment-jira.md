@@ -16,7 +16,6 @@ categories:
 - salesforce
 tags:
 - apex
-- salesforce
 ---
 I previously did [a post](/2016/02/09/jira-attaching-a-file-in-salesforce/) on writing Jira Attachments from Salesforce, and the question has come up of how to write Jira Attachments into Salesforce.  This is actually WAAAAY easier than it was to write attachments out.  The way that the data is structured from the Jira, we can get a list of all the attachments and the link to it's content directly from the Jira GET request.  This makes for way fewer calls to get the actual content of the attachment.
 

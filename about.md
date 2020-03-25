@@ -4,13 +4,7 @@ title: About
 date: 2008-06-06T02:19:41+00:00
 author: pcon
 layout: page
-guid: http://blog.deadlypenguin.com/?page_id=2
-aktt_notify_twitter:
-  - 'no'
-brunelleschi_featured_post_position:
-  - left
-brunelleschi_featured_post_width:
-  - 1/4 Width
+guid: <http://blog.deadlypenguin.com/?page_id=2>
 ---
 <img class="alignleft" title="Avatar" src="https://twimg0-a.akamaihd.net/profile_images/2698719070/299cc3d2e7197b04007732d4635e43f3.jpeg" alt="" width="266" height="266" />
 

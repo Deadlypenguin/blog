@@ -10,8 +10,8 @@ redirect_from:
 dsq_thread_id:
 - "1800595490"
 categories:
-- Development
-- Salesforce
+- development
+- salesforce
 tags:
 - apex
 - soql

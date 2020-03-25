@@ -10,11 +10,9 @@ redirect_from:
 dsq_thread_id:
 - "5296225812"
 categories:
-- Development
-- Salesforce
+- development
+- salesforce
 tags:
-- deployment
-- Salesforce
 - solenopsis
 ---
 Like many companies, we have a deployment process in place to handle changes in seasonal releases in Salesforce so that when a sandbox is ahead of production, we can still deploy to both without having to wait for production to be updated.  Then, after both the release hits production, we go through a manual process of updating the API (primarily the ant-salesforce.jar) and the metadata to the most recent API version.  Typically this just involves updating the jar and updating the API version in the request, pulling down the updated metadata and writing it to SCM.  However, with the Winter '17 release we saw a problem trying to deploy our GlobalPicklist files after updating the API.

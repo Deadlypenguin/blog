@@ -29,7 +29,7 @@ To start off with, let's take a look at the updated modules
 
 Salesforce has updated the [Apex Testing](https://developer.salesforce.com/trailhead/module/apex_testing) and the [Visualforce Basics](https://developer.salesforce.com/trailhead/module/visualforce_fundamentals) modules to remove the "Mark as Read" option and added a couple of new challenges.  This should help folks who just breezed through this without actually doing any of the work.  The updates to the Testing module makes me very happy.  As most people know, I'm kinda a nut when it comes to [testing](http://pcon.github.io/presentations/testing/) and any thing that helps re-enforce proper testing is good by me.
 
-##  New Trailhead Modules
+## New Trailhead Modules
 
 ![Trailhead icons](/assets/img/2015/02/03/new_modules.png)
 

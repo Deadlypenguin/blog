@@ -5,6 +5,120 @@ const path = require('path');
 const Q = require('q');
 
 /**
+ * Checks the front matter for a list and throws an error if the list doesn't meet the checker
+ * @param {String} root_path The root path of the file
+ * @param {Function} checker_fn The function to filter the frontmatter data on
+ * @param {String} filename The filename to check
+ * @returns {Promise} A promise for when the files have been checked
+ */
+function checkFrontmatterFile(root_path, checker_fn, filename) {
+    return new Promise(function (resolve, reject) {
+        getFrontmatter(root_path, filename)
+            .then(function (data) {
+                const results = checker_fn(data);
+
+                if (lodash.isEmpty(results)) {
+                    resolve();
+                } else {
+                    reject(`${filename} => ${lodash.join(results)}`);
+                }
+            }).catch(reject);
+    });
+}
+
+/**
+ * Checks the front matter for a list and throws an error if the list doesn't meet the checker
+ * @param {String} root_path The root path of the file
+ * @param {String} path The frontmatter path to check
+ * @param {Function} checker_fn The function to filter the frontmatter data on
+ * @param {String} filename The filename to check
+ * @returns {Promise} A promise for when the files have been checked
+ */
+function checkSpecificFrontmatterFile(root_path, path, checker_fn, filename) {
+    return new Promise(function (resolve, reject) {
+        getSpecificFrontmatter(root_path, path, filename)
+            .then(function (data) {
+                const results = checker_fn(data);
+
+                if (lodash.isEmpty(results)) {
+                    resolve();
+                } else {
+                    reject(`${filename} => ${lodash.join(results)}`);
+                }
+            }).catch(reject);
+    });
+}
+
+/**
+ * Checks the front matter and throws an error if the checker returns a non-empty list
+ * @param {String} root_path The root path of the file
+ * @param {Function} checker_fn The function to filter the frontmatter data on
+ * @param {String[]} filenames The filenames to check
+ * @returns {Promise} A promise for when the files have been checked
+ */
+function checkFrontmatter(root_path, checker_fn, filenames) {
+    return new Promise(function (resolve, reject) {
+        var promises = [];
+        var errors = [];
+
+        lodash.forEach(filenames, function (filename) {
+            promises.push(checkFrontmatterFile(root_path, checker_fn, filename));
+        });
+
+        Q.allSettled(promises)
+            .then(function (results) {
+                lodash.forEach(results, function (result) {
+                    if (result.state !== 'fulfilled') {
+                        errors.push(result.reason);
+                    }
+                });
+
+                if (lodash.isEmpty(errors)) {
+                    resolve(filenames);
+                } else {
+                    reject(lodash.join(errors, '\n'));
+                }
+            })
+            .catch(reject);
+    });
+}
+
+/**
+ * Checks the front matter for a list and throws an error if the list doesn't meet the checker
+ * @param {String} root_path The root path of the file
+ * @param {String} path The frontmatter path to check
+ * @param {Function} checker_fn The function to filter the frontmatter data on
+ * @param {String[]} filenames The filenames to check
+ * @returns {Promise} A promise for when the files have been checked
+ */
+function checkSpecificFrontmatterLists(root_path, path, checker_fn, filenames) {
+    return new Promise(function (resolve, reject) {
+        var promises = [];
+        var errors = [];
+
+        lodash.forEach(filenames, function (filename) {
+            promises.push(checkSpecificFrontmatterFile(root_path, path, checker_fn, filename));
+        });
+
+        Q.allSettled(promises)
+            .then(function (results) {
+                lodash.forEach(results, function (result) {
+                    if (result.state !== 'fulfilled') {
+                        errors.push(result.reason);
+                    }
+                });
+
+                if (lodash.isEmpty(errors)) {
+                    resolve(filenames);
+                } else {
+                    reject(lodash.join(errors, '\n'));
+                }
+            })
+            .catch(reject);
+    });
+}
+
+/**
  * Removes all the existing files in a path
  * @param {String} root_path The root path
  * @param {Function} delete_fn The function to call to delete
@@ -39,23 +153,6 @@ function cleanFiles(root_path, delete_fn) {
 }
 
 /**
- * Get all the files in the post directory
- * @param {String} path The folder path
- * @returns {Promise} A promise for when the files are listed
- */
-function getFiles(path) {
-    return new Promise(function (resolve, reject) {
-        fs.readdir(path, function (err, files) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(files);
-            }
-        });
-    });
-}
-
-/**
  * Deletes the file
  * @param {String} root_path The root path
  * @param {String} file The file name
@@ -68,6 +165,34 @@ function deleteFile(root_path, file) {
                 reject(err);
             } else {
                 resolve();
+            }
+        });
+    });
+}
+
+/**
+ * Gets back strings that have capital letters in it
+ * @param {String[]} data An array of strings to check if any of them have capitalization
+ * @returns {String[]} Any that have capitalized letters
+ */
+function getCapitals(data) {
+    return lodash.filter(data, function (entry) {
+        return entry !== lodash.toLower(entry);
+    });
+}
+
+/**
+ * Get all the files in the post directory
+ * @param {String} path The folder path
+ * @returns {Promise} A promise for when the files are listed
+ */
+function getFiles(path) {
+    return new Promise(function (resolve, reject) {
+        fs.readdir(path, function (err, files) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(files);
             }
         });
     });
@@ -190,8 +315,11 @@ function writeFiles(writeFile_fn, data) {
 }
 
 module.exports = {
+    checkFrontmatter: checkFrontmatter,
+    checkSpecificFrontmatterLists: checkSpecificFrontmatterLists,
     cleanFiles: cleanFiles,
     deleteFile: deleteFile,
+    getCapitals: getCapitals,
     getFiles: getFiles,
     getAllSpecificFrontmatter: getAllSpecificFrontmatter,
     getSpecificFrontmatter: getSpecificFrontmatter,

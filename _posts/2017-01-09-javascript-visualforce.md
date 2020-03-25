@@ -15,7 +15,6 @@ categories:
 - salesforce
 tags:
 - javascript
-- salesforce
 - visualforce
 ---
 In the web 7.0 or whatever version of the web we’re in, Javascript is king. Now, there’s lots of stuff you can do directly with Visualforce (like dynamic picklists) but sometimes for the best user experience you’ll want to use Javascript to make it even better. There are lots of Javascript tutorials out there and there are lots of Visualforce tutorials out there (don’t forget [Trailhead](https://trailhead.salesforce.com/en/project/salesforce_developer_workshop/using_javascript_in_visualforce)) so I’m going to talk about some tricks that people should know when working with Javascript on Visualforce

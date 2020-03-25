@@ -13,7 +13,7 @@ categories:
 - development
 - salesforce
 tags:
-- salesforce
+- pmd
 ---
 If you're not aware, having clean code is more than just about readability.  It's about sustainability, re-usability and knowing that your code is doing what you want it to do.  This is where [PMD](https://pmd.github.io/) comes into the picture.  PMD is a static code analysis tool that takes code from many different languages, analyzes it and provides you with feedback.  Fortunately for the Salesforce world PMD now supports Apex as one of it's languages.  So, let's dive into how to set it up, run it and then how to use some of the rules included.
 

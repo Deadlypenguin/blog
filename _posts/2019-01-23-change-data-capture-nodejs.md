@@ -15,8 +15,7 @@ categories:
 - nodejs
 - salesforce
 tags:
-- nodejs
-- salesforce
+- changedatacapture
 ---
 There's a new feature in Salesforce called [Change Data Capture](https://trailhead.salesforce.com/content/learn/modules/change-data-capture) that allows you to subscribe to a Cometd endpoint and stream changes to most or some of your objects.  I've talked in a [previous post](http://blog.deadlypenguin.com/blog/2016/08/13/getting-data-salesforce/) about how to get data out of Salesforce and this seems like it might be the front-runner for one of the best ways.  I would still plan on ways to get data if it exceeds the three day replay period and you'll also need a way to do your initial data import.
 

@@ -13,6 +13,8 @@ categories:
 - salesforce
 tags:
 - datamigration
+- outboundmessaging
+- streamingapi
 ---
 If you've been working with Salesforce for a while or you're a larger company you'll eventually want to get data out of Salesforce and into another system.  So let's take some time to break down the options that are available for getting data out of Salesforce in varying degrees of realtime.
 
@@ -36,7 +38,7 @@ I'm calling these "on platform" because they do not require a 3rd party system t
 * **No Guaranteed Order &#8211;** Because these requests are asynchronous in nature and they could be retried, there's no guarantee what order they'll end up in your system.  If you are only sending these messages on create, then this isn't a big deal but if you are relying on updates coming over and the order of those updates matter it could be.
 * **No Guaranteed Timeframe &#8211;** Asynchronous calls in Salesforce are guaranteed to happen _sometime_ in the future.  That's the only guarantee.  There are no SLAs around how fast the queue will be processed.  So if you need near-realtime performance, you could spend minutes or even hours waiting for messages to be sent.  _(This time is highly dependent on the load of the pod as well as the number of messages in the queue)_
 * **Not Great with Large Data Volumes &#8211;** Remember above when I said that it'll send up to 100 messages to your endpoint at a time? Well if you're creating messages faster than they can be processed then you're queue is going to stay backed up and could take even longer to process.
-* **Can't Dig into Related Data &#8211; **Want to send account name from a case?  Don't have it as a formula field on the object?  Well too bad!  Outbound messaging only supports sending fields that are directly on the object you are creating the message for.
+* **Can't Dig into Related Data &#8211;** Want to send account name from a case?  Don't have it as a formula field on the object?  Well too bad!  Outbound messaging only supports sending fields that are directly on the object you are creating the message for.
 * **Lack of Strong Security &#8211;** While you can us SSL with outbound messaging, this is your only real option for security.  You cannot set any sort of credentials on your request and you cannot verify who you say your are via something like mutual SSL.  Your only option is to whitelist the IP address(es) for Salesforce and hope for the best.
 
 ### Conclusion
@@ -55,7 +57,7 @@ For callouts I'm going to be talking about using an [@future](https://developer.
 ### Limitations
 
 * **No Guaranteed Order &#8211;** Similar to the outbound messaging, callouts are asynchronous calls that can happen whenever they darn well want.  If you were to make multiple @future calls there's no guarantee what order they'll execute.  This can be mitigated a little by using batch, scheduled or queuable apex by determining the order in them but they introduce other problems.
-* **Not Guaranteed Timeframe &#8211; **Again, they'll happen sometime in the future.  Even your scheduled Apex will happen "sometime after the scheduled time" not right on it.  This can be most problematic when the async queue becomes bogged down and your calls wait.  Personally, I've seen the queue get backed up by more than an hour and a half regularly (under high volume).  This can wreak havoc if you are trying to schedule apex on a very tight timeline.
+* **Not Guaranteed Timeframe &#8211;** Again, they'll happen sometime in the future.  Even your scheduled Apex will happen "sometime after the scheduled time" not right on it.  This can be most problematic when the async queue becomes bogged down and your calls wait.  Personally, I've seen the queue get backed up by more than an hour and a half regularly (under high volume).  This can wreak havoc if you are trying to schedule apex on a very tight timeline.
 * **No Retry &#8211;** If your callout fails in a future call (let's say your endpoint is down) that's it, there's no retrying.  You cannot call a future call from a future call so you can't kick it off later.
 * **Difficult to Log Failures &#8211;** It's really tough to know of callouts are failing.  Since the logging is only stored in the normal debug logs, you have to be watching them to know that they are failing.  You could log them to a 3rd party such as Loggly or Splunk, but who's to say if your not failing, or just failing to log your failures.
 * **Governor Limits &#8211;** There are some [governor limits](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_continuation_limits.htm) around callouts.  For the most part any org of any size won't hit the number of callouts in a 24hr period but you could very easily hit the time, size or number per transaction.  Also, there's a really nasty one regarding not being able to do DML &rarr; callout &rarr; DML that will leave you very frustrated
