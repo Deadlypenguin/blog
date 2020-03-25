@@ -4,6 +4,8 @@
   "description": "The blog for Deadlypenguin",
   "main": "index.js",
   "scripts": {
+    "generate-tags": "node scripts/generate_tags.js",
+    "generate-categories": "node scripts/generate_categories.js",
     "lint-md": "./node_modules/.bin/remark --no-stdout -f *.md _posts/**/*.md",
     "lint-style": "./node_modules/.bin/stylelint _sass/*.scss",
     "lint": "npm run lint-md && npm run lint-style",
