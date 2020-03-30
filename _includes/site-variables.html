@@ -1,0 +1,32 @@
+{% capture title %}
+{{ site.name }} &raquo; {{ site.description }}
+{% endcapture %}
+{% if page.title %}
+{% if page.layout == "author" %}
+{% capture title %}
+{{ page.name }} &raquo; {{ site.name }}
+{% endcapture %}
+{% else %}
+{% capture title %}
+{{ page.title }} &raquo; {{ site.name }}
+{% endcapture %}
+{% endif %}
+{% endif %}
+
+{% capture thumbnail %}
+{{ site.default_post_image }}
+{% endcapture %}
+{% if page.thumbnail %}
+{% capture thumbnail %}
+{{ page.thumbnail }}
+{% endcapture %}
+{% endif %}
+
+{% capture description %}
+{{ title }}
+{% endcapture %}
+{% if page.description %}
+{% capture description %}
+{{ page.description }}
+{% endcapture %}
+{% endif %}
