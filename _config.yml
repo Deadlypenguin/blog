@@ -38,6 +38,8 @@ sass:
 plugins:
   - jekyll-redirect-from
   - jekyll-paginate
+  - jekyll-sitemap
 whitelist:
   - jekyll-redirect-from
   - jekyll-paginate
+  - jekyll-sitemap

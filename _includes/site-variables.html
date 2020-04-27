@@ -27,6 +27,6 @@
 {% endcapture %}
 {% if page.description %}
 {% capture description %}
-{{ page.description }}
+{{ page.description | strip | truncate: 160 }}
 {% endcapture %}
 {% endif %}

@@ -1,4 +1,5 @@
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:description" content="{{ description | strip }}">
 <meta name="twitter:creator" content="@{{ site.twitter }}">
-<meta name="twitter:image" content="{{ thumbnail }}">
+<meta name="twitter:site" content="@{{ site.twitter }}">
+<meta name="twitter:image" content="{{ site.url }}{{ thumbnail | strip}}">

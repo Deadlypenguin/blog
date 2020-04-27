@@ -8,6 +8,8 @@
 
     <title>{{ title }}</title>
 
+    <link rel="cononical" href="{{ page.url | prepend: site.url }}">
+
     {% include metadata-site.html %}
     {% include metadata-opengraph.html %}
     {% include metadata-twitter.html %}

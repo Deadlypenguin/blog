@@ -31,3 +31,4 @@ gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 gem "jekyll-redirect-from"
 gem "rouge"
 gem "jekyll-paginate"
+gem "jekyll-sitemap"

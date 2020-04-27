@@ -4,6 +4,7 @@ title: 'JWT Bearer Authentication: Salesforce and Node'
 date: 2019-03-08T16:02:22+00:00
 author: pcon
 layout: post
+description: Learn how to use JWT to authenticate as any user on their behalf in Salesforce. We'll use the JWT flow to get an access token to make API calls
 permalink: /2019/03/08/jwt-bearer-auth-salesforce-node/
 redirect_from:
 - /blog/2019/03/08/jwt-bearer-auth-salesforce-node/
