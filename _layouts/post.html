@@ -17,7 +17,7 @@ layout: default
             {% include post-nav.html %}
         </div>
         <div id="post_comments">
-            {% if page.comments %}
+            {% if post.post_id %}
             {% include disqus.html %}
             {% endif %}
         </div>
