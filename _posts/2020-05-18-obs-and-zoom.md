@@ -15,6 +15,8 @@ tags:
 ---
 One of the hardest things about doing instructional content virtually is when you have to show things that are not on a screen.  This came to be an issue for my father when he needed to teach the art merit badge for the Boy Scouts this summer.  While lots of the work for the merit badge can be done via a presentation, there is still quite a lot that either has to be done in "meat space" or benefits greatly from being done in a tangible way.  The scout camp he is working with this summer is doing all of their merit badge classes over [Zoom](https://zoom.us/) and with the power of the open source application [OBS](https://obsproject.com/) we were able to give him a more professional setup without spending thousands of dollars or hiring a full-time video crew.
 
+<!--more-->
+
 # The Problem
 The biggest hurdle we needed to face while preparing for this was that switching between cameras and presentation mode in Zoom is a bit clunky and can lead to downtime.  And as anyone who's ever been in a lengthy meeting knows, downtime is a killer and it's doubly so when presenting to teenagers.  What we needed was a way to seamlessly switch between several different "scenes" in a way that would not interrupt the flow of the meeting.
 
