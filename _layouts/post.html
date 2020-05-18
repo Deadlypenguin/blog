@@ -16,10 +16,10 @@ layout: default
             <hr>
             {% include post-nav.html %}
         </div>
+        {% if page.post_id %}
         <div id="post_comments">
-            {% if post.post_id %}
             {% include disqus.html %}
-            {% endif %}
         </div>
+        {% endif %}
     </div>
 </section>
