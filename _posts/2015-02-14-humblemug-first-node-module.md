@@ -16,6 +16,8 @@ I have been working on migrating a site that I designed off of HTML with lots of
 
 One of the issues I encountered when migrating this site is that they have a gallery page that pulls data from a [SmugMug](http://www.smugmug.com/ "SmugMug") album.  When this site was originally written, [SmugMug](http://www.smugmug.com/ "SmugMug") only had an XML based API and to make it so that JavaScript would play nice, I had to write a php wrapper that would pull down the XML and re-host it on the same domain.  I sure as heck wasn't going to tarnish my pretty little rewrite with PHP.  So I tried to find a node module for [SmugMug](http://www.smugmug.com/ "SmugMug"), and much to my surprise, couldn't.  And with that, [Humblemug](https://github.com/pcon/humblemug "Humblemug") was born.
 
+<!--more-->
+
 # Humblemug
 
 [Humblemug](https://github.com/pcon/humblemug "Humblemug") is really quite simple.  It makes the http requests and spits out the JSON that the SmugMug [1.3.0 API](http://api.smugmug.com/services/api/?version=1.3.0 "SmugMug 1.3.0 API") returns.  Where Humblemug got interesting is that it's my first package published out on npm.  I've written modules for local apps, so I'm familiar with the structure, but I've never had to write something that others could use.

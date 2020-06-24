@@ -16,7 +16,7 @@ tags:
 - appletv
 - boxee
 ---
-1. Prior to starting up the AppleTV or even unboxing it, get your patchstick ready by following <a href="http://code.google.com/p/atvusb-creator/" target="_blank">these instructions</a>
+1. Prior to starting up the AppleTV or even unboxing it, get your patchstick ready by following [these instructions](http://code.google.com/p/atvusb-creator/)
 2. Unbox and setup the AppleTV to your LAN.
 3. Then, navigate to the setup->general->updates and make sure you **STOP** the update if you can.  The update won't technically break anything, but there are some problems with the newest firmware.  If you can stop it it's better
 4. Insert your patchstick, and reboot the AppleTV
@@ -38,3 +38,4 @@ tags:
 * Boxee freezes on the menu.  Remove the `/Users/frontrow/Library/Application Support/BOXEE/UserData/` folder.
 
 ![Boxee running](/assets/img/2009/03/10/boxee.jpg)
+<!--more-->

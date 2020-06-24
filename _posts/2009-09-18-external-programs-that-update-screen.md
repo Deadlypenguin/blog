@@ -16,6 +16,8 @@ tags:
 ---
 Screen is a great tool, and it allows you do to alot of neat things.  One of my favorites is binding commands to key strokes.  So all you have to do is hit F5 and it will start something in the background.  Such as a build command.  The problem is, you either get no output, or you get spam all over your screen.  Well I've finally found a way around that.  The answer lies in ANSI Privacy Messages.
 
+<!--more-->
+
 In your `.screenrc`, make sure you have a place that will show messages.  If you start up screen and you see "New screen..." then you've got this.  Next add your script to your `.screenrc`
 
 ```

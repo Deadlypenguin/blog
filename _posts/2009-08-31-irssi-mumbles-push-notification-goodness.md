@@ -20,6 +20,8 @@ One of the biggest problems with irssi is that if you run it on remote machine, 
 2. takes up diskspace if you don't clear the queue
 3. requires you to either have the script, or remember the ridiculously long command
 
+<!--more-->
+
 Well, these are things of the past.  Thanks to [mumbles](http://sourceforge.net/projects/mumbles/)!
 
 First install mumbles from yum (or source) then install the [irssi script](http://deadlypenguin.com/code/growlNotify/growlNotify.pl).  Make sure you change the _growl_server_ and _growl_password_ then you are good to go.  The script has a dependency on Net::GrowlNotify in perl.

@@ -20,6 +20,8 @@ Anyone that has ever had multiple triggers on objects in Salesforce knows that i
 
 To combat this, you can take your triggers and condense them down into a single trigger and a single class.  Inside this class you would have a method containing each of your individual triggers.
 
+<!--more-->
+
 ## Preface
 
 In the examples below we will be creating a trigger on the MyObject__c to do awesomeness.  In the example we do not cover the case of undelete.

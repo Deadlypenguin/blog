@@ -18,6 +18,8 @@ tags:
 ---
 Scheduled actions in Apex are great to use when you need to have a section of code run at a particular time in the future and Time-Based workflows will not work.  In the example below I'll talk about how to schedule code to run at the first of every month, in addition talk about some constructs you can use to make your life easier when you have to redeploy/change this code
 
+<!--more-->
+
 # Schedulable
 
 The key part of the apex class is that it must implement **Schedulable** and it must have an **excecute** method.

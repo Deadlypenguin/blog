@@ -26,6 +26,8 @@ At my current job, we have several external systems that interact with Salesforc
 
 The goal of our web-services is to provide a single point of entry for each _major_ object represented in Salesforce.  A _major_ object would be Account, Case, Case Comment etc.  The reason this is differentiated is that for instance, Case Groups would under the AccountAPI since they are a _minor_ object.  Each web-service consists of two parts.  First the actual **web-service class** which holds the externally facing methods and from which the WSDL is generated.  The second part is that of the **util class** which holds all of the logic and is reusable.
 
+<!--more-->
+
 ## Web-service class
 
 ### APIUtils

@@ -29,3 +29,5 @@ auto_view text/x-vcard text/html text/enriched
 ```
 
 And restart mutt.  This will use lynx to render the email.  You can substitute lynx for any text-based html browser you'd like.
+
+<!--more-->

@@ -17,6 +17,8 @@ tags:
 ---
 Since I switched over to using vim as my primary mode of Salesforce development, I've been asked several times how I've configured vim.  Well, it's about time I show the man behind the curtain.  My primary vim config file is quite large now, but I've condensed it down to the parts that I think are most pertinent to Salesforce development.
 
+<!--more-->
+
 ## Highlighting
 
 Now vim is great for editing but where I think it shines the most is in highlighting.  I've taken the standard java vim file and have modified it for use with the Apex language.  To use it, download the [apex.vim](https://github.com/solenopsis/Solenopsis/blob/master/config/apex.vim) file and place it in your syntax directory for vim.

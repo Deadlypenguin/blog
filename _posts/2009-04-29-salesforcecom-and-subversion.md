@@ -18,6 +18,8 @@ tags:
 
 From what I've been able to tell, there is no real version control built into Salesforce.com and this is a problem when pushing from a sandbox instance into a production instance.  To fix this problem (at least until Salesforce does something), I think the best option is to use the Force.com plugin and the Subclipse plugin for Eclipse.  With both of these in place, it should make version control a reality.
 
+<!--more-->
+
 1. Install [Eclipse](http://www.eclipse.org/) for your platform (it's eclipse-platform if you are using Fedora)
 2. Install both the [Force.com](http://wiki.developerforce.com/index.php/Force.com_IDE_Installation_for_Eclipse_3.3.x) and [Subclipse](http://subclipse.tigris.org/) plugin \(eclipse-subclipse\)
 3. Add your Force.com project to Eclipse \([Howto](http://wiki.developerforce.com/index.php/An_Introduction_to_Force_IDE)\)

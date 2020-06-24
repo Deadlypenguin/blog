@@ -26,6 +26,8 @@ tags:
 
 As I [wrote about a long time ago](/2009/08/31/irssi-mumbles-push-notification-goodness/ "irssi + mumbles == push notification goodness") I use to use a custom script with irssi to push to mumbles. Well, mumbles has gone defunct and I couldn't really find a good growl client for linux. Plus with me traveling into the office weekly, it's just not going to work well since growl is more push notification. So this lead me to research a true messaging system to try it.
 
+<!--more-->
+
 # Beanstalkd
 
 [Beanstalkd](http://kr.github.io/beanstalkd/) is a simple fast workqueue.  Using this, we can push messages (in JSON formatting) to the queue and have the client pull from the queue whenever they want.  The nice thing about designing it this way is it can be reused to push other desktop notifications from other systems.

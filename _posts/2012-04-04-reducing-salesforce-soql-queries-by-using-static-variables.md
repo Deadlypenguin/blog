@@ -23,6 +23,8 @@ The more moving pieces you have with triggers and classes the more you want to r
 
 Lets say you have a trigger on a Contact that needs information from our mostly static MyObject\_\_c and then the Contact trigger then updates a Case.  The Case trigger also need information from the MyObject\_\_c.  Normally this would require two SOQL queries even if it was in a utility class.  We can use some of the built-in functionality in Apex to overload a static variable.
 
+<!--more-->
+
 ## The Class
 ```apex
 public with sharing class MyObjectUtils {

@@ -22,3 +22,5 @@ function swap() {
   mv "$1" "/tmp/$TMP_NAME" && mv "$2" "$1" && mv "/tmp/$TMP_NAME" "$2"
 }
 ```
+
+<!--more-->

@@ -18,3 +18,5 @@ That brings me to the real point.  If you haven't gotten a chance to check out s
 
 * I like [fluid](http://fluidapp.com/) for OSX, it seems a little more full featured
 * Then [Prism](http://labs.mozilla.com/projects/prism/) is looking really promising for all platforms (yes, even linux)
+
+<!--more-->

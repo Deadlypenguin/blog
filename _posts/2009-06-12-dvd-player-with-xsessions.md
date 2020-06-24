@@ -23,6 +23,8 @@ I've come across the need to simply the dvd playing process.  I'm having to set 
 * Ability to play any dvd inserted.
 * Require no user input except to choose _presentation_dvd_ or _dvd_
 
+<!--more-->
+
 # Preperation
 
 To get ready, we need to do a couple of things

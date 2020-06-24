@@ -17,6 +17,8 @@ tags:
 ---
 One of the things I've found myself doing more of is merging in code for other people.  Most of this are changes/additions/deletions to XML files.  And one thing that is really annoying to do is doing these by hand.  Well, fortunately there is a great tool for helping with this.  it's called [Meld](http://meld.sourceforge.net/).  To get it to play nicely with git we have to do one small thing.  Create a bash script called "git-meld" and put in your bin directory
 
+<!--more-->
+
 ```bash
 #!/bin/bash
 meld $2 $5

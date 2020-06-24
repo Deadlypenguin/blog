@@ -17,7 +17,9 @@ tags:
 So with steam coming out on the Mac and with the Humble Indie Bundle working on all three, there is a problem with keeping all of your saves in sync. Not any more. This is all thanks to dropbox.
 
 # What is dropbox?
-Dropbox is a cross-platform application / website that keeps files in sync and gives you 2Gb of storage space for free.  If you're not a dropbox user already, you can sign up <a href="https://www.dropbox.com/referrals/NTIxMjU2Njk" target="_blank">here</a>.
+Dropbox is a cross-platform application / website that keeps files in sync and gives you 2Gb of storage space for free.  If you're not a dropbox user already, you can sign up [here](https://www.dropbox.com/referrals/NTIxMjU2Njk).
+
+<!--more-->
 
 # Initial setup
 

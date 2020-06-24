@@ -23,6 +23,8 @@ tags:
 
 Anyone that has ever had to deal with editing multiple Entitlement Processes in Salesforce will know the pain of having to do this in multiple environments and making sure you don't fat finger this manual process. In the past when I've had to do this, I've either sucked it up and did it manually, or did it with [Selenium](http://docs.seleniumhq.org/). I wasn't a big fan of either of these solutions since I'm a command-line kinda guy.  That's when I was told about [CasperJs](http://casperjs.org/index.html) and I think I'm in love.
 
+<!--more-->
+
 # CasperJs
 
 [CasperJs](http://casperjs.org/index.html) is a framework built on top of [PhantomJs](http://phantomjs.org/), and allows you to write JavaScript to web automation.  Like with all Salesforce tasks, logging in is the first thing you need to do.  Let's take a look at the _sfdclogin.casper.js_.

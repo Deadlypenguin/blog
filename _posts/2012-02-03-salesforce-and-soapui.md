@@ -22,7 +22,9 @@ In a [previous post](/2012/01/06/creating-web-services-in-salesforce/) I talked 
 
 ## Getting soapUI
 
-You will need to install the Open Source version of soapUI from their ][sourceforge](http://sourceforge.net/projects/soapui/files/soapui/).  Go ahead, I'll wait...
+You will need to install the Open Source version of soapUI from their [sourceforge](http://sourceforge.net/projects/soapui/files/soapui/).  Go ahead, I'll wait...
+
+<!--more-->
 
 ## Getting the WSDLs
 

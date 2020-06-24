@@ -15,6 +15,8 @@ tags:
 ---
 At the end of last year, Salesforce released the [Mobile SDK 3.0](https://developer.salesforce.com/blogs/engineering/2014/11/cross-platform-apps-salesforce-mobile-sdk-web-components.html "Mobile SDK 3.0") which added quite a few new features.  Now, they've released the Mobile SDK 3.1 with some really nice new features.  I have not had a chance to dive into the Mobile SDK prior to this release, but I think it's made some great progress and should be something to give a try of.
 
+<!--more-->
+
 # Background on the Mobile SDK
 
 ![Mobile SDK Unified Cross Platform Architecture](/assets/img/2015/02/13/architecture.png)
