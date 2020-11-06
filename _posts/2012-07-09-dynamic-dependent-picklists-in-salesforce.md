@@ -37,6 +37,8 @@ In this simple example we are going to make an extension to the case page.  On t
 * EndDate__c &#8211; The date the version should be hidden
 * Product__c &#8211; The product the version is related to
 
+<!--more-->
+
 ## Apex Controller
 
 ```apex

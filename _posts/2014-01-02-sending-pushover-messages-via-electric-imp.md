@@ -39,3 +39,4 @@ function send_pushover(title, message, priority) {
 //To use, send_pushover("My title", "My message", 0)
 //For more on priority see https://pushover.net/api#priority
 ```
+<!--more-->

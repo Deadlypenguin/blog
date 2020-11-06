@@ -48,3 +48,5 @@ Now I know this is a bit out of the realm of "normalcy" for my blog, but I think
   * [The Agents](http://www.playtheagents.com/) \[Kickstarter\]
 
 If we missed your favorite board game, or you think one doesn't belong, let me know in the comments.  And, feel free to buy me any board game I missed to convince me about it.
+
+<!--more-->

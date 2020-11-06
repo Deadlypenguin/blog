@@ -27,3 +27,5 @@ alias fake_john john_doe2@example.com (Fake John Doe)
 ```
 
 Now all mail that comes in from _john_doe2@example.com_ will show up as from "Fake John Doe" but the headers will remain the same, and no one is the wiser.
+
+<!--more-->

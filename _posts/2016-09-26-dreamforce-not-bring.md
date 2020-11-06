@@ -22,6 +22,8 @@ By this point, you've no doubt read plenty of articles about what to bring to Dr
 
 If this upcoming Dreamforce is your first, buckle up! it's a wild ride.  2016 will be my 5th Dreamforce and I've brought a bunch of things over the years thinking I would need them and ended up not using them at all (or barely).
 
+<!--more-->
+
 ## What Not to Bring
 
 * **Entertainment devices** &#8211; This is a pretty big category so lemme break it down.  Over the years I've brought things like card / board games, gameboy, PSP, extra movies, etc.  All with the intention of using them in my "downtime," and let me tell you, there is no downtime.  Now if you have a long flight, by all means bring stuff with you to keep you entertained. But don't bring it thinking you'll find time to use it.  There is so much to do at Dreamforce that you'll barely have time to sleep.  You'd be better off spending that time catching up on your sleep or meeting new people (or catching up with old friends).

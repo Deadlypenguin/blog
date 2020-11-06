@@ -18,6 +18,8 @@ tags:
 ---
 [Last month](/2013/06/28/better-remote-notifications-with-irssi/ "Better remote notifications with irssi") I wrote a Irssi plugin that pushed messages from Irssi to Beanstalkd.  I was pretty happy with it, but I wanted more.  So, I've improved it.  The new version pushes in a slightly more normalized json payload to one of two beanstalk tubes.  The tubes are configured for _here_ and _away_. Then the python script that consumes them either displays it via a notification pop up, if sent to the _here_ tube, or to pushover if sent to the _away_ tube.
 
+<!--more-->
+
 # Setup
 
 1. Install beanstalkd on a system that both the irssi client <em>(producer)</em> and the system the notifications will be displayed on <em>(consumer)</em> can access via the network

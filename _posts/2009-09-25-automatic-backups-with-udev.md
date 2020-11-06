@@ -20,6 +20,8 @@ I recently challenged myself to come up with a way to make udev automatically ba
 
 To start with, we need to set up static naming for the storage device that you want to make into backup disk.  Start by plugging in the disk.  (Now I'm not using Gnome or KDE so I'm not sure what their automounter will do.  So, you might have to find a way to exclude it from the automounter.  We need to find out the "model" of the drive.  My udev rules are pretty basic, and will work since most people don't have more than one the same model of USB drive laying around that they would use.  You can always modify the udev rules to work for you.
 
+<!--more-->
+
 ```bash
 udevadm info -a -p /sys/block/sdc | grep model
 ```

@@ -21,6 +21,8 @@ Today I started setting up the [repository](http://rpm.solenopsis.org) for peopl
 
 To do this, I wrote a small python script that can be run and backgrounded.  It sends a [pushover](http://pushover.net) notification and runs createrepo against the target directory.
 
+<!--more-->
+
 ```python
 import re
 import httplib, urllib

@@ -20,6 +20,8 @@ tags:
 ---
 We use Elluminate Live! for some of our meetings, and it has always bothered me that I have to launch the browser to use Elluminate especially for reoccurring meetings. So one afternoon I set out to fix this problem. I wrote the following script and have been using it for about a month now without any issues. You can set the parameters at the head of the script if you have a reoccurring meeting you want to use, or set the parameters at run time (or in an alias for multiple reoccurring meetings) if you need too.
 
+<!--more-->
+
 The only prerequisite for this script is to have javaws installed an in your PATH.
 
 ```bash

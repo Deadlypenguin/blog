@@ -119,6 +119,61 @@ function checkSpecificFrontmatterLists(root_path, path, checker_fn, filenames) {
 }
 
 /**
+ * Looks for a specific bit of content in a file
+ * @param {String} root_path The root path of the file
+ * @param {String} content The content to look for
+ * @param {String} filename The filename to check
+ * @returns {Promise} A promise for when the file has been checked
+ */
+function checkForContentFile(root_path, content, filename) {
+    return new Promise(function (resolve, reject) {
+        fs.readFile(path.join(root_path, filename), function (error, data) {
+            if (error) {
+                reject(error);
+            } else if (data.includes(content)) {
+                resolve();
+            } else {
+                reject(filename);
+            }
+        });
+    });
+}
+
+/**
+ * Checks to see if a list of files has a given part of content
+ * @param {String} root_path The root path of the file
+ * @param {String} content The content to look for
+ * @param {String[]} filenames The filenames to check
+ * @return {Promise} A promise for when the files have been checked
+ */
+function checkForContentList(root_path, content, filenames) {
+    return new Promise(function (resolve, reject) {
+        var promises = [];
+        var errors = [];
+
+        lodash.forEach(filenames, function (filename) {
+            promises.push(checkForContentFile(root_path, content, filename));
+        });
+
+        Q.allSettled(promises)
+            .then(function (results) {
+                lodash.forEach(results, function (result) {
+                    if (result.state !== 'fulfilled') {
+                        errors.push(result.reason);
+                    }
+                });
+
+                if (lodash.isEmpty(errors)) {
+                    resolve(filenames);
+                } else {
+                    reject(lodash.join(errors, '\n'));
+                }
+            })
+            .catch(reject);
+    });
+}
+
+/**
  * Removes all the existing files in a path
  * @param {String} root_path The root path
  * @param {Function} delete_fn The function to call to delete
@@ -317,6 +372,7 @@ function writeFiles(writeFile_fn, data) {
 module.exports = {
     checkFrontmatter: checkFrontmatter,
     checkSpecificFrontmatterLists: checkSpecificFrontmatterLists,
+    checkForContentList: checkForContentList,
     cleanFiles: cleanFiles,
     deleteFile: deleteFile,
     getCapitals: getCapitals,

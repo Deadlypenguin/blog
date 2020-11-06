@@ -19,6 +19,8 @@ I've spent the past couple of days banging my head against the desk trying to ge
 
 <div class="notification is-info">This has only been tested with RHEL and nothing else, but there is no reason why it won't work.  And if you don't have a satellite you can use this with any old kickstart.  Assuming you have the tree setup correctly. Please test your kickstart tree first.</div>
 
+<!--more-->
+
 # Satellite prep
 
 Create your kickstart as you normally would. Then, make sure the kickstart is accessible via the following style URL:

@@ -24,6 +24,8 @@ In a [previous post](/2012/02/03/salesforce-and-soapui/ "Salesforce and soapUI �
 
 First we need to login to Salesforce and get our session Id.  Under the SoapBinding list, expand _login_ and choose _Show Request Editor_.  After opening the request editor we need to remove the extra headers we don’t need, and fill in our username and password.
 
+<!--more-->
+
 ![Logging In](/assets/img/2012/04/13/login_request.png)
 
 Then press the “play” button to send the request

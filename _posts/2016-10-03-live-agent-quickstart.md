@@ -24,6 +24,8 @@ With the recent updates to the licensing model at Salesforce, lots of companies 
 
 One of the hardest parts of Live Agent to test out for non-developers is the actual web front end part.  If write the HTML locally and then you can test it but others can't.  To make it so others can test it, you either have to set up a web server or figure out how to deploy it to a cloud provider such as [Heroku](https://heroku.com/) or [Openshift](https://www.openshift.com/).  And that can be pretty daunting for someone that's just trying to setup a proof of concept or is just working on the configuration side and will pass it off to someone else from their web team.
 
+<!--more-->
+
 ## What does the quickstart provide?
 
 The [Live Agent quickstart](https://github.com/pcon/liveagent-quickstart) I wrote provides a super fast way to deploy a Live Agent button to Heroku.  Once you have set up Live Agent, you can copy and paste parts of the configuration into the first screen of the Heroku app setup and then click deploy.  After a couple of minutes you have a website that anyone can goto and interact with your chat button!

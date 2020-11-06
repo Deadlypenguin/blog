@@ -41,7 +41,11 @@ While the Pi-hole software can be installed on lots of [operating systems](https
 
 Instead of buying the case, power supply and Pi Zero separately, you can buy them as a [bundle](https://www.amazon.com/gp/product/B0748MPQT4/) and this might save you some money.  I do like this bundle also because it includes an adapter for Mini-HDMI to HDMI as well as a Micro-USB OTG adapter.
 
-Because this system needs to have internet access at all times for 99% of your network to work I would recommend using a hard wired connection over Ethernet instead of WiFi.  You can use the built-in WiFi module but you might need a [script](https://weworkweplay.com/play/rebooting-the-raspberry-pi-when-it-loses-wireless-connection-wifi/) to reboot the Pi if the WiFi goes down.  When connecting the Ethernet adapter to the Pi, you'll want to use the "USB" port and not the "PWR IN" port or it won't work.
+Because this system needs to have internet access at all times for 99% of your network to work I would recommend using a hard wired connection over Ethernet instead of WiFi.  You can use the built-in WiFi module but you might need a [script](https://weworkweplay.com/play/rebooting-the-raspberry-pi-when-it-loses-wireless-connection-wifi/) to reboot the Pi if the WiFi goes down.
+
+<div class="is-warning notification">
+  When connecting the Ethernet adapter to the Pi, you'll want to use the "USB" port and not the "PWR IN" port or it won't work.
+</div>
 
 ## Installing Pi-hole
 

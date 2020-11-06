@@ -32,3 +32,4 @@ I was hoping to present this at Dreamforce this year but it doesn't look like th
 **SalesforceApps** &#8211; [Link](https://github.com/pcon/SalesforceApps) &#8211; This is just a repo for random code that I've worked on that others may find useful.  Right now I think the most useful bits are under the node_scripts directory.
 
 **Hands On Training** &#8211; [Link](http://pcon.github.io/handsontraining/) &#8211; Training is in my blood and it's something I've always loved doing.  You should checkout my hands on training.  I have plans to migrate some others over to it as well as writing a couple more.  You can follow the [project](https://github.com/pcon/handsontraining) if you want to be notified of updates.
+<!--more-->

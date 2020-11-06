@@ -15,9 +15,11 @@ categories:
 tags:
 - casperjs
 ---
-# PREFACE
+# Preface
 
 In a [previous post](/2013/07/09/logging-into-salesforce-with-casperjs/ "Logging into Salesforce with CasperJs"), I talked about how to log in to Salesforce with [CasperJs](http://casperjs.org/index.html).  At the time I did not have a good example of what to do next with it.  Well, this week I had a need that is something that other people can relate to.
+
+<!--more-->
 
 # Casper Script
 

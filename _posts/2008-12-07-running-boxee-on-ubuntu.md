@@ -51,3 +51,5 @@ First,  I know I'm going to hell for using Ubuntu.  But, I'm too lazy to compile
   exec /sbin/mingetty --autologin boxee tty1
   ```
 10. Reboot and pray
+
+<!--more-->

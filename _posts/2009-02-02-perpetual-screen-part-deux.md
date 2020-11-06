@@ -52,4 +52,5 @@ export NO_SCREEN="true"
 ssh -o "SendEnv NO_SCREEN" user@host
 ```
 
-Works like a champ
+Works like a champ.
+<!--more-->
