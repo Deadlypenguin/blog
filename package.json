@@ -37,7 +37,7 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "front-matter": "^3.1.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "q": "^1.5.1",
     "remark": "^11.0.2",
     "remark-cli": "^7.0.1",
