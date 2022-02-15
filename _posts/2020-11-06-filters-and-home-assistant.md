@@ -16,6 +16,17 @@ One of the things I'm terrible about remembering is changing air filters and I l
 
 <!--more-->
 
+# Prerequisite
+We'll be using the [`time_date`](https://www.home-assistant.io/integrations/time_date/) integration and unfortunately this isn't included by default in Home Assistant.  You'll have to add a sensor for it via the `configuration.yaml` file.  I have all my sensors loaded from a folder so I added a `time_date.yaml` file to load the sensor
+
+```yaml
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+```
+Only `date` is required for this, but having `time` is useful for other things so I included it too.
+
 # Air and Water Filters
 These filters are the simplest.  You simply have two variables, when you installed the filter and how long the filter lasts and one output, how long until you need to change it.
 
