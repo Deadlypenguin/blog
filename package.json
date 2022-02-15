@@ -35,15 +35,17 @@
   "author": "Patrick Connelly",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^8.9.0",
     "front-matter": "^3.1.0",
+    "jest": "^27.5.1",
+    "jsforce": "^1.11.0",
     "lodash": "^4.17.21",
     "q": "^1.5.1",
-    "remark": "^11.0.2",
-    "remark-cli": "^7.0.1",
+    "remark": "^14.0.2",
+    "remark-cli": "^10.0.1",
     "remark-lint": "^6.0.5",
     "remark-preset-lint-recommended": "^3.0.3",
-    "stylelint": "^13.0.0",
+    "stylelint": "^14.5.0",
     "yaml-lint": "^1.2.4"
   }
 }
