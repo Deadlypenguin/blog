@@ -1,12 +1,12 @@
 ---
 layout: default
 ---
-<section class="section content">
+<section class="section">
     <h1 class="title is-1">{{ page.name | uppercase }}</h1>
     {% for post in site.categories[page.name] %}
-    {% include post-entry.html %}
-    {% if forloop.last == false %}
-    <hr>
-    {% endif %}
+        {% include post-entry.html %}
+        {% if forloop.last == false %}
+            <hr>
+        {% endif %}
     {% endfor %}
 </section>
