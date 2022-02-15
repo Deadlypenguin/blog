@@ -8,7 +8,8 @@ description: How to set up mocking in Jest for JSforce to be able to test javasc
 permalink: /2022/02/15/mocking-jsforce/
 thumbnail: /assets/img/2022/02/15/post_thumbnail.png
 categories:
--
+- nodejs
+- development
 tags:
 - jsforce
 - javascript
