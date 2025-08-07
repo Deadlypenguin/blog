@@ -1,4 +1,4 @@
 ---
-name: adhd
+name: ADHD
 permalink: "/tag/adhd"
 ---
