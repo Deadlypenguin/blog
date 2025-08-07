@@ -13,7 +13,7 @@ categories:
 tags:
 - printing
 - productivity
-- adhd
+- ADHD
 ---
 
 A constant problem I have is printing / engraving several unique parts that then I have to keep track of.  Typically I just grab a post-it note, a sheet of paper or in the worst cases a random piece of scrap wood to write down the list of items I need to keep track of.  Typically, this is a list of 3D printed parts or names to engrave on bottles for groups of people.  To help make my workflow easier I bought a cheap thermal printer and wrote some scripts to print to it.  Let's take a look at how it's done.
