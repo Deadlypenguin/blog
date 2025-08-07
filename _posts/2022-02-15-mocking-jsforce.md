@@ -1,7 +1,7 @@
 ---
 post_id: 1304
 title: 'Mocking JSforce with Jest'
-date: 2021-03-30T11:30:00+00:00
+date: 2022-02-15T11:30:00+00:00
 author: pcon
 layout: post
 description: How to set up mocking in Jest for JSforce to be able to test javascript that relies on JSforce without making remote calls.
@@ -26,6 +26,7 @@ In this post, we're going to look at how to set up mocking for JSforce to test l
 <!--more-->
 
 # Javascript module
+
 Let's create a simple Javascript module that logs into Salesforce and takes that connection to make a query and returns results.
 
 ```javascript
@@ -78,6 +79,7 @@ module.exports = {
     query: query
 };
 ```
+
 [Link to example](https://github.com/Deadlypenguin/blog/tree/master/examples/2022-02-15-mocking-jsforce/index.js)
 
 # Mocking JSforce
@@ -105,6 +107,7 @@ jsforce.Connection = jest.fn().mockImplementation(() => {
 
 module.exports = jsforce;
 ```
+
 [Link to example](https://github.com/Deadlypenguin/blog/tree/master/examples/2022-02-15-mocking-jsforce/__mocks__/jsforce.js)
 
 Let's break down this mock to explain what we're doing.
@@ -284,6 +287,7 @@ describe('query', function () {
     });
 });
 ```
+
 [Link to example](https://github.com/Deadlypenguin/blog/tree/master/examples/2022-02-15-mocking-jsforce/__tests__/index.test.js)
 
 This test class contains two groupings of tests (login and query) and then five total tests for these.  Let's start by looking at the login tests to see how we can use mocks to test our login call
